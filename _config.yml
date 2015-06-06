@@ -1,0 +1,12 @@
+# Site settings
+title: Nobe4
+email: vh@nobe4.fr
+baseurl: ""
+url: "http://nobe4.fr"
+github_username:  nobe4
+
+# Build settings
+mrarkdown: kramdown
+sass:
+    style: :compressed
+    sourcemap: true
