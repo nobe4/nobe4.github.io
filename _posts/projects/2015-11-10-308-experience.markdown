@@ -1,0 +1,22 @@
+---
+layout: post
+title: "308 Experience"
+modified: 10 Nov 2015
+categories: projects
+description:
+technologies: [Javascript, HTML5, CSS3, skrollr]
+tags: [Cogit Studio]
+image:
+  feature: /projects/308-experience/presentation.jpg
+  credit: Peugeot
+  creditlink: http://www.peugeot.com
+date: 2015-11-10T08:49:00+01:00
+---
+
+Scroll all the way down !
+
+For the release of the new Peugot 308,  we developped at Cogit Studio a single
+scrolling webpage to beautifully  present the car.
+
+
+<a href="http://www.308experience.com/"><span class="btn">Live the Experience</span></a>
