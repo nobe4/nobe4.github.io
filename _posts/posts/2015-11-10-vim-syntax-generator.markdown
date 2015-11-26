@@ -18,6 +18,8 @@ date: 2015-11-10T23:34:48+01:00
 
 I may not know everything about the syntax mechanisms in Vim, but at least I'll share what I understood building a syntax file generator.
 
+<!--break-->
+
 # TL;DR 
 How I created a syntax file generator for displaying StackExchange API values.
 
