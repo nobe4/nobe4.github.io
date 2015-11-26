@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Ad Filter"
-modified: 10 Nov 2015
+modified: 25 Mar 2015
 categories: projects
 description:
 technologies: [Javascript, HTML5, CSS3]
@@ -10,7 +10,7 @@ image:
   feature: /projects/the-ad-filter/presentation.jpg
   credit: D & AD
   creditlink: http://www.dandad.org/en/d-ad-browser-ad-filter/
-date: 2015-11-10T07:54:15+01:00
+date: 25 Mar 2015
 ---
 
 Tired of seeing boring ads on the internet?

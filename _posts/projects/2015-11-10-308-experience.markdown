@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "308 Experience"
-modified: 10 Nov 2015
+modified: 27 Mar 2015
 categories: projects
 description:
 technologies: [Javascript, HTML5, CSS3, skrollr]
@@ -10,7 +10,7 @@ image:
   feature: /projects/308-experience/presentation.jpg
   credit: Peugeot
   creditlink: http://www.peugeot.com
-date: 2015-11-10T08:49:00+01:00
+date: 22 Mar 2015
 ---
 
 Scroll all the way down !

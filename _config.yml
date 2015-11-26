@@ -11,7 +11,7 @@ words_per_minute: 200
 owner:
   name:           Victor Haffreingue
   avatar:         avatar.jpg
-  bio:            "I use Vim. Damn"
+  bio:            "I use Vim. Damn."
   email:          vh@nobe4.fr
   # Social networking links used in footer. Update and remove as you like.
   twitter:        nobe_4
