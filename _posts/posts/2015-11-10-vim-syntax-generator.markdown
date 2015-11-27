@@ -35,7 +35,7 @@ And I define a formatting style:
 let g:questions_format="{title}: [{score}/{answers}/{views}]({owner})"
 {% endhighlight %}
 
-And using only with Vim script an syntax I want to display the datas like:
+And using only with Vim script and syntax I want to display the datas like:
 
 <style type="text/css">
 #vimCodeElement { font-family: monospace; color: #ffd7af; background-color: #262626; }
