@@ -25,9 +25,9 @@ git status
 git commit
 {% endhighlight %}
 
-I don't usually create the best gitignore pattern for the first time, so I need to test multiple times for correctness.
+I don't usually create the best gitignore pattern on the first time, so I need to test multiple times for correctness.
 
-> Wait, that's seems to be a lot of repetition ! Let's create a vim plugin ! 
+> Wait, that seems to be a lot of repetition ! Let's create a vim plugin ! 
 
 # Git ignore
 
@@ -57,7 +57,7 @@ The plugin is straightforward and runs as follow:
 We choose to create a file in the `/tmp` folder and to read/write from here. The file path is stored in the `s:gitignore_file` variable.
 
 ## Write the pattern
-This part is simple as vim provide for us the `getline` function that fetch the line in the current buffer.
+This part is simple as vim provides us the `getline` function that fetchs the line in the current buffer.
 
 To write it to the gitignore file, we can use the common `echo` method from bash along with the operator `>` to override the file.
 
@@ -72,7 +72,7 @@ call system(l:export_command)
 ## Read the excluded files
 To read an external command, vim has mutliple solutions. I tried to use the `:read!` command but I found out the `:systemlist` was better for my case.
 
-The `systemlist` command run a system command and returns its output as a list, whereas the `system` command returns it as a string. It is more practical to this case because we will get a list of files.
+The `systemlist` command runs a system command and returns its output as a list, whereas the `system` command returns it as a string. It is more practical to this case because we will get a list of files.
 
 Then to insert it in the document, the `setline` command can take a list as second argument (the content to be inserted), it is exactly what we need. We can now insert the files at the second line to refresh the document.
 
@@ -87,7 +87,7 @@ The last step we need to complete the plugin is to clear the file between reload
 
 The simplest solution is `:2,$d`, but it changes the cursor position. Instead, we can use the `setline` command to set blank lines to all lines. Then when inserting the new excluded files, we may have blank line at the end of the file, but at least the cursor don't move.
 
-To do so we build an array of empty string to be inserted on all lines from 2 to the last one and insert it with `setline`.
+To do so we build an array of empty strings to be inserted on all lines from the second line to the last one and insert it with `setline`.
 
 {% highlight vim %}
 let l:current_line = 1
