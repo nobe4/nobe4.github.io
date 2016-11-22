@@ -29,13 +29,13 @@ owner:
 background: 
 
 # Analytics and webmaster tools stuff goes here
-# google_analytics:   
+google_analytics: UA-57774120-4
 # google_verify:      
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 # bing_verify:         
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    Europe/Paris
+timezone:    Europe/London
 future:      true
 highlighter: pygments
 markdown:    kramdown

@@ -39,10 +39,10 @@ for(x in c){c[j++]=c[x]}
 
 n=setInterval(_=>{
   // Draw lines
-  c[31](0,0,W,H);
-  c[34]();
-  for(j=l;j--;c[53](p[j][0],p[j][1],1,1));
+  c[33](0,0,W,H);
   c[36]();
+  for(j=l;j--;c[55](p[j][0],p[j][1],1,1));
+  c[38]();
 
   // Create new separation
   p.splice(i,0,
@@ -184,13 +184,14 @@ window.start = function(){
 
   // Map each key to a number
   for(x in c){c[j++]=c[x]}
+  debugger;
 
   n=setInterval(_=>{
     // Draw lines
-    c[31](0,0,W,H);
-    c[34]();
-    for(j=l;j--;c[53](p[j][0],p[j][1],1,1));
+    c[33](0,0,W,H);
     c[36]();
+    for(j=l;j--;c[55](p[j][0],p[j][1],1,1));
+    c[38]();
 
     // Create new separation
     p.splice(i,0,
