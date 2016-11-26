@@ -38,7 +38,7 @@ google_analytics: 'UA-57774120-4'
 timezone:    Europe/London
 future:      true
 highlighter: rouge
-markdown:    redcarpet
+markdown:    kramdown
 gems:
   - jekyll-sitemap
   - jekyll-paginate
