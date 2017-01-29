@@ -70,5 +70,5 @@ defaults:
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink:   /:title/
 
-include: [".htaccess"]
+include: [".htaccess", "_pages"]
 exclude: ["LICENSE", "README.md", "LICENSE"]
