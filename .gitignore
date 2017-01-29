@@ -1,6 +1,4 @@
-_site
-.sass-cache
-.swp
-.swo
-node_modules/
+_site/
+.sass-cache/
+.jekyll-metadata
 .DS_Store

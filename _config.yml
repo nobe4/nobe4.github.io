@@ -1,59 +1,74 @@
-title:            Nobe4
-description:      Victor Haffreingue's Personal Website
-disqus_shortname: nobe4fr
+title:            nobe4's blog
+description:      :q! since 2012
+created:          Built
+url:              http://nobe4.fr
+logo:             logo.png
+
+# Settings for reading time
 reading_time:     true
 words_per_minute: 200
-# Your site's domain goes here (eg: //mmistakes.github.io, http://mademistakes.com, etc)
-# When testing locally leave blank or use http://localhost:4000
-url: http://nobe4.fr
 
 # Owner/author information
 owner:
   name:           Victor Haffreingue
-  avatar:         avatar.jpg
-  bio:            "I use Vim. Damn."
-  email:          vh@nobe4.fr
-  # Social networking links used in footer. Update and remove as you like.
-  twitter:        nobe_4
-  # facebook:       
-  github:         nobe4
-  stackexchange:  http://stackexchange.com/users/3016127/nobe4
-  linkedin:       nobe4
-  # instagram:      
-  # flickr:         
-  # tumblr:         
-  # google plus id, include the '+', eg +mmistakes
-  # google_plus:    +yourid
+  avatar:         your_avatar.jpg
+  bio:            I use Vim. Damn.
+  social:
+    twitter:
+      fa-icon:    fa-twitter
+      username:   nobe_4
+      url:        https://twitter.com/nobe_4
+    github:
+      fa-icon:    fa-github
+      url:        https://github.com/nobe4
+    stackexchange:
+      fa-icon:    fa-stack-overflow
+      url:        http://vi.stackexchange.com/users/1821/nobe4
+    linkedin:
+      fa-icon:    fa-linkedin
+      url:        https://uk.linkedin.com/in/nobe4
+    soundcloud:
+      fa-icon:    fa-soundcloud
+      url:        https://soundcloud.com/nobe4
 
-# Background image to be tiled on all pages
-background: 
-
-# Analytics and webmaster tools stuff goes here
 google_analytics: 'UA-57774120-4'
-# google_verify:      
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-# bing_verify:         
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    Europe/London
-future:      true
-highlighter: rouge
-markdown:    kramdown
+timezone:       Europe/London
+locale:         en_GB
+
+# Edition
+future:         true
+highlighter:    rouge
+markdown:       kramdown
+
 gems:
-  - jekyll-sitemap
   - jekyll-paginate
-  - jekyll-watch
+
+paginate: 5
+paginate_path: ":num/"
+
 sass:
   sass_dir: _sass
   style: compressed
 
-# https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   /:categories/:title/
+compress_html:
+  clippings: all
 
-# Amount of post to show on home page
-paginate: 5
+image:
+  path: /assets/images/
+
+defaults:
+  -
+    scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      layout: "post"
+      category: "p"
+
+# https://github.com/mojombo/jekyll/wiki/Permalinks
+permalink:   /:title/
 
 include: [".htaccess"]
-exclude: ["lib", "config.rb", "Capfile", "config", "Gemfile", "Gemfile.lock",
-          "README.md", "LICENSE", "log", "Rakefile", "Rakefile.rb", "tmp", "less",
-          "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+exclude: ["LICENSE", "README.md", "LICENSE"]
