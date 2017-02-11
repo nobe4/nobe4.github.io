@@ -169,8 +169,8 @@ You can try it below:
 <script>
 var canvas = document.createElement('canvas');
 canvas.id = "a";
-canvas.width = 300;
-canvas.height = 300;
+canvas.width = 500;
+canvas.height = 500;
 document.getElementById('canvas_container').appendChild(canvas);
 
 window.start = function(){
@@ -196,7 +196,7 @@ window.start = function(){
 
     i=(i+=2)>++l?1:i;
 
-    l>8192&&clearInterval(n);
+    l>16384&&clearInterval(n);
 
   }, 0 /* needed by firefox */)
 }
