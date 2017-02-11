@@ -1,6 +1,10 @@
-@import 'theme/github';
+@import 'theme/gruvbox';
 
 .highlighter-rouge code, pre code {
 	display: block;
-	overflow-y: scroll;
+	padding: 1em;
+
+	// Scroll horizontally, hide the vertical scrollbar
+	overflow-y: hidden;
+	overflow-x: scroll;
 }
