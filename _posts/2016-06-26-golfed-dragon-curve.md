@@ -167,45 +167,43 @@ You can try it below (will only work on chrome, see below for more details):
 <button onclick="start();return false;">start</button>
 <div id="canvas_container"></div>
 <script>
-// Create manually the canvas
-canvas = document.createElement('canvas');
+var canvas = document.createElement('canvas');
 canvas.id = "a";
 canvas.width = 300;
 canvas.height = 300;
-canvas_container.appendChild(canvas);
+document.getElementById('canvas_container').appendChild(canvas);
 
 window.start = function(){
-// Canvas properties
   c = a.getContext('2d');
   W = a.width;
   H = a.height;
 
-  // Starting points
   p=[[W/3,H/3],[2*W/3,2*H/3]];
   j=l=i=1;
 
-  // Map each key to a number
-  for(x in c){c[j++]=c[x]}
+  /*
+    Map each key to a number:
+    for(x in c){c[j++]=c[x]}
+
+    Not used for the demo as it changes often
+  */
 
   n=setInterval(_=>{
-    // Draw lines
-    c[33](0,0,W,H);
-    c[36]();
-    for(j=l;j--;c[55](p[j][0],p[j][1],1,1));
-    c[38]();
+    c.clearRect(0,0,W,H);
+    c.beginPath();
+    for(j=l;j--;c.lineTo(p[j][0],p[j][1],1,1));
+    c.stroke();
 
-    // Create new separation
     p.splice(i,0,
         ((p,b,d)=>[
          .5*(p[0]+b[0]+d*(p[1]-b[1])),
          .5*(p[1]+b[1]+d*(b[0]-p[0])),
-        ])(p[i-1],p[i],i%4-2))
+        ])(p[i-1],p[i],i%4-2));
 
-    // Update index and length
     i=(i+=2)>++l?1:i;
 
-    // Breakpoint
-    l>8000&&clearInterval(n);
+    l>8192&&clearInterval(n);
+
   })
 }
 </script>
