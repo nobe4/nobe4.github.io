@@ -162,7 +162,7 @@ i = (i+=2) > ++l ? 1 : i;
 
 We increment the current index by two because, as we want to proceed the next element in the array, we just added a new one. And we never proceed the first element since the matrix operations are done on the `nth` and `nth-1` elements.
 
-You can try it below (will only work on chrome, see below for more details):
+You can try it below:
 
 <button onclick="start();return false;">start</button>
 <div id="canvas_container"></div>
@@ -181,14 +181,8 @@ window.start = function(){
   p=[[W/3,H/3],[2*W/3,2*H/3]];
   j=l=i=1;
 
-  /*
-    Map each key to a number:
-    for(x in c){c[j++]=c[x]}
-
-    Not used for the demo as it changes often
-  */
-
   n=setInterval(_=>{
+
     c.clearRect(0,0,W,H);
     c.beginPath();
     for(j=l;j--;c.lineTo(p[j][0],p[j][1],1,1));
@@ -204,14 +198,14 @@ window.start = function(){
 
     l>8192&&clearInterval(n);
 
-  })
+  }, 0 /* needed by firefox */)
 }
 </script>
 
 ---
 
 _Compatibility note_:
-The _name to number_ hack for the canvas context make this works only on chrome. The other browsers does not have the same ordering.
+The _name to number_ hack for the canvas context make this works only on Chrome. The other browsers does not have the same ordering. For this demo, this hack is not used.
 
 i.e. with Chrome, Firefox and Safari:
 ![compatibility]({{ site.url }}{{ site.image.path }}/posts/golfed-dragon-curve/compat.png)
