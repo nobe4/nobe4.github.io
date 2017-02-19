@@ -2,7 +2,6 @@ title:            nobe4's blog
 description:      :q! since 2012
 created:          Built
 url:              http://nobe4.fr
-logo:             logo.png
 
 # Settings for reading time
 reading_time:     true
@@ -10,8 +9,7 @@ words_per_minute: 200
 
 # Owner/author information
 owner:
-  name:           Victor Haffreingue
-  avatar:         your_avatar.jpg
+  name:           nobe4
   bio:            I use Vim. Damn.
   disqus_name:    nobe4fr
   social:
