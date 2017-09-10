@@ -41,7 +41,7 @@ future:         true
 highlighter:    rouge
 markdown:       kramdown
 
-gems:
+plugins:
   - jekyll-paginate
 
 paginate: 5
