@@ -14,8 +14,6 @@ I am Victor (aka nobe4), a french developer, Vim learner, and music listener.
 
 I'm a French Engineer seeking enlightenment through [coding](https://github.com/nobe4/) and [music](https://soundcloud.com/nobe4).
 
-I'm currently working with [CrowdJustice](https://www.crowdjustice.org/).
-
 [I](http://www.goodreads.com/book/show/112247.The_Art_of_Computer_Programming_Volume_1)
 [r](https://pragprog.com/book/dnvim/practical-vim)[e](http://www.goodreads.com/book/show/28257707-the-subtle-art-of-not-giving-a-f-ck)[a](http://www.goodreads.com/book/show/2761.The_Denial_of_Death)[d](https://www.goodreads.com/book/show/4981.Slaughterhouse_Five)
 [a](http://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio/Le-seigneur-des-porcheries)
