@@ -11,7 +11,6 @@ words_per_minute: 200
 owner:
   name:           nobe4
   bio:            I use Vim. Damn.
-  disqus_name:    nobe4fr
   social:
     twitter:
       fa-icon:    fa-twitter
