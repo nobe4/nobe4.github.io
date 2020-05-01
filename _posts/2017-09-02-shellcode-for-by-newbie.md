@@ -2,7 +2,7 @@
 
 layout: post
 title: Shellcode for/by a Newbie
-date: Sat Sep 2
+date: Sat Sep 2 2017
 image:
   link: /posts/shellcode_newbies/presentation.jpg
   credit_link: https://unsplash.com/photos/8LkImhM6qeA

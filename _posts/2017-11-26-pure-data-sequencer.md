@@ -2,7 +2,7 @@
 
 layout: post
 title: Pure Data Sequencer
-date: Sun Nov 26
+date: Sun Nov 26 2017
 image:
   link: /posts/pure-data-sequencer/presentation.png
 
