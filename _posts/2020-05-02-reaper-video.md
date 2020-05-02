@@ -221,16 +221,38 @@ E.g.
 # Functions
 
 ## `input_count()`
-Returns number of inputs available (total), range [0..n)
+Returns number of inputs available. I.e. all the video tracks that will account for rendering.
+
+E.g.:
+If a video is present in the current track, 1 will be returned.
+If the video is muted, it will be 0.
+If there's a video on the current track and in a track above, it will be 2.
+See below for example.
 
 ## `input_track_count()`
-Returns the number of available inputs on discrete tracks
-
-## `input_track(x)`
-Returns input for bottommost item or FX on discrete-track x (0 is first track with video item above current, etc)
+Returns the number of available inputs on current track.
+See below for example.
 
 ## `input_track_exact_count()`
-Returns the number of tracks above the current track that could possibly contain video items.
+Returns the number of tracks above the current track that contain video items.
+More or less `input_count() - input_track_count()`.
+
+E.g.
+```
+// Debug visually
+function t(n, i)(t="";sprintf(#t,"%d",n);gfx_str_draw(#t,100,100+i*20););
+// Reset the screen and set writing to white.
+gfx_blit(-2,1);
+gfx_set(1);
+
+t(input_count(), 0);
+t(input_track(), 1);
+t(input_track_exact_count(), 2);
+```
+TODO Screenshot
+
+## `input_track(x)`
+Returns index of input for bottommost item or FX on track x (0 is first track with video item above current, etc)
 
 ## `input_track_exact(x)`
 Returns input for bottommost item or FX on track relative to current track. Returns -1000 if track does not contain any video items at the current time, or -10000 if no further tracks contain video.
