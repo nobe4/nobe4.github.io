@@ -1,6 +1,4 @@
 ---
-		console("Selecting all items in the track")
-
 
 layout: post
 title: Reaper Video Processing Cheat Sheet
@@ -178,7 +176,7 @@ gfx_set(1, 1, 1,   0); gfx_fillrect(200, 0, 100, 100);
 TODO
 ```
 
-TODO Screenshots on the desktop
+// TODO: Screenshots on desktop
 
 ## `gfx_mode`
 Drawing mode:
@@ -197,10 +195,28 @@ Following flags are `or`ed to the mode above:
 
 Value can be set with `gfx_set`.
 
+E.g.
+```
+gfx_blit(-2,1);
+
+// Yellow background
+gfx_set(1, 1, 0, 1, 0);  gfx_fillrect(0,   50, 300, 100);
+// Blue squares
+gfx_set(0, 0, 1, 1, 0);  gfx_fillrect(0,   0,  100, 100);
+gfx_set(0, 0, 1, 1, 1);  gfx_fillrect(100, 0,  100, 100);
+gfx_set(0, 0, 1, 1, 3);  gfx_fillrect(200, 0,  100, 100);
+
+// TODO do the flags
+```
+
 ## `gfx_dest`
 destination image handle, or -1 for main framebuffer
-
 Value can be set with `gfx_set`.
+
+E.g.
+```
+// TODO
+```
 
 # Functions
 
