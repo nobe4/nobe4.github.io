@@ -1,4 +1,6 @@
 ---
+		console("Selecting all items in the track")
+
 
 layout: post
 title: Reaper Video Processing Cheat Sheet
@@ -133,42 +135,72 @@ Parameters values
 
 E.g.
 ```
+//@param 1:a 'a'
+// See below for default param values.
+a == 0
+```
 
 Parameters are defined using the following format:
 ```
 //@param [<idx>[:varname]|varname] 'name' [default min max center step]
 ```
+`name` is displayed on the side and `varname` can be used in the code.
+`varname` cannot be one of the special variables.
 
 E.g.
 ```
-// @param 
+Defaults to 0 0 1 0.5 0.01
+//@param 1:a 'a'
+From 0 to 100, default to 10, centered on 50 with increment of 1
+//@param 2:b 'b' 10 0 100 50 1
 ```
 
+## `gfx_r` `gfx_g` `gfx_b` `gfx_a` `gfx_a2`
+Respectively red, green, blue, alpha and alpha channel current drawing colors.
+All values are between `0` and `1`
+Values can be set in the code with `gfx_set`.
 
-## `gfx_r`
-current drawing color (red 0..1)
-## `gfx_g`
-current drawing color (green 0..1)
-## `gfx_b`
-current drawing color (blue 0..1)
-## `gfx_a`
-current drawing alpha (0..1)
-## `gfx_a2`
-current drawing color alpha channel value (RGB-only, 0..1, defaults to 1)
+E.g.
+```
+gfx_blit(-2,1); // Ignore this line for now
+
+// rgb below
+gfx_set(1, 0, 1); gfx_fillrect(0,   0, 100, 100);
+gfx_set(0, 1, 0); gfx_fillrect(100, 0, 100, 100);
+gfx_set(1, 0, 0); gfx_fillrect(200, 0, 100, 100);
+
+// rgba
+gfx_set(1, 1, 1,   1);  gfx_fillrect(0,  0, 100, 100);
+gfx_set(1, 1, 1, 0.5); gfx_fillrect(100, 0, 100, 100);
+gfx_set(1, 1, 1,   0); gfx_fillrect(200, 0, 100, 100);
+
+// rgba2
+TODO
+```
+
+TODO Screenshots on the desktop
+
 ## `gfx_mode`
-drawing mode
-    0 = normal
-    1 = additive
-    3 = multiply (very different in YUV vs RGBA)
-    17 = (dest + src*gfx_a)*.5 + .5 (only valid when using YUV colorspaces)
-    18 = dest + (src-0.5)*gfx_a*2.0 (only valid when using YUV colorspaces)
-    19 = absolute difference: abs(dest-src)*gfx_a (only valid when using YUV colorspaces)
-    0x100 (flag ORed to above mode) for blit() to enable filtering (if possible)
-    0x10000 (flag ORed to above mode) to use source alpha (only valid when using RGBA colorspace)
-    0x40000 (flag ORed to above mode) to use extra clamping in normal mode (for out of range alpha/gradient values)
-    0x80000 (flag ORed to above mode) to interpret gfx_r/gfx_g/gfx_b as YUV values (in YUV colorspaces)
+Drawing mode:
+- `0` : normal
+- `1` : additive
+- `3` : multiply (very different in YUV and RGBA)
+- `17` : `(dest + src * gfx_a) * 0.5 + 0.5` (YUV only)
+- `18` : `dest + (src - 0.5) * gfx_a * 2.0` (YUV only)
+- `19` : absolute difference: `abs(dest - src) * gfx_a` (YUV only)
+
+Following flags are `or`ed to the mode above:
+- `0x100` : for blit() to enable filtering (if possible)
+- `0x10000` : to use source alpha (RGBA only)
+- `0x40000` : to use extra clamping in normal mode (for out of range alpha/gradient values)
+- `0x80000` : to interpret gfx_r/gfx_g/gfx_b as YUV values (YUV only)
+
+Value can be set with `gfx_set`.
+
 ## `gfx_dest`
 destination image handle, or -1 for main framebuffer
+
+Value can be set with `gfx_set`.
 
 # Functions
 
