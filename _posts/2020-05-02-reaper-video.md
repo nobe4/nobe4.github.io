@@ -156,7 +156,7 @@ From 0 to 100, default to 10, centered on 50 with increment of 1
 ## `gfx_r` `gfx_g` `gfx_b` `gfx_a` `gfx_a2`
 Respectively red, green, blue, alpha and alpha channel current drawing colors.
 All values are between `0` and `1`
-Values can be set in the code with `gfx_set`.
+Values can be set in the code with `gfx_set` or directly with their name.
 
 E.g.
 ```
@@ -193,7 +193,7 @@ Following flags are `or`ed to the mode above:
 - `0x40000` : to use extra clamping in normal mode (for out of range alpha/gradient values)
 - `0x80000` : to interpret gfx_r/gfx_g/gfx_b as YUV values (YUV only)
 
-Value can be set with `gfx_set`.
+Value can be set with `gfx_set` or directly with `gfx_mode`.
 
 E.g.
 ```
@@ -211,7 +211,7 @@ gfx_set(0, 0, 1, 1, 3);  gfx_fillrect(200, 0,  100, 100);
 
 ## `gfx_dest`
 destination image handle, or -1 for main framebuffer
-Value can be set with `gfx_set`.
+Value can be set with `gfx_set` or directly with `gfx_dest`.
 
 E.g.
 ```
@@ -239,59 +239,143 @@ More or less `input_count() - input_track_count()`.
 
 E.g.
 ```
-// Debug visually
+// Debug code, ignore
 function t(n, i)(t="";sprintf(#t,"%d",n);gfx_str_draw(#t,100,100+i*20););
-// Reset the screen and set writing to white.
-gfx_blit(-2,1);
-gfx_set(1);
+gfx_blit(-2,1); gfx_set(1);
 
 t(input_count(), 0);
 t(input_track(), 1);
 t(input_track_exact_count(), 2);
 ```
+
 TODO Screenshot
 
-## `input_track(x)`
-Returns index of input for bottommost item or FX on track x (0 is first track with video item above current, etc)
+## `input_track(int x)`
+Returns id of the item in the `x`th track above the current track. The id is built such as the 1st element is alwas at the bottom-most track first. In case of overlapping, the first element will be assigned the smallest id.
+This can be thought of as "give me the item number top-to-bottom".
+`-1` shows whichever id will be on top.
 
-## `input_track_exact(x)`
-Returns input for bottommost item or FX on track relative to current track. Returns -1000 if track does not contain any video items at the current time, or -10000 if no further tracks contain video.
+E.g.
+```
+// Debug code, ignore.
+function t(n, i)(t="";sprintf(#t,"%d",n);gfx_str_draw(#t,100,100+i*20););
+gfx_blit(-2,1); gfx_set(1);
 
-## `input_next_item(x)`
-Returns the next input after x which is on a different item or track
+// Show item for displayed, current track, 1st below and 2nd below.
+t(input_track(-1), -1);
+t(input_track(0),  0);
+t(input_track(1),  1);
+t(input_track(2),  2);
+```
 
-## `input_next_track(x)`
-Returns the next input after x which is on a different track
+TODO Screenshot
+
+## `input_track_exact(int x)`
+Returns id of the item on the relative `x`th track above the current one. Similar to `input_track()` but also returns `-1000` if no video track is present, or `-10000` if no video tracks are present later.
+
+E.g.
+```
+function t(n, i)(t="";sprintf(#t,"%d",n);gfx_str_draw(#t,100,100+i*20););
+gfx_blit(-2,1);
+gfx_set(1);
+
+t(input_track_exact(-1), -1);
+t(input_track_exact(0), 0);
+t(input_track_exact(1), 1);
+```
+
+TODO Screenshot
+
+## `input_next_item(int x)`
+Returns the next input after x which is on a different item or track.
+TODO
+
+## `input_next_track(int x)`
+Returns the next input after x which is on a different track.
+TODO
 
 ## `input_ismaster()`
-Returns 1.0 if current FX is on master chain, 2.0 if on monitoring FX chain
+Returns 1.0 if current FX is on master chain, 2.0 if on monitoring FX chain, 0 otherwise.
 
 ## `input_info(input, w, h[,srctime, wet, parm1, ...])`
 Returns 1 if input is available, sets w/h to dimensions. If srctime specified, it will be set with the source-local time of the underlying media. if input is a video processor in effect form, automated parameters can be queried via wet/parm1/...
+TODO
 
 ## `input_get_name(input, #str)`
-Gets the input take name or track name. returns >0 on success
+Gets the input take name or track name. Returns 1 if name was found, 0 otherwise.
 
-## `gfx_img_alloc([w,h,clear])`
-Returns an image index for drawing (can create up to 32 images). contents of image undefined unless clear set.
+E.g.
+```
+function t(n, i)(t="";a=input_get_name(n,#t);gfx_str_draw(#t,100,100+i*20););
+gfx_blit(-2,1); gfx_set(1);
+
+t(0, 0);
+t(1, 1);
+t(2, 2);
+```
+
+TODO Screenshot
+
+## `gfx_img_alloc([int width, int height, int clear])`
+Creates a new image with specified size, and black background if `clear` equals to `1`. You can create up to 32 images using this method.
+The returned index can be used in `gfx_dest`, `gfx_blit` and in other places.
+
+E.g.
+```
+gfx_blit(-2, 0); // Clear the screen
+
+i1 = gfx_img_alloc(100, 100, 1);
+i2 = gfx_img_alloc(50,  50,  1);
+i3 = gfx_img_alloc(25,  25,  1);
+
+// Create squares: a big red, medium green and small blue.
+gfx_set(1, 0, 0); gfx_dest = i1; gfx_fillrect(0, 0, 100, 100);
+gfx_set(0, 1, 0); gfx_dest = i2; gfx_fillrect(0, 0, 50,  50);
+gfx_set(0, 0, 1); gfx_dest = i3; gfx_fillrect(0, 0, 25,  25);
+
+// Draw all the squares on the screen.
+gfx_dest = -1;
+gfx_blit(i1, 0, 0,   0, 100, 100);
+gfx_blit(i2, 0, 100, 0, 50,  50);
+gfx_blit(i3, 0, 150, 0, 25,  25);
+
+// Draw the small squares in the big ones.
+gfx_dest = i2; gfx_blit(i3, 0, 12, 12, 25, 25); // now i2 contains also i3.
+gfx_dest = i1; gfx_blit(i2, 0, 25, 25, 50, 50); // i1 contains i2 and i3.
+gfx_dest = -1;
+
+// And draw the updated squares on screen.
+gfx_blit(i1, 0, 0,   100, 100, 100);
+gfx_blit(i2, 0, 100, 100, 50,  50);
+
+// Free up memory.
+gfx_img_free(i1); gfx_img_free(i2); gfx_img_free(i3);
+```
 
 ## `gfx_img_resize(handle,w,h[,clear])`
 Sets an image size (handle can be -1 for main framebuffer). contents of image undefined after resize, unless clear set. clear=-1 will only clear if resize occurred. Returns the image handle (if handle is invalid, returns a newly-allocated image handle)
+TODO
 
 ## `gfx_img_hold(handle)`
 Retains (cheaply) a read-only copy of an image in handle. This copy should be released using gfx_img_free() when finished. Up to 32 images can be held.
+TODO
 
 ## `gfx_img_getptr(handle)`
 Gets a unique identifier for an image, valid for while the image is retained. can be used (along with gfx_img_hold) to detect when frames change in a low frame rate video
+TODO
 
 ## `gfx_img_free(handle)`
 Releases an earlier allocated image index.
+TODO
 
 ## `gfx_img_info(handle,w,h)`
 Gets dimensions of image, returns 1 if valid (resize if inexplicably invalidated)
+TODO
 
-## `gfx_set(r,[g=r,b=r,a=1,mode=0,dest,a2=1])`
-Updates r/g/b/a/mode to values specified, dest is only updated if parameter specified.
+## `gfx_set(float r, [float g = r, float b = r,float a = 1,int mode = 0, int dest, float a2 = 1])`
+Updates `r`/`g`/`b`/`a`/`mode`/`a2` to values specified, `dest` is only updated if parameter specified.
+See `gfx_...` for reference on the different parameters.
+`dest` is the integer to a destination item to draw on.
 
 ## `gfx_blit(input[,preserve_aspect=0,x,y,w,h,srcx,srcy,srcw,srch])`
 Draws input to framebuffer. preserve_aspect=-1 for no fill in pad areas
