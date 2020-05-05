@@ -1,4 +1,4 @@
----
+--
 
 layout: post
 title: Reaper Video Processing Cheat Sheet
@@ -167,7 +167,7 @@ gfx_set(1, 0, 1); gfx_fillrect(0,   0, 100, 100);
 gfx_set(0, 1, 0); gfx_fillrect(100, 0, 100, 100);
 gfx_set(1, 0, 0); gfx_fillrect(200, 0, 100, 100);
 
-// rgba
+// rgba below
 gfx_set(1, 1, 1,   1);  gfx_fillrect(0,  0, 100, 100);
 gfx_set(1, 1, 1, 0.5); gfx_fillrect(100, 0, 100, 100);
 gfx_set(1, 1, 1,   0); gfx_fillrect(200, 0, 100, 100);
@@ -176,7 +176,9 @@ gfx_set(1, 1, 1,   0); gfx_fillrect(200, 0, 100, 100);
 TODO
 ```
 
-// TODO: Screenshots on desktop
+![rgb]({{ site.url }}{{ site.image.path }}/posts/reaper-video/rgb.png)
+
+![rgba]({{ site.url }}{{ site.image.path }}/posts/reaper-video/rgba.png)
 
 ## `gfx_mode`
 Drawing mode:
@@ -248,7 +250,7 @@ t(input_track(), 1);
 t(input_track_exact_count(), 2);
 ```
 
-TODO Screenshot
+![input count]({{ site.url }}{{ site.image.path }}/posts/reaper-video/input_count.png)
 
 ## `input_track(int x)`
 Returns id of the item in the `x`th track above the current track. The id is built such as the 1st element is alwas at the bottom-most track first. In case of overlapping, the first element will be assigned the smallest id.
@@ -268,7 +270,7 @@ t(input_track(1),  1);
 t(input_track(2),  2);
 ```
 
-TODO Screenshot
+![input track]({{ site.url }}{{ site.image.path }}/posts/reaper-video/input_track.png)
 
 ## `input_track_exact(int x)`
 Returns id of the item on the relative `x`th track above the current one. Similar to `input_track()` but also returns `-1000` if no video track is present, or `-10000` if no video tracks are present later.
@@ -284,7 +286,7 @@ t(input_track_exact(0), 0);
 t(input_track_exact(1), 1);
 ```
 
-TODO Screenshot
+![input track exact]({{ site.url }}{{ site.image.path }}/posts/reaper-video/input_track_exact.png)
 
 ## `input_next_item(int x)`
 Returns the next input after x which is on a different item or track.
@@ -314,7 +316,7 @@ t(1, 1);
 t(2, 2);
 ```
 
-TODO Screenshot
+![input get name]({{ site.url }}{{ site.image.path }}/posts/reaper-video/input_get_name.png)
 
 ## `gfx_img_alloc([int width, int height, int clear])`
 Creates a new image with specified size, and black background if `clear` equals to `1`. You can create up to 32 images using this method.
@@ -324,11 +326,12 @@ E.g.
 ```
 gfx_blit(-2, 0); // Clear the screen
 
+// Create three images.
 i1 = gfx_img_alloc(100, 100, 1);
 i2 = gfx_img_alloc(50,  50,  1);
 i3 = gfx_img_alloc(25,  25,  1);
 
-// Create squares: a big red, medium green and small blue.
+// Fill image with squares: a big red, medium green and small blue.
 gfx_set(1, 0, 0); gfx_dest = i1; gfx_fillrect(0, 0, 100, 100);
 gfx_set(0, 1, 0); gfx_dest = i2; gfx_fillrect(0, 0, 50,  50);
 gfx_set(0, 0, 1); gfx_dest = i3; gfx_fillrect(0, 0, 25,  25);
@@ -351,6 +354,8 @@ gfx_blit(i2, 0, 100, 100, 50,  50);
 // Free up memory.
 gfx_img_free(i1); gfx_img_free(i2); gfx_img_free(i3);
 ```
+
+![gfx img alloc]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_img_alloc.png)
 
 ## `gfx_img_resize(handle,w,h[,clear])`
 Sets an image size (handle can be -1 for main framebuffer). contents of image undefined after resize, unless clear set. clear=-1 will only clear if resize occurred. Returns the image handle (if handle is invalid, returns a newly-allocated image handle)
