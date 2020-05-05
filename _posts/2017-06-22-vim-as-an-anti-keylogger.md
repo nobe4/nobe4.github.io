@@ -8,8 +8,6 @@ image:
 
 ---
 
-# Vim as an anti-keylogger
-
 OK, this is a fictional title made just to sound cool, a more accurate title would be:
 
 # How debugging a Vim plugin made me discover a keylogger

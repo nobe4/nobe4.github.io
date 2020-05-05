@@ -2,20 +2,20 @@ $black: #111111;
 $white: #ffffff;
 
 // Source: http://clrs.cc/
-$random_colors : (
-	"blue": #0074D9,
-	"aqua": #7FDBFF,
-	"teal": #39CCCC,
-	"olive": #3D9970,
-	"green": #2ECC40,
-	"lime": #01FF70,
-	"yellow": #FFDC00,
-	"orange": #FF851B,
-	"red": #FF4136,
+$random_colors: (
+	"blue": #0074d9,
+	"aqua": #7fdbff,
+	"teal": #39cccc,
+	"olive": #3d9970,
+	"green": #2ecc40,
+	"lime": #01ff70,
+	"yellow": #ffdc00,
+	"orange": #ff851b,
+	"red": #ff4136,
 	"maroon": #85144b,
-	"fuchsia": #F012BE,
-	"purple": #B10DC9,
-	"gray": #AAAAAA,
+	"fuchsia": #f012be,
+	"purple": #b10dc9,
+	"gray": #aaaaaa,
 );
 
 body {
@@ -25,7 +25,9 @@ body {
 
 @each $name, $value in $random_colors {
 	body.#{"" + $name} {
-		a, h1, .colored {
+		a,
+		h1,
+		.colored {
 			&:hover {
 				color: $value;
 			}

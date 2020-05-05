@@ -4,8 +4,8 @@
 	box-sizing: border-box;
 }
 
-main, footer {
-
+main,
+footer {
 	margin: auto;
 	padding: 0 1em;
 
@@ -16,5 +16,4 @@ main, footer {
 	@include tablet {
 		width: 100%;
 	}
-
 }

@@ -1,20 +1,48 @@
 {% if site.google_analytics %}
-	<script>
+<script>
+	/* Generated with https://github.com/shinnn/isogram */
+	!(function (n, o, b, e, _, f, r) {
+		n.GoogleAnalyticsObject = b;
+		n[b] ||
+			(n[b] = function () {
+				(n[b].q = n[b].q || []).push(arguments);
+			});
+		n[b].l = +new Date();
+		f = o.createElement(e);
+		r = o.getElementsByTagName(e)[0];
+		f.src = _;
+		r.parentNode.insertBefore(f, r);
+	})(
+		window,
+		document,
+		"ga",
+		"script",
+		"//www.google-analytics.com/analytics.js"
+	);
 
-		/* Generated with https://github.com/shinnn/isogram */
-		!function(n,o,b,e,_,f,r){n.GoogleAnalyticsObject=b;n[b]||(n[b]=function(){
-		(n[b].q=n[b].q||[]).push(arguments)});n[b].l=+new Date;f=o.createElement(e);
-		r=o.getElementsByTagName(e)[0];f.src=_;r.parentNode.insertBefore(f,r)}
-		(window,document,'ga','script','//www.google-analytics.com/analytics.js');
-
-		ga('create', '{{ site.google_analytics }}', 'auto');
-		ga('send', 'pageview');
-	</script>
+	ga("create", "{{ site.google_analytics }}", "auto");
+	ga("send", "pageview");
+</script>
 {% endif %}
 
 <script>
 	/* Choose a random color for the session */
-	var colors = ["blue", "aqua", "teal", "olive", "green", "lime",
-			"yellow", "orange", "red", "maroon", "fuchsia", "purple", "gray", ];
-	document.body.classList.add(colors[Math.floor(Math.random()*colors.length)]);
+	var colors = [
+		"blue",
+		"aqua",
+		"teal",
+		"olive",
+		"green",
+		"lime",
+		"yellow",
+		"orange",
+		"red",
+		"maroon",
+		"fuchsia",
+		"purple",
+		"gray",
+	];
+	document.body.classList.add(
+		colors[Math.floor(Math.random() * colors.length)]
+	);
 </script>
