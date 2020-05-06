@@ -1,4 +1,4 @@
---
+---
 
 layout: post
 title: Reaper Video Processing Cheat Sheet
@@ -7,6 +7,15 @@ image:
   credit_link: TODO
 
 ---
+
+TODOs:
+[i] Rough draft
+[ ] Wording consistency
+[ ] Examples
+[ ] Terminology
+[ ] Code color
+[ ] Remove function parameters from titles
+[ ] Add all vars/functions in links
 
 # Introduction
 
@@ -318,7 +327,7 @@ t(2, 2);
 
 ![input get name]({{ site.url }}{{ site.image.path }}/posts/reaper-video/input_get_name.png)
 
-## `gfx_img_alloc([int width, int height, int clear])`
+## `gfx_img_alloc([int width, int height, bool clear])`
 Creates a new image with specified size, and black background if `clear` equals to `1`. You can create up to 32 images using this method.
 The returned index can be used in `gfx_dest`, `gfx_blit` and in other places.
 
@@ -357,8 +366,28 @@ gfx_img_free(i1); gfx_img_free(i2); gfx_img_free(i3);
 
 ![gfx img alloc]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_img_alloc.png)
 
-## `gfx_img_resize(handle,w,h[,clear])`
-Sets an image size (handle can be -1 for main framebuffer). contents of image undefined after resize, unless clear set. clear=-1 will only clear if resize occurred. Returns the image handle (if handle is invalid, returns a newly-allocated image handle)
+## `gfx_img_resize(int handle, int w, int h[, bool clear])`
+Copy the content of the handle into a new image and return its id. The `-1` handle can be used for the framebuffer.
+`clear=1` will remove the content of the image, `clear=-1` will clear only if a resize occured.
+If handle is invalid, it will behave like `gfx_img_alloc`.
+
+Here the `handle` is not to be confused with `input` that `gfx_blit` uses.
+TODO: terminology and differences.
+
+E.g.
+```
+// Show background image
+gfx_blit(0, 1);
+
+r = gfx_img_resize(input_track(0), 100, 100);
+gfx_blit(r, 1, 400, 50, 100, 100);
+gfx_img_free(r);
+
+// or simply
+gfx_blit(0, 1, 600, 50, 100, 100);
+```
+
+
 TODO
 
 ## `gfx_img_hold(handle)`
