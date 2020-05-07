@@ -341,9 +341,9 @@ i2 = gfx_img_alloc(50,  50,  1);
 i3 = gfx_img_alloc(25,  25,  1);
 
 // Fill image with squares: a big red, medium green and small blue.
-gfx_set(1, 0, 0); gfx_dest = i1; gfx_fillrect(0, 0, 100, 100);
-gfx_set(0, 1, 0); gfx_dest = i2; gfx_fillrect(0, 0, 50,  50);
-gfx_set(0, 0, 1); gfx_dest = i3; gfx_fillrect(0, 0, 25,  25);
+gfx_set(1, 0, 0, 1, 0, i1); gfx_fillrect(0, 0, 100, 100);
+gfx_set(0, 1, 0, 1, 0, i2); gfx_fillrect(0, 0, 50,  50);
+gfx_set(0, 0, 1, 1, 0, i3); gfx_fillrect(0, 0, 25,  25);
 
 // Draw all the squares on the screen.
 gfx_dest = -1;
@@ -372,7 +372,6 @@ Copy the content of the handle into a new image and return its id. The `-1` hand
 If handle is invalid, it will behave like `gfx_img_alloc`.
 
 Here the `handle` is not to be confused with `input` that `gfx_blit` uses.
-TODO: terminology and differences.
 
 E.g.
 ```
@@ -387,8 +386,7 @@ gfx_img_free(r);
 gfx_blit(0, 1, 600, 50, 100, 100);
 ```
 
-
-TODO
+TODO SCREENSHOT
 
 ## `gfx_img_hold(handle)`
 Retains (cheaply) a read-only copy of an image in handle. This copy should be released using gfx_img_free() when finished. Up to 32 images can be held.
@@ -398,24 +396,74 @@ TODO
 Gets a unique identifier for an image, valid for while the image is retained. can be used (along with gfx_img_hold) to detect when frames change in a low frame rate video
 TODO
 
-## `gfx_img_free(handle)`
+## `gfx_img_free(int handle)`
 Releases an earlier allocated image index.
-TODO
 
-## `gfx_img_info(handle,w,h)`
+E.g.
+```
+r = gfx_img_resize(0, 100, 100);
+gfx_img_free(r);
+```
+
+## `gfx_img_info(int handle, int #w, int #h)`
 Gets dimensions of image, returns 1 if valid (resize if inexplicably invalidated)
-TODO
+TODO ???
 
 ## `gfx_set(float r, [float g = r, float b = r,float a = 1,int mode = 0, int dest, float a2 = 1])`
 Updates `r`/`g`/`b`/`a`/`mode`/`a2` to values specified, `dest` is only updated if parameter specified.
 See `gfx_...` for reference on the different parameters.
 `dest` is the integer to a destination item to draw on.
 
-## `gfx_blit(input[,preserve_aspect=0,x,y,w,h,srcx,srcy,srcw,srch])`
-Draws input to framebuffer. preserve_aspect=-1 for no fill in pad areas
+E.g.
+```
+gfx_blit(-2, 0); // Clear the screen
+
+gfx_set(1, 0, 0, 1, 0, -1, 1); gfx_fillrect(0, 0, 100, 100);
+gfx_set(1, 1, 0, 1, 0, -1, 1); gfx_fillrect(0, 100, 100, 100);
+gfx_set(1, 0, 1, 0.5, 0, -1, 1); gfx_fillrect(100, 0, 100, 100);
+gfx_set(0, 1, 1, 1, 0, -1, 1); gfx_fillrect(100, 100, 75, 75);
+gfx_set(1, 1, 1, 1, 1, -1, 1); gfx_fillrect(125, 125, 75, 75);
+// For dest, check `gfx_img_alloc` example
+
+// TODO a2
+```
+
+TODO: Screenshot
+
+## `gfx_blit(int input[, bool preserve_aspect=0, int x, int y, int w, int h, int srcx, int srcy,int srcw, int srch])`
+Draw input into the selected destination, check `gfx_img_alloc` example for destination change.
+
+`x`,`y`,`w`,`h` control the destination position and size of the image.
+`srcx`,`srcy`,`srcw`,`srch` control the source position and size of the image.
+
+E.g.
+```
+// To see change in `input`, check `gfx_img_alloc`.
+gfx_blit(0, 1);
+gfx_blit(0, 0, 400, 0, 100, 100);
+gfx_blit(0, 1, 400, 100, 100, 100);
+gfx_blit(0, 1, 400, 200, 100, 100, 1000, 1000, 2000, 2000);
+gfx_blit(0, 0, 600, 0);
+gfx_blit(0, -1, 600, 100);
+gfx_blit(0, 1, 600, 200);
+```
 
 ## `gfx_fillrect(x,y,w,h)`
 Fills a rectangle with the current color/mode/alpha
+
+E.g.
+```
+gfx_blit(-2, 1);
+
+i = 0; inc = 40;
+loop(10,
+    gfx_set(i/10,      0, 1-i/10); gfx_fillrect(inc*i,                 inc*i, 100, 100);
+    gfx_set(0,    1-i/10, i/10);   gfx_fillrect(inc/2+(i*inc), inc/2+(i*inc), 100, 100);
+    i += 1
+);
+```
+
+TODO Screenshot
 
 ## `gfx_procrect(x,y,w,h,channel_tab[,mode])`
 Processes a rectangle with 768-entry channel table [256 items of 0..1 per channel]. specify mode=1 to use Y value for U/V source channels (colorization mode)
@@ -436,6 +484,44 @@ Additional options:
 
 ## `gfx_gradrect(x,y,w,h, r,g,b,a [,drdx,dgdx,dbdx,dadx, drdy,dgdy,dbdy,dady])`
 Fills rectangle. r/g/b/a supply color at top left corner, drdx (if specified) is amount red changes per X-pixel, etc.
+
+Fills a rectangle with a gradient from the top-left corner.
+The initial color is specified by `r`, `g`, `b` and `a`.
+`dZdx` specify the amount of change for the color `Z` horizontally.
+`dZdy` specify the amount of change for the color `Z` vertically.
+
+If the amount of "delta" for a color change over 1, it will create nice glitchy effects (see examples).
+
+```
+gfx_blit(-2, 1);
+size = 300; grad_inc = 1 / size;
+gfx_gradrect(
+  0,               0, size,     size,
+  0,               0, 0,           1, // Black
+  grad_inc,        0, grad_inc,    0, // Purple
+  0,        grad_inc, grad_inc,    0 // Light blue
+);
+gfx_gradrect(
+  size,            0, size,         size,
+  0,               1, 0,               0, // Transparent Green
+  0,        grad_inc, grad_inc, grad_inc, // Opaque Light Blue
+  grad_inc,        0, 0,        grad_inc  // Opaque Yellow
+);
+gfx_gradrect(
+  0, size, size, size,
+  0, 0, 0, 1,
+  3, 3, 3, 0,
+  3, 3, 3, 0
+);
+gfx_gradrect(
+  size, size, size, size,
+  0, 0, 0, 1,
+  1, 2, 3, 0,
+  4, 5, 6, 0
+);
+```
+
+TODO SCREENSHOT
 
 ## `gfx_rotoblit(srcidx, angle [,x, y, w, h, srcx, srcy, w, h, cliptosrcrect=0, centxoffs=0, centyoffs=0])`
 Blits with rotate. This function behaves a bit odd when the source and destination sizes/aspect ratios differ, so gfx_deltablit() is generally more useful.
