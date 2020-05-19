@@ -131,13 +131,11 @@ project_wh_valid == 0.0000
 
 ## `colorspace`
 current rendering colorspace, e.g. 'RGBA', 'YV12', or 'YUY2'. You can override this before drawing (or between drawing). This may be set to 0 initially if the user has the Auto project colorspace set. It will be automatically changed if 0 and a drawing operation occurs or an input is successfully queried via input_info().
-
-?? TODO
+TODO
 
 ## `param_wet`
 if in FX form, wet/dry mix of effect.
-
-?? TODO
+TODO
 
 ## `param1..param24`
 Parameters values
@@ -309,6 +307,7 @@ TODO
 
 ## `input_ismaster()`
 Returns 1.0 if current FX is on master chain, 2.0 if on monitoring FX chain, 0 otherwise.
+TODO
 
 ## `input_info(input, w, h[,srctime, wet, parm1, ...])`
 Returns 1 if input is available, sets w/h to dimensions. If srctime specified, it will be set with the source-local time of the underlying media. if input is a video processor in effect form, automated parameters can be queried via wet/parm1/...
@@ -588,12 +587,15 @@ gfx_gradrect(
 
 ## `gfx_rotoblit(srcidx, angle [,x, y, w, h, srcx, srcy, w, h, cliptosrcrect=0, centxoffs=0, centyoffs=0])`
 Blits with rotate. This function behaves a bit odd when the source and destination sizes/aspect ratios differ, so gfx_deltablit() is generally more useful.
+TODO
 
 ## `gfx_deltablit(srcidx, x,y,w,h srcx,srcy, dsdx, dtdx, dsdy, dtdy, dsdxdy, dtdxdy[, dadx, dady, dadxdy])`
 Blits with source pixel transformation control. S and T refer to source coordinates: dsdx is  how much the source X position changes with each X destination pixel, dtdx is how much the source Y position changes with each X destination pixel, etc.
+TODO
 
 ## `gfx_xformblit(srcidx, x,y,w,h,  wdiv, hdiv, tab[, wantalpha=0])`
 Blits with a transformation table. tab is wdiv*hdiv*2 table of source point coordinates. If wantalpha=1, tab is wdiv*hdiv*3 table of src points including alpha for each point.
+TODO
 
 ## `gfx_keyedblit(input[,x,y,w,h,srcx,srcy,kv1,kv2,kv3,kv4])`
 Chroma-key blits, using the source color as key. kv1-kv4 meaning depends on colorspace:
@@ -607,9 +609,11 @@ Chroma-key blits, using the source color as key. kv1-kv4 meaning depends on colo
         kv2 is blue-factor (-1.0 default)
         kv3 is offset (-1.0 default)
         kv4 enables spill removal (1.0 default)
+TODO
 
 ## `gfx_destkeyedblit(input[,x,y,w,h,srcx,srcy,kv1,kv2,kv3,kv4])`
 Chroma-key blits, using destination color as key. ignores gfx_a and gfx_mode. See gfx_keyedblit() for kv1-kv4 explanation.
+TODO
 
 ## `gfx_setfont(pxsize[,#fontname, flags)`
 Sets a font. flags are specified as a multibyte integer, using a combination of the following flags (specify multiple as 'BI' or 'OI' or 'OBI' etc):
@@ -620,18 +624,24 @@ Sets a font. flags are specified as a multibyte integer, using a combination of 
     'M' - Mono
     'S' - Shadow
     'O' - Outline
+TODO
 
 ## `gfx_str_measure(#string[,w,h])`
 Measures the size of #string, returns width
+TODO
 
 ## `gfx_str_draw(#string[,x,y,fxc_r,fxc_g,fxc_b])`
 Draw string, fxc_r/g/b are the FX color if Shadow/Outline are set in the font
+TODO
 
 ## `gfx_getpixel(input,x,y,v1,v2,v3[,v4])`
 Gets the value of a pixel from input at x,y. v1/v2/v3 will be YUV or RGB (v4 can be used to get A), returns 1 on success
+TODO
 
 ## `rgb2yuv(r,g,b)`
 Converts r,g,b to YUV, does not clamp [0..1]
+TODO
 
 ## `yuv2rgb(r,g,b)`
 Converts YUV to r,g,b, not clamping [0..1]
+TODO
