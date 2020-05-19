@@ -1,4 +1,4 @@
----
+--
 
 layout: post
 title: Reaper Video Processing Cheat Sheet
@@ -8,14 +8,16 @@ image:
 
 ---
 
+IN PROGRESS:
+ - [ ] Rough draft
+
 TODOs:
-[i] Rough draft
-[ ] Wording consistency
-[ ] Examples
-[ ] Terminology
-[ ] Code color
-[ ] Remove function parameters from titles
-[ ] Add all vars/functions in links
+ - [ ] Wording consistency
+ - [ ] Examples
+ - [ ] Terminology
+ - [ ] Code color
+ - [ ] Remove function parameters from titles
+ - [ ] Add all vars/functions in links
 
 # Introduction
 
@@ -386,7 +388,7 @@ gfx_img_free(r);
 gfx_blit(0, 1, 600, 50, 100, 100);
 ```
 
-TODO SCREENSHOT
+![gfx img resize]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_img_resize.png)
 
 ## `gfx_img_hold(handle)`
 Retains (cheaply) a read-only copy of an image in handle. This copy should be released using gfx_img_free() when finished. Up to 32 images can be held.
@@ -428,7 +430,7 @@ gfx_set(1, 1, 1, 1, 1, -1, 1); gfx_fillrect(125, 125, 75, 75);
 // TODO a2
 ```
 
-TODO: Screenshot
+![gfx set]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_set.png)
 
 ## `gfx_blit(int input[, bool preserve_aspect=0, int x, int y, int w, int h, int srcx, int srcy,int srcw, int srch])`
 Draw input into the selected destination, check `gfx_img_alloc` example for destination change.
@@ -448,6 +450,8 @@ gfx_blit(0, -1, 600, 100);
 gfx_blit(0, 1, 600, 200);
 ```
 
+![gfx blit]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_blit.png)
+
 ## `gfx_fillrect(x,y,w,h)`
 Fills a rectangle with the current color/mode/alpha
 
@@ -463,10 +467,12 @@ loop(10,
 );
 ```
 
-TODO Screenshot
+![gfx flillrect]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_flillrect.png)
 
-## `gfx_procrect(x,y,w,h,channel_tab[,mode])`
+## `gfx_procrect(int x, int y, int w, int h, ??? channel_tab[, int mode])`
 Processes a rectangle with 768-entry channel table [256 items of 0..1 per channel]. specify mode=1 to use Y value for U/V source channels (colorization mode)
+
+TODO: What's a channel tab format?
 
 ## `gfx_evalrect(x,y,w,h,code_string[,flags,src,init_code_string,src2])`
 Processes a rectangle with code_string being executed for every pixel/pixel-group. Returns -1 if code_string failed to compile. Code should reference per pixel values (0-255, unclamped), depending on colorspace:
@@ -481,6 +487,63 @@ Additional options:
     If src specified (and >= -1), sr/sg/sb/sa, sy1/su/sv etc will be available to read. In this case only the intersection of valid rectangles between src and the destination buffer will be processed. 
     If src and src2 specified (and >= -1), s2r/s2g/s2b/s2a, s2y1/s2u/s2v etc will also be available to read. 
     Note: variables _1-_99 are thread-local variables which will always be initialized to 0, and _0 will be initialized to the thread index (usually 0 or 1)
+
+E.g.
+```
+// All the code below will run in the following context:
+gfx_blit(-2, 1);
+colorspace = 'RGBA';
+code="..."; // Copy paste the codes below
+gfx_evalrect(0, 0, 1000, 1000, code, 0);
+
+// All yellow pixels
+r=255; g=255; b=0; a=255;
+
+// From Black to White
+i1+=1;
+r=i1/1e6*255;
+g=i1/1e6*255;
+b=i1/1e6*255;
+
+// 
+
+
+```
+
+
+TODO: Fix this
+Create un damier
+```
+//@param 1:size 'size' 500 100 2000 100 10
+
+gfx_blit(0, 1);
+
+colorspace = 'RGBA';
+count = size / 100;
+init="
+sx = 0;
+sy = 0;
+";
+code="
+(i%size == 0) ? (
+  x = 0; sx = 0;
+  i != 0 ? (
+    y += 1;
+    y % count == 0 ? sy += 1;
+  );
+) : (
+  x += 1;
+  x % count == 0 ? sx += 1;
+);
+
+c = (sx+sy)%2 ? 0 : 255;
+
+r=c; g=c; b=c;
+i += 1;
+";
+
+gfx_evalrect(0, 0, size, size, code, 0, init);
+```
 
 ## `gfx_gradrect(x,y,w,h, r,g,b,a [,drdx,dgdx,dbdx,dadx, drdy,dgdy,dbdy,dady])`
 Fills rectangle. r/g/b/a supply color at top left corner, drdx (if specified) is amount red changes per X-pixel, etc.
@@ -521,7 +584,7 @@ gfx_gradrect(
 );
 ```
 
-TODO SCREENSHOT
+![gfx gradrect]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_gradrect.png)
 
 ## `gfx_rotoblit(srcidx, angle [,x, y, w, h, srcx, srcy, w, h, cliptosrcrect=0, centxoffs=0, centyoffs=0])`
 Blits with rotate. This function behaves a bit odd when the source and destination sizes/aspect ratios differ, so gfx_deltablit() is generally more useful.
