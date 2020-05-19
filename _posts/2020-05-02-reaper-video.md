@@ -226,8 +226,28 @@ Value can be set with `gfx_set` or directly with `gfx_dest`.
 
 E.g.
 ```
-// TODO
+gfx_blit(-2, 0); // Clear the screen
+
+// Create image.
+i1 = gfx_img_alloc(100, 100, 1);
+
+// Fill image with two squares, will be clipped to 100x100.
+// gfx_set set the destination to the image.
+gfx_set(1, 0, 0, 1, 0, i1); gfx_fillrect(0, 0, 100, 100);
+gfx_set(1, 1, 0, 1, 0, i1); gfx_fillrect(25, 25, 100, 100);
+// Set the destination to the framebuffer.
+gfx_dest = -1;
+gfx_blit(i1, 0, 0, 0, 100, 100);
+
+// Or directly in the framebuffer.
+gfx_set(1, 0, 0, 1, 0, -1); gfx_fillrect(110, 0, 100, 100);
+gfx_set(1, 1, 0, 1, 0, -1); gfx_fillrect(135, 25, 100, 100);
+
+// Free up memory.
+gfx_img_free(i1);
 ```
+
+![gfx dest]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_dest.png)
 
 # Functions
 
