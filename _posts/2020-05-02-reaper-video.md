@@ -29,7 +29,7 @@ This builds on the amazing work of [this
 site](https://mespotin.uber.space/Ultraschall/Reaper_API_Video_Documentation.html#)
 which expands on the provided video help.
 
-To inspect anything, you can use `<C-k>` (that is `Ctrl` + `k` when the cursor is on a variable when the cursor is on a variable).
+To inspect anything, you can use `<C-k>` (that is `Ctrl` + `k`) when the cursor is on a variable when the cursor is on a variable).
 
 # Links
 
@@ -348,7 +348,7 @@ Returns 1.0 if current FX is on master chain, 2.0 if on monitoring FX chain, 0 o
 E.g.
 ```
 // Master track
-function t(n, i)(t="";sprintf(#t,"%f",n);gfx_str_draw(#t,0,0+i*20);); 
+function t(n, i)(t="";sprintf(#t,"%f",n);gfx_str_draw(#t,0,0+i*20););
 gfx_blit(0,-1); gfx_set(1);
 
 t(input_ismaster(), 0);
@@ -463,13 +463,34 @@ gfx_blit(0, 1, 600, 50, 100, 100);
 
 ![gfx img resize]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_img_resize.png)
 
-## `gfx_img_hold(handle)`
-Retains (cheaply) a read-only copy of an image in handle. This copy should be released using gfx_img_free() when finished. Up to 32 images can be held.
-TODO
+## `gfx_img_hold(int handle)`
+Save a cheap and read-only copy of the image handle. Needs to be released with `gfx_img_free()`.
+Can hold up to 32 images.
 
-## `gfx_img_getptr(handle)`
-Gets a unique identifier for an image, valid for while the image is retained. can be used (along with gfx_img_hold) to detect when frames change in a low frame rate video
-TODO
+Look at `gfx_img_getptr` for example.
+
+## `gfx_img_getptr(int handle)
+Get a unique identifier for the image, while the image is in memory.
+Can be used with `gfx_img_hold` to detect changes in low frame rate video.
+
+E.g.
+```
+i1 = gfx_img_alloc(100, 100, 1);
+gfx_set(1, 0, 0, 1, 0, i1); gfx_fillrect(0, 0, 100, 100);
+h1 = gfx_img_hold(i1);
+p1 = gfx_img_getptr(h1);
+
+i2 = gfx_img_alloc(100, 100, 1);
+gfx_set(1, 0, 0, 1, 0, i2); gfx_fillrect(0, 0, 100, 100);
+h2 = gfx_img_hold(i2);
+p2 = gfx_img_getptr(h2);
+
+p1; // 11203977...
+p2; // 11203457...
+
+gfx_img_free(i1); gfx_img_free(i2);
+gfx_img_free(h1); gfx_img_free(h2);
+```
 
 ## `gfx_img_free(int handle)`
 Releases an earlier allocated image index.
@@ -710,10 +731,10 @@ TODO
 Gets the value of a pixel from input at x,y. v1/v2/v3 will be YUV or RGB (v4 can be used to get A), returns 1 on success
 TODO
 
-## `rgb2yuv(r,g,b)`
-Converts r,g,b to YUV, does not clamp [0..1]
+## `rgb2yuv(float r, float g, float b)`
+Converts *RGB* to *YUV*, does not clamp the values to [0..1].
 TODO
 
-## `yuv2rgb(r,g,b)`
+## `yuv2rgb(float r,float g, float b)`
 Converts YUV to r,g,b, not clamping [0..1]
 TODO
