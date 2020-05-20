@@ -344,7 +344,23 @@ TODO
 
 ## `input_ismaster()`
 Returns 1.0 if current FX is on master chain, 2.0 if on monitoring FX chain, 0 otherwise.
-TODO
+
+E.g.
+```
+// Master track
+function t(n, i)(t="";sprintf(#t,"%f",n);gfx_str_draw(#t,0,0+i*20);); 
+gfx_blit(0,-1); gfx_set(1);
+
+t(input_ismaster(), 0);
+
+// Non-master track
+function t(n, i)(t="";sprintf(#t,"%f",n);gfx_str_draw(#t,0,0+i*20);); 
+gfx_blit(0,-1); gfx_set(1);
+
+t(input_ismaster(), 1);
+```
+
+![input is master]({{ site.url }}{{ site.image.path }}/posts/reaper-video/input_ismaster.png)
 
 ## `input_info(int input, int w, int h [, int srctime, int wet, int parm1, ...])`
 Returns 1 if `input` is available.
