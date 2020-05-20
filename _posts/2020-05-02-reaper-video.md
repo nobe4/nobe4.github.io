@@ -48,7 +48,7 @@ Array.from(document.querySelectorAll("h2")).map(x=>x.innerText.split(" ").map(y=
 Project time in seconds.
 
 E.g.
-```C
+```c
 project_time == 0.46666666... (start of project)
 project_time == 0.86666666... (after 1 bar)
 ```
@@ -57,7 +57,7 @@ project_time == 0.86666666... (after 1 bar)
 Current tempo in BPM.
 
 E.g.
-```php
+```c
 project_tempo == 144.000
 ```
 
@@ -65,7 +65,7 @@ project_tempo == 144.000
 Current time signature numerator.
 
 E.g.
-```php
+```c
 project_ts_num == 4.00000
 ```
 
@@ -73,7 +73,7 @@ project_ts_num == 4.00000
 Current time signature denominator.
 
 E.g.
-```php
+```c
 project_ts_denom == 4.00000
 ```
 
@@ -85,7 +85,7 @@ TODO
 Item time in seconds when inside an item.
 
 E.g.
-```php
+```c
 project_time == 0.01666666... (start of project)
 project_time == 0.88333333... (after 1 bar)
 ```
@@ -94,7 +94,7 @@ project_time == 0.88333333... (after 1 bar)
 Project FPS (frames per second).
 
 E.g.
-```php
+```c
 framerate == 30.00000
 ```
 
@@ -103,7 +103,7 @@ Project preferred video width.
 You can update this value before drawing.
 
 E.g.
-```php
+```c
 project_w == 1080.0000
 // Updating the width
 project_w = 720
@@ -114,7 +114,7 @@ Project preferred video height.
 You can update this value before drawing.
 
 E.g.
-```php
+```c
 project_h == 720.0000
 // Updating the width
 project_h = 480
@@ -125,7 +125,7 @@ Equals `1` if the project's size reflect the settings.
 Equals `0` if the project's size has been changed via media/code.
 
 E.g.
-```php
+```c
 // Default project size
 project_wh_valid == 1.0000
 // Media defined project size
@@ -144,21 +144,21 @@ TODO
 Parameters values
 
 E.g.
-```php
+```c
 //@param 1:a 'a'
 // See below for default param values.
 a == 0
 ```
 
 Parameters are defined using the following format:
-```php
+```c
 //@param [<idx>[:varname]|varname] 'name' [default min max center step]
 ```
 `name` is displayed on the side and `varname` can be used in the code.
 `varname` cannot be one of the special variables.
 
 E.g.
-```php
+```c
 // Defaults to 0 0 1 0.5 0.01
 //@param 1:a 'a'
 
@@ -172,7 +172,7 @@ All values are between `0` and `1`
 Values can be set in the code with `gfx_set` or directly with their name.
 
 E.g.
-```php
+```c
 gfx_blit(-2, 0); // Ignore this line for now
 
 // rgb
@@ -186,7 +186,7 @@ gfx_set(1, 1, 1, 0.5); gfx_fillrect(100, 0, 100, 100);
 gfx_set(1, 1, 1,   0); gfx_fillrect(200, 0, 100, 100);
 ```
 
-```php
+```c
 gfx_blit(-2, 0);
 
 // Display cat picture in the background.
@@ -227,7 +227,7 @@ Following flags are `or`ed to the mode above:
 Value can be set with `gfx_set` or directly with `gfx_mode`.
 
 E.g.
-```php
+```c
 gfx_blit(-2,1);
 
 // Yellow background
@@ -245,7 +245,7 @@ destination image handle, or -1 for main framebuffer
 Value can be set with `gfx_set` or directly with `gfx_dest`.
 
 E.g.
-```php
+```c
 gfx_blit(-2, 0); // Clear the screen
 
 // Create image.
@@ -289,7 +289,7 @@ Returns the number of tracks above the current track that contain video items.
 More or less `input_count() - input_track_count()`.
 
 E.g.
-```php
+```c
 // Debug code, ignore
 function t(n, i)(t="";sprintf(#t,"%d",n);gfx_str_draw(#t,100,100+i*20););
 gfx_blit(-2,1); gfx_set(1);
@@ -307,7 +307,7 @@ This can be thought of as "give me the item number top-to-bottom".
 `-1` shows whichever id will be on top.
 
 E.g.
-```php
+```c
 // Debug code, ignore.
 function t(n, i)(t="";sprintf(#t,"%d",n);gfx_str_draw(#t,100,100+i*20););
 gfx_blit(-2,1); gfx_set(1);
@@ -325,7 +325,7 @@ t(input_track(2),  2);
 Returns id of the item on the relative `x`th track above the current one. Similar to `input_track()` but also returns `-1000` if no video track is present, or `-10000` if no video tracks are present later.
 
 E.g.
-```php
+```c
 function t(n, i)(t="";sprintf(#t,"%d",n);gfx_str_draw(#t,100,100+i*20););
 gfx_blit(-2,1);
 gfx_set(1);
@@ -349,7 +349,7 @@ TODO
 Returns 1.0 if current FX is on master chain, 2.0 if on monitoring FX chain, 0 otherwise.
 
 E.g.
-```php
+```c
 // Master track
 function t(n, i)(t="";sprintf(#t,"%f",n);gfx_str_draw(#t,0,0+i*20););
 gfx_blit(0,-1); gfx_set(1);
@@ -372,7 +372,7 @@ If `srctime` specified, it will be set with the source-local time of the underly
 If `input` is a video processor in effect form, automated parameters can be queried via `wet`/`parm1`/...
 
 E.g.
-```php
+```c
 // Fx 1: a 'a' 1 - video processor
 //@param1:a 'a' 1
 
@@ -394,7 +394,7 @@ t(p1, 4);
 Gets the input take name or track name. Returns 1 if name was found, 0 otherwise.
 
 E.g.
-```php
+```c
 function t(n, i)(t="";a=input_get_name(n,#t);gfx_str_draw(#t,100,100+i*20););
 gfx_blit(-2,1); gfx_set(1);
 
@@ -410,7 +410,7 @@ Creates a new image with specified size, and black background if `clear` equals 
 The returned index can be used in `gfx_dest`, `gfx_blit` and in other places.
 
 E.g.
-```php
+```c
 gfx_blit(-2, 0); // Clear the screen
 
 // Create three images.
@@ -452,7 +452,7 @@ If handle is invalid, it will behave like `gfx_img_alloc`.
 Here the `handle` is not to be confused with `input` that `gfx_blit` uses.
 
 E.g.
-```php
+```c
 // Show background image
 gfx_blit(0, 1);
 
@@ -477,7 +477,7 @@ Get a unique identifier for the image, while the image is in memory.
 Can be used with `gfx_img_hold` to detect changes in low frame rate video.
 
 E.g.
-```php
+```c
 i1 = gfx_img_alloc(100, 100, 1);
 gfx_set(1, 0, 0, 1, 0, i1); gfx_fillrect(0, 0, 100, 100);
 h1 = gfx_img_hold(i1);
@@ -499,7 +499,7 @@ gfx_img_free(h1); gfx_img_free(h2);
 Releases an earlier allocated image index.
 
 E.g.
-```php
+```c
 r = gfx_img_resize(0, 100, 100);
 gfx_img_free(r);
 ```
@@ -514,7 +514,7 @@ See `gfx_...` for reference on the different parameters.
 `dest` is the integer to a destination item to draw on.
 
 E.g.
-```php
+```c
 gfx_blit(-2, 0); // Clear the screen
 
 gfx_set(1, 0, 0, 1, 0, -1, 1); gfx_fillrect(0, 0, 100, 100);
@@ -534,7 +534,7 @@ Draw input into the selected destination, check `gfx_img_alloc` example for dest
 `srcx`,`srcy`,`srcw`,`srch` control the source position and size of the image.
 
 E.g.
-```php
+```c
 // To see change in `input`, check `gfx_img_alloc`.
 gfx_blit(0, 1);
 gfx_blit(0, 0, 400, 0, 100, 100);
@@ -551,7 +551,7 @@ gfx_blit(0, 1, 600, 200);
 Fills a rectangle with the current color/mode/alpha
 
 E.g.
-```php
+```c
 gfx_blit(-2, 1);
 
 i = 0; inc = 40;
@@ -584,7 +584,7 @@ Additional options:
     Note: variables _1-_99 are thread-local variables which will always be initialized to 0, and _0 will be initialized to the thread index (usually 0 or 1)
 
 E.g.
-```php
+```c
 // All the code below will run in the following context:
 gfx_blit(-2, 1);
 colorspace = 'RGBA';
@@ -608,7 +608,7 @@ b=i1/1e6*255;
 
 TODO: Fix this
 Create un damier
-```php
+```c
 //@param 1:size 'size' 500 100 2000 100 10
 
 gfx_blit(0, 1);
@@ -650,7 +650,7 @@ The initial color is specified by `r`, `g`, `b` and `a`.
 
 If the amount of "delta" for a color change over 1, it will create nice glitchy effects (see examples).
 
-```C
+```c
 gfx_blit(-2, 1);
 size = 300; grad_inc = 1 / size;
 gfx_gradrect(
