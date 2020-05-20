@@ -156,14 +156,15 @@ Parameters are defined using the following format:
 
 E.g.
 ```
-Defaults to 0 0 1 0.5 0.01
+// Defaults to 0 0 1 0.5 0.01
 //@param 1:a 'a'
-From 0 to 100, default to 10, centered on 50 with increment of 1
+
+// From 0 to 100, default to 10, centered on 50 with increment of 1
 //@param 2:b 'b' 10 0 100 50 1
 ```
 
 ## `gfx_r` `gfx_g` `gfx_b` `gfx_a` `gfx_a2`
-Respectively red, green, blue, alpha and alpha channel current drawing colors.
+Respectively red, green, blue, alpha and alpha channel for current drawing colors.
 All values are between `0` and `1`
 Values can be set in the code with `gfx_set` or directly with their name.
 
