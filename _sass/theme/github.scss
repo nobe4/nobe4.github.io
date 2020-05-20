@@ -1,15 +1,15 @@
-// based on Gruvbox's palette
-$black: #3c3836;
-$white: #fbf1c7;
-$grey: #928374;
-$red: #cc241d;
-$blue: #458588;
-$violet: #b16286;
-$yellow: #d79921;
-$green: #98971a;
+// Based on Github's palette
+$black: #24292e;
+$white: #f6f8fa;
 
-$background: $black;
-$foreground: $white;
+$grey: #6a737d;
+$red: #d73a49;
+$blue: #005cc5;
+$dark-blue: #032f62;
+$violet: #6f42c1;
+
+$background: $white;
+$foreground: $black;
 
 code {
 	background-color: $background;
@@ -91,7 +91,7 @@ code {
 		color: $foreground;
 	} /* Name.Attribute */
 	.nb {
-		color: $yellow;
+		color: $foreground;
 	} /* Name.Builtin */
 	.nc {
 		color: $foreground;
@@ -106,10 +106,10 @@ code {
 		color: $foreground;
 	} /* Name.Entity */
 	.ne {
-		color: $green;
+		color: $dark-blue;
 	} /* Name.Exception */
 	.nf {
-		color: $green;
+		color: $dark-blue;
 	} /* Name.Function */
 	.nl {
 		color: $foreground;
@@ -153,57 +153,57 @@ code {
 	} /* Literal.Number.Oct */
 
 	.s {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String */
 	.sb {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Backtick */
 	.sc {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Char */
 	.sd {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Doc */
 	.s2 {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Double */
 	.se {
 		color: $violet;
 	} /* Literal.String.Escape */
 	.sh {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Heredoc */
 	.si {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Interpol */
 	.sx {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Other */
 	.sr {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Regex */
 	.s1 {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Single */
 	.ss {
-		color: $green;
+		color: $dark-blue;
 	} /* Literal.String.Symbol */
 
 	.bp {
-		color: $yellow;
+		color: $foreground;
 	} /* Name.Builtin.Pseudo */
 	.vc {
 		color: $foreground;
 	} /* Name.Variable.Class */
 	.vg {
-		color: $yellow;
+		color: $foreground;
 	} /* Name.Variable.Global */
 	.vi {
 		color: $foreground;
 	} /* Name.Variable.Instance */
 
 	.gh {
-		color: $yellow;
+		color: $foreground;
 	} /* Generic Heading & Diff Header */
 	.gu {
 		color: $blue;
@@ -212,6 +212,6 @@ code {
 		color: $red;
 	} /* Generic.Deleted & Diff Deleted */
 	.gi {
-		color: $green;
+		color: $dark-blue;
 	} /* Generic.Inserted & Diff Inserted */
 }

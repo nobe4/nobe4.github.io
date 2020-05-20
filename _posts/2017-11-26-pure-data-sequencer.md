@@ -10,7 +10,6 @@ image:
 
 In this post I'd like to present a patch I made for Pure Data, namely a sequencer.
 
-
 # Pure What?
 
 > Pure Data (Pd) is a visual programming language developed by Miller Puckette
