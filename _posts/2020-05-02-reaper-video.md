@@ -1,4 +1,4 @@
---
+---
 
 layout: post
 title: Reaper Video Processing Cheat Sheet
@@ -169,25 +169,41 @@ Values can be set in the code with `gfx_set` or directly with their name.
 
 E.g.
 ```
-gfx_blit(-2,1); // Ignore this line for now
+gfx_blit(-2, 0); // Ignore this line for now
 
-// rgb below
+// rgb
 gfx_set(1, 0, 1); gfx_fillrect(0,   0, 100, 100);
 gfx_set(0, 1, 0); gfx_fillrect(100, 0, 100, 100);
 gfx_set(1, 0, 0); gfx_fillrect(200, 0, 100, 100);
 
-// rgba below
+// rgba
 gfx_set(1, 1, 1,   1);  gfx_fillrect(0,  0, 100, 100);
 gfx_set(1, 1, 1, 0.5); gfx_fillrect(100, 0, 100, 100);
 gfx_set(1, 1, 1,   0); gfx_fillrect(200, 0, 100, 100);
+```
 
-// rgba2
-TODO
+```
+gfx_blit(-2, 0);
+
+// Display cat picture in the background.
+gfx_blit(0, -1, 0, 0, 300, 300, 900, 1500, 1000, 1000);
+
+// a2 to 0 and 1 for 3 different colors and a = 0.5.
+gfx_set(1, 1, 0, 0.5, 0); gfx_fillrect(100, 0,   100, 100);
+gfx_set(1, 1, 0, 0.5, 1); gfx_fillrect(200, 0,   100, 100);
+
+gfx_set(0, 1, 0, 0.5, 0); gfx_fillrect(100, 100, 100, 100);
+gfx_set(0, 1, 0, 0.5, 1); gfx_fillrect(200, 100, 100, 100);
+
+gfx_set(1, 0, 1, 0.5, 0); gfx_fillrect(100, 200, 100, 100);
+gfx_set(1, 0, 1, 0.5, 1); gfx_fillrect(200, 200, 100, 100);
 ```
 
 ![rgb]({{ site.url }}{{ site.image.path }}/posts/reaper-video/rgb.png)
 
 ![rgba]({{ site.url }}{{ site.image.path }}/posts/reaper-video/rgba.png)
+
+![rgbaa2]({{ site.url }}{{ site.image.path }}/posts/reaper-video/rgbaa2.png)
 
 ## `gfx_mode`
 Drawing mode:
@@ -445,13 +461,11 @@ gfx_set(1, 0, 1, 0.5, 0, -1, 1); gfx_fillrect(100, 0, 100, 100);
 gfx_set(0, 1, 1, 1, 0, -1, 1); gfx_fillrect(100, 100, 75, 75);
 gfx_set(1, 1, 1, 1, 1, -1, 1); gfx_fillrect(125, 125, 75, 75);
 // For dest, check `gfx_img_alloc` example
-
-// TODO a2
 ```
 
 ![gfx set]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_set.png)
 
-## `gfx_blit(int input[, bool preserve_aspect=0, int x, int y, int w, int h, int srcx, int srcy,int srcw, int srch])`
+## `gfx_blit(int input[, bool preserve_aspect=0, int x, int y, int w, int h, int srcx, int srcy, int srcw, int srch])`
 Draw input into the selected destination, check `gfx_img_alloc` example for destination change.
 
 `x`,`y`,`w`,`h` control the destination position and size of the image.
