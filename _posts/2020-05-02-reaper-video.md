@@ -346,9 +346,30 @@ TODO
 Returns 1.0 if current FX is on master chain, 2.0 if on monitoring FX chain, 0 otherwise.
 TODO
 
-## `input_info(input, w, h[,srctime, wet, parm1, ...])`
-Returns 1 if input is available, sets w/h to dimensions. If srctime specified, it will be set with the source-local time of the underlying media. if input is a video processor in effect form, automated parameters can be queried via wet/parm1/...
-TODO
+## `input_info(int input, int w, int h [, int srctime, int wet, int parm1, ...])`
+Returns 1 if `input` is available.
+Additionnaly sets `w`/`h` to dimensions of the input.
+If `srctime` specified, it will be set with the source-local time of the underlying media. 
+If `input` is a video processor in effect form, automated parameters can be queried via `wet`/`parm1`/...
+
+E.g.
+```
+// Fx 1: a 'a' 1 - video processor
+//@param1:a 'a' 1
+
+// Fx 2: Video processor
+function t(n, i)(t="";sprintf(#t,"%f",n);gfx_str_draw(#t,0,0+i*20);); 
+gfx_blit(0,-1); gfx_set(1); 
+
+input_info(0,w,h,s,wt,p1);
+t(w, 0);
+t(h, 1);
+t(s, 2);
+t(wt, 3);
+t(p1, 4);
+```
+
+![input info]({{ site.url }}{{ site.image.path }}/posts/reaper-video/input_info.png)
 
 ## `input_get_name(input, #str)`
 Gets the input take name or track name. Returns 1 if name was found, 0 otherwise.
