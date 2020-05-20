@@ -538,7 +538,7 @@ loop(10,
 );
 ```
 
-![gfx flillrect]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_flillrect.png)
+![gfx fillrect]({{ site.url }}{{ site.image.path }}/posts/reaper-video/gfx_fillrect.png)
 
 ## `gfx_procrect(int x, int y, int w, int h, ??? channel_tab[, int mode])`
 Processes a rectangle with 768-entry channel table [256 items of 0..1 per channel]. specify mode=1 to use Y value for U/V source channels (colorization mode)
