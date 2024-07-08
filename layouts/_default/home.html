@@ -1,12 +1,12 @@
 {{ define "main" }}
 	<section class="articles">
-		{{ range site.RegularPages }}
+		{{ range where site.RegularPages "Section" "eq" "posts" }}
 			<p>
 				<a href="{{ .RelPermalink }}">
 					{{ .LinkTitle }}
 					{{ if .Date }}
-						<time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">
-							{{ .Date | time.Format ":date_long" }}
+						<time datetime="{{ .Date | time.Format "2006-01-02" }}">
+							{{ .Date | time.Format "2006-01-02" }}
 						</time>
 					{{ end }}
 				</a>

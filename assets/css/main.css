@@ -48,6 +48,10 @@ footer {
 	text-align: center;
 }
 
+time {
+	font-family: monospace;
+}
+
 figure {
 	margin-inline: 0;
 }
