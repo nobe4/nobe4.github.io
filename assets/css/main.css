@@ -1,0 +1,105 @@
+:root {
+	--black: #1d1d1d;
+	--white: #c5c5c5;
+
+	--fg-color: var(--black);
+	--bg-color: var(--white);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--fg-color: var(--white);
+		--bg-color: var(--black);
+	}
+	img {
+		filter: brightness(.8) contrast(1.2);
+	}
+}
+
+* {
+	color: var(--fg-color);
+	background-color: var(--bg-color);
+}
+
+body {
+	max-width: 800px;
+	margin-inline: auto;
+	padding-inline: 1em;
+	line-height: 1.5em;
+
+	/* https://css-tricks.com/snippets/css/system-font-stack/ */
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+main {
+	border-bottom: 1px solid var(--fg-color);
+	margin-bottom: 1em;
+	padding-bottom: 1em;
+	border-top: 1px solid var(--fg-color);
+	margin-top: 1em;
+	padding-top: 1em;
+}
+
+main h2:first-child {
+	margin-top: 0;
+}
+
+footer {
+	text-align: center;
+}
+
+figure {
+	margin-inline: 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	margin-inline: auto;
+}
+
+a {
+	color: var(--fg-color);
+}
+
+.articles p{
+	margin: 0;
+}
+.articles a{
+	text-decoration: none;
+}
+
+.articles a:hover{
+	text-decoration: underline;
+}
+
+.articles a time{
+	float: right;
+}
+
+blockquote {
+	font-style: italic;
+	margin: 0;
+	margin: 0.2em 0;
+	padding: 0.2em 1em;
+	border-left: 3px solid var(--fg-color);
+}
+
+code {
+	padding: 0.2em 0.6em;
+	border: 1px solid var(--fg-color);
+}
+
+pre {
+	padding: 1em;
+	overflow-y: scroll;
+	border: 1px solid var(--fg-color);
+}
+pre code {
+	padding: 0;
+	border: 0;
+}
+
+figure {
+	text-align: right;
+}

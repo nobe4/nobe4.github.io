@@ -1,0 +1,20 @@
+{{ define "main" }}
+	{{ if .Date }}
+		<time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">
+			{{ .Date | time.Format ":date_long" }}
+		</time>
+	{{ end }}
+
+	{{ if .Params.Image }}
+		<figure>
+			<img src="{{ .Params.Image.Link }}" alt="">
+			{{ if .Params.Image.Copyright }}
+				<a class="copyright" href={{ .Params.Image.Copyright }}>Copyright</a>
+			{{ end }}
+		</figure>
+	{{ end }}
+
+	{{ .Content }}
+
+	{{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+{{ end }}
