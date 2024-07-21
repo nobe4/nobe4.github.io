@@ -1,0 +1,122 @@
+@import "./syntax.scss";
+
+:root {
+	--black: #1d1f21;
+	--white: #c5c8c6;
+
+	--fg-color: var(--white);
+	--bg-color: var(--black);
+}
+
+* {
+	color: var(--fg-color);
+	background-color: var(--bg-color);
+	box-sizing: border-box;
+}
+
+body {
+	max-width: 800px;
+	margin: 0 auto;
+	padding-inline: 1em;
+	line-height: 1.5em;
+
+	/* https://css-tricks.com/snippets/css/system-font-stack/ */
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+		Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+main {
+	flex-grow: 1;
+
+	h2:first-child {
+		margin-top: 0;
+	}
+}
+
+h1,
+h2,
+h3 {
+	line-height: 1.2em;
+}
+
+footer {
+	text-align: center;
+}
+
+time {
+	font-family: monospace;
+}
+
+figure {
+	margin-inline: 0;
+}
+
+img {
+	filter: brightness(0.8) contrast(1.2);
+	display: block;
+	max-width: 100%;
+	margin-inline: auto;
+}
+
+a {
+	color: var(--fg-color);
+}
+
+.articles {
+	font-family: monospace;
+
+	p {
+		margin: 0;
+	}
+
+	a {
+		display: flex;
+		text-decoration: none;
+
+		&:hover,
+		&:hover * {
+			color: var(--bg-color);
+			background-color: var(--fg-color);
+		}
+	}
+
+	time {
+		width: 8em;
+	}
+
+	.length {
+		width: 5em;
+	}
+}
+
+blockquote {
+	font-style: italic;
+	margin: 0;
+	margin: 0.2em 0;
+	padding: 0.2em 1em;
+	border-left: 3px solid var(--fg-color);
+}
+
+code {
+	padding: 0.2em 0.6em;
+	border: 1px solid var(--fg-color);
+}
+
+pre {
+	padding: 1em;
+	overflow-y: scroll;
+	border: 1px solid var(--fg-color);
+
+	code {
+		padding: 0;
+		border: 0;
+	}
+}
+
+figure {
+	text-align: right;
+}
