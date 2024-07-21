@@ -6,6 +6,7 @@ date = 2024-07-21
 
 In this blog post, I showcase how I maintain my [cat website](https://cats.nobe4.fr).
 
+
 # Past
 
 I used to maintain a piece of code that roughly did the following:
@@ -92,6 +93,10 @@ Here's the result:
     </script>
 </body>
 ```
+
+![screencast](/images/posts/lazy-lazy-loading/screencast.gif)
+
+Notice how the loading stops after the last picture gets a `404`.
 
 # Future
 
