@@ -32,16 +32,20 @@ body {
 }
 
 main {
-	border-bottom: 1px solid var(--fg-color);
+	border-bottom: 3px solid var(--fg-color);
 	margin-bottom: 1em;
 	padding-bottom: 1em;
-	border-top: 1px solid var(--fg-color);
+	border-top: 3px solid var(--fg-color);
 	margin-top: 1em;
 	padding-top: 1em;
 }
 
 main h2:first-child {
 	margin-top: 0;
+}
+
+h1, h2, h3 {
+	line-height: 1.2em;
 }
 
 footer {
