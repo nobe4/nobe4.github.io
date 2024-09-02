@@ -56,12 +56,12 @@ for (let i = 0; ; i++) {
 }
 ```
 
-Except that `fetch` is an sync function, which needs either `await` or wrapping
-everything in an `async function(){}`.
+Except that `fetch` is an async function, which needs either `await` or 
+wrapping everything in an `async function(){}`.
 
 Bah, both sounds too complex, let's do something simpler.
 
-Let's use `<img>` event to loop through the pictures:
+Let's use `<img>` events to loop through the pictures:
 - `onload` the image was loaded correctly, load the next one
 - `onerror` the image wasn't found, stop loading
 
