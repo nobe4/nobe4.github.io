@@ -31,6 +31,7 @@ body {
 
 main {
 	flex-grow: 1;
+	text-align: justify;
 
 	h2:first-child {
 		margin-top: 0;
@@ -95,10 +96,13 @@ a {
 
 blockquote {
 	font-style: italic;
-	margin: 0;
 	margin: 0.2em 0;
 	padding: 0.2em 1em;
 	border-left: 3px solid var(--fg-color);
+
+	p {
+		margin: 0;
+	}
 }
 
 code {
@@ -119,4 +123,19 @@ pre {
 
 figure {
 	text-align: right;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	padding: 0.2em 0.6em;
+	tr {
+		border: 1px solid var(--fg-color);
+
+		td,
+		th {
+			padding: 0.2em 0.6em;
+			border: 1px solid var(--fg-color);
+		}
+	}
 }
