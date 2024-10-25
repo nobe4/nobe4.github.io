@@ -28,21 +28,26 @@ Why did the atom cross the road?
 If causality has gaps, it means that some effects are not the products of what
 came before. They emerged outside of the physical laws.
 
-This is not _unpredictability_. E.g. the weather is unpredictable because of its
-complexness, yet it respects atmospheric dynamics and physics.
+Gaps are not _unexplainability_: electricity was not explained a thousand year
+ago.
 
-This is not _unexplainability_. E.g. electricity was not explained a thousand
-year ago.
+Gaps are not _unpredictability_: the weather is unpredictable because of its
+complexness, yet it respects known laws of atmospheric dynamics and physics.
 
-What _fills_ the gap of causality? <br>
+What can _fill_ the gaps of causality? <br>
 It can't be anything that respects the physical laws, so it must be
-extraordinary. There has never been a such a record.
+extraordinary, like God(s), paranormal, or miracles.
+
+There has never been a record of such a phenomenon.
+
+As far as we know, the world is not extraordinary, it is simply complex.
 
 It is _possible_ for extraordinary phenomenons to exists, but until their
-discovery, the only intellectually sound position is ignorance and humility.
+discovery, the only intellectually sound position is not to assume anything
+about existence. <br>
 No gaps have been observed: it is then _possible_ that no gap exist.
 
-## Does causality have no gaps?
+## Does causality have no gap?
 
 If causality has no gap, it means that anything is the result of an unbroken
 chain of causes and effects.
@@ -55,31 +60,37 @@ Physical laws exist, but they are not _conscious_ or _intelligent_.
 
 It only means that the physical laws link what was, what is, and what will be.
 
-## Free Will
+For example, if you've not eaten in a while, your body produces ghrelin, which
+makes you hungry. This is a product of physical laws, and not of your control.
 
-Free Will is colloquially understood as the ability to make choices.
+You can still decide not to eat. Right?
 
-It supposes that free-willed are not bound by causality, and that they can
-make choices regardless of chain of causality.
+## Free Will?
 
-For example, a free-willed can choose to not eat, even if they are hungry.
+Free Will is colloquially understood as the ability to make choices, to have
+control.
+
+It supposes that free-willed agents are not bound by causality, and that they
+can make choices regardless of chain of causality.
+
+For example, you can choose to not eat, even if they are hungry.
 
 Where does this choice come from?
 
 If causality has no gaps, then the choice is a product of physical laws, which
-are outside of one's control.
+are outside of your control.
 
-If causality has gaps, then the choice comes from the gap. Anything else is a
-product of physical laws, which are outside of one's control.
-
+If causality has gaps, then the choice comes from the gap. It then comes from
+something extraordinary, and is also outside of your control.
 
 ## References
 
-- https://en.wikipedia.org/wiki/Free_will
 - https://en.wikipedia.org/wiki/Atmospheric_science
 - https://en.wikipedia.org/wiki/Atom
 - https://en.wikipedia.org/wiki/Determined:_A_Science_of_Life_Without_Free_Will
 - https://en.wikipedia.org/wiki/Determinism
+- https://en.wikipedia.org/wiki/Free_will
+- https://en.wikipedia.org/wiki/Ghrelin
 - https://en.wikipedia.org/wiki/List_of_prizes_for_evidence_of_the_paranormal
 - https://en.wikipedia.org/wiki/Miracle
 - https://en.wikipedia.org/wiki/Paranormal
