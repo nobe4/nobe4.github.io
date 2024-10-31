@@ -1,0 +1,79 @@
+{{ $csv := resources.Get "no-veggie.csv" | transform.Unmarshal }}
+
+<!--{{ $categories := slice }}-->
+<!--{{ range $csv }}-->
+<!--	{{ $categories = $categories | append (index . 1) }}-->
+<!--{{ end }}-->
+<!--{{ $categories = $categories | sort | uniq }}-->
+<!--{{ range $categories }}-->
+<!--	<span id="{{ . }}-trigger">{{ . }}</span> <br />-->
+<!--{{ end }}-->
+
+{{ $parts := slice }}
+{{ range $csv }}
+	{{ $parts = $parts | append (index . 2) }}
+{{ end }}
+{{ $parts = $parts | sort | uniq }}
+
+{{ range $parts }}
+	<span id="{{ . }}-trigger">{{ . }}</span> <br />
+{{ end }}
+
+<style>
+
+{{ range $parts }}
+#{{ . }}-trigger:hover{
+	color: red;
+}
+body:has(#{{ . }}-trigger:hover) .{{ . }} td{
+	color: red;
+}
+
+.{{ . }}:hover td{
+	color: red;
+}
+
+body:has(.{{ . }}:hover) #{{ . }}-trigger{
+	color: red;
+}
+{{ end }}
+
+table {
+	display: block;
+	max-width: 100%;
+	overflow-y: scroll;
+	height: 20em;
+}
+
+table td, table th {
+	min-width: 10em;
+}
+
+table thead {
+	top: 0;
+	text-align: left;
+	position: sticky;
+}
+
+</style>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Category</th>
+			<th>Part</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{ range $csv }}
+			{{ $category := index . 1 }}
+			{{ $part := index . 2 }}
+			<tr class="{{ $part }}">
+				<td>{{ index . 0 }}</td>
+				<td>{{ $category }}</td>
+				<td>{{ $part }}</td>
+			</tr>
+		{{ end }}
+	</tbody>
+</table>
