@@ -57,23 +57,31 @@ table thead {
 
 </style>
 
-<table>
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Category</th>
-			<th>Part</th>
-		</tr>
-	</thead>
-	<tbody>
-		{{ range $csv }}
+<div id="veggies">
+	<input type="searck" class="fuzzy-search" placeholder="search" />
+	<table>
+		<thead>
+			<tr>
+				<th class="sort" data-sort="name">Name</th>
+				<th class="sort" data-sort="category">Category</th>
+				<th class="sort" data-sort="part">Part</th>
+			</tr>
+		</thead>
+		<tbody class="list">
+			{{ range $csv }}
 			{{ $category := index . 1 }}
 			{{ $part := index . 2 }}
 			<tr class="{{ $part }}">
-				<td>{{ index . 0 }}</td>
-				<td>{{ $category }}</td>
-				<td>{{ $part }}</td>
+				<td class="name">{{ index . 0 }}</td>
+				<td class="category">{{ $category }}</td>
+				<td class="part">{{ $part }}</td>
 			</tr>
-		{{ end }}
-	</tbody>
-</table>
+			{{ end }}
+		</tbody>
+	</table>
+</div>
+
+<script src="/javascript/list.min.js"></script>
+<script>
+var userList = new List('veggies', { valueNames: [ 'name', 'category', 'part' ] });
+</script>

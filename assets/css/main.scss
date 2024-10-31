@@ -120,3 +120,11 @@ pre {
 figure {
 	text-align: right;
 }
+
+input {
+	background-color: var(--bg-color);
+	color: var(--fg-color);
+	border: 1px solid var(--fg-color);
+	border-radius: 2px;
+	padding: 0.2em 0.4em;
+}
