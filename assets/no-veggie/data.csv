@@ -1,0 +1,122 @@
+nori,vegetable,alga
+seaweed,vegetable,alga
+cinnamon,spice,bark
+fennel,vegetable,bulb
+garlic,vegetable,bulb
+onion,vegetable,bulb
+shallot,vegetable,bulb
+artichoke,vegetable,flower
+broccoli,vegetable,flower
+cauliflower,vegetable,flower
+figs,fruit,fruit
+acerola,fruit,fruit
+adzuki bean,grain,fruit
+allspice,spice,fruit
+apple,fruit,fruit
+apricot,fruit,fruit
+avocado,fruit,fruit
+banana,fruit,fruit
+bean,grain,fruit
+bell pepper,vegetable,fruit
+black gram,grain,fruit
+black pepper,spice,fruit
+blackberry,fruit,fruit
+blueberry,fruit,fruit
+breadfruit,fruit,fruit
+buckwheat,grain,fruit
+caper,spice,fruit
+cayenne pepper,spice,fruit
+cherry,fruit,fruit
+chili pepper,vegetable,fruit
+clementine,fruit,fruit
+corn,vegetable,fruit
+cranberry,fruit,fruit
+cucumber,vegetable,fruit
+dates,fruit,fruit
+eggplant,vegetable,fruit
+goji,fruit,fruit
+grape,fruit,fruit
+grapefruit,fruit,fruit
+kiwifruit,fruit,fruit
+lemon,fruit,fruit
+lychee,fruit,fruit
+mango,fruit,fruit
+melon,fruit,fruit
+okra,vegetable,fruit
+olive,vegetable,fruit
+orange,fruit,fruit
+pear,fruit,fruit
+pineapple,fruit,fruit
+pomegranate,fruit,fruit
+pomelo,fruit,fruit
+prunes,fruit,fruit
+pumpkin,vegetable,fruit
+strawberry,fruit,fruit
+tomato,vegetable,fruit
+truffle,vegetable,fruit
+vanilla,spice,fruit
+watermelon,fruit,fruit
+zucchini,vegetable,fruit
+barley,greens,fruit
+oat,grain,fruit
+rice,grain,fruit
+wheat,grain,fruit
+acorns,nut,fruit
+cashew,nut,fruit
+chestnut,nut,fruit
+hazelnut,nut,fruit
+macadamia,nut,fruit
+chanterelle,vegetable,fungi
+mushroom,mushroom,fungi
+basil,greens,leave
+arugula,greens,leave
+bay leaf,spice,leave
+collard greens,vegetable,leave
+coriander,greens,leave
+endive,vegetable,leave
+lettuce,greens,leave
+spinach,vegetable,leave
+brussels sprout,vegetable,leave
+cabbage,vegetable,leave
+chicory,vegetable,leave
+kale,vegetable,leave
+oregano,spice,leave
+rosemary,spice,leave
+table salt,spice,rock
+beetroot,vegetable,root
+carrot,vegetable,root
+ginger,vegetable,root
+potato,vegetable,root
+radish,vegetable,root
+turnip,vegetable,root
+almond,nut,seed
+coconut,nut,seed
+cardamom,spice,seed
+chickpeas,grain,seed
+chili powder spice,spice,seed
+cocoa bean,spice,seed
+couscous,grain,seed
+cumin,spice,seed
+edamame,vegetable,seed
+flax,grain,seed
+lentil,grain,seed
+mustard,spice,seed
+nutmeg,spice,seed
+pea,vegetable,seed
+peanut,nut,seed
+pecan,nut,seed
+pistachio,nut,seed
+poppy seed,spice,seed
+quinoa,greens,seed
+sesame,grain,seed
+soybean,grain,seed
+bamboo shoot,vegetable,shoot
+garden asparagus,vegetable,shoot
+ground cloves,spice,shoot
+celery,greens,stem
+chard,vegetable,stem
+chives,vegetable,stem
+garden rhubarb,greens,stem
+leek,greens,stem
+turmeric,spice,stem
+saffron,spice,stigma

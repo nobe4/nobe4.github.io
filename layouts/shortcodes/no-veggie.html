@@ -1,0 +1,152 @@
+> WIP, here be dragons
+
+{{ $csv := resources.Get "no-veggie/data.csv" | transform.Unmarshal }}
+
+<!--{{ $categories := slice }}-->
+<!--{{ range $csv }}-->
+<!--	{{ $categories = $categories | append (index . 1) }}-->
+<!--{{ end }}-->
+<!--{{ $categories = $categories | sort | uniq }}-->
+<!--{{ range $categories }}-->
+<!--	<span id="{{ . }}-trigger">{{ . }}</span> <br />-->
+<!--{{ end }}-->
+
+{{ $parts := slice }}
+{{ range $csv }}
+	{{ $parts = $parts | append (index . 2) }}
+{{ end }}
+{{ $parts = $parts | sort | uniq }}
+
+<style>
+
+{{ range $parts }}
+#{{ . }}-trigger, svg #{{.}}, thead th {
+	cursor: pointer;
+}
+
+#{{ . }}-trigger:hover{
+	color: red;
+}
+body:has(#{{ . }}-trigger:hover) .{{ . }} td{
+	color: red;
+}
+.{{ . }}:hover td{
+	color: red;
+}
+body:has(.{{ . }}:hover) #{{ . }}-trigger{
+	color: red;
+}
+
+svg #{{ . }}:hover{
+	fill: red;
+}
+body:has(svg #{{ . }}:hover) .{{ . }} td{
+	color: red;
+}
+.{{ . }}:hover td{
+	color: red;
+}
+body:has(.{{ . }}:hover) svg #{{ . }}{
+	fill: red;
+}
+
+svg #{{ . }}:hover{
+	fill: red;
+}
+body:has(svg #{{ . }}:hover) #{{ . }}-trigger{
+	color: red;
+}
+#{{ . }}-trigger:hover{
+	color: red;
+}
+body:has(#{{ . }}-trigger:hover) svg #{{ . }}{
+	fill: red;
+}
+{{ end }}
+
+#reset-trigger {
+	cursor: pointer;
+}
+#reset-trigger:hover{
+	color: red;
+}
+
+table {
+	display: block;
+	max-width: 100%;
+	overflow-y: scroll;
+	height: 20em;
+}
+
+table td, table th {
+	min-width: 10em;
+}
+
+table thead {
+	top: 0;
+	text-align: left;
+	position: sticky;
+}
+
+</style>
+
+<br>
+
+{{ with resources.Get "no-veggie/bitmap.svg" }}
+	{{/*
+	Replace the fill color with nothing.
+	This is needed because the fill colors are hardcoded in the SVG and can't be
+	overridden with CSS.
+	*/}}
+	{{ replace .Content "fill:#000000" "" | safeHTML }}
+{{ end }}
+
+<br>
+
+{{ range $parts }}
+	<span id="{{ . }}-trigger">{{ . }}</span>
+{{ end }}
+<span id="reset-trigger">reset</span>
+
+<br>
+
+<div id="veggies">
+	<input type="searck" class="fuzzy-search" placeholder="search" />
+	<table>
+		<thead>
+			<tr>
+				<th class="sort" data-sort="name">Name</th>
+				<th class="sort" data-sort="category">Category</th>
+				<th class="sort" data-sort="part">Part</th>
+			</tr>
+		</thead>
+		<tbody class="list">
+			{{ range $csv }}
+			{{ $category := index . 1 }}
+			{{ $part := index . 2 }}
+			<tr class="{{ $part }}">
+				<td class="name">{{ index . 0 }}</td>
+				<td class="category">{{ $category }}</td>
+				<td class="part">{{ $part }}</td>
+			</tr>
+			{{ end }}
+		</tbody>
+	</table>
+</div>
+
+<script src="/javascript/list.min.js"></script>
+<script>
+var userList = new List('veggies', { valueNames: [ 'name', 'category', 'part' ] });
+
+{{ range $parts }}
+	document.querySelector('#{{ . }}-trigger').addEventListener('click', () => {
+		userList.filter((item) => item.values().part === '{{ . }}');
+	});
+	document.querySelector('#{{ . }}').addEventListener('click', () => {
+		userList.filter((item) => item.values().part === '{{ . }}');
+	});
+{{ end }}
+document.querySelector('#reset-trigger').addEventListener('click', () => {
+	userList.filter();
+});
+</script>
