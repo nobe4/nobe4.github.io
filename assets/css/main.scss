@@ -1,8 +1,10 @@
-@import "./syntax.scss";
+@use "./syntax.scss";
 
 :root {
 	--black: #1d1f21;
 	--white: #c5c8c6;
+	--pre-bg: #2d3031;
+	--accent: #5f819d;
 
 	--fg-color: var(--white);
 	--bg-color: var(--black);
@@ -10,7 +12,6 @@
 
 * {
 	color: var(--fg-color);
-	background-color: var(--bg-color);
 	box-sizing: border-box;
 }
 
@@ -23,6 +24,8 @@ body {
 	/* https://css-tricks.com/snippets/css/system-font-stack/ */
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
 		Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+	background-color: var(--bg-color);
 
 	display: flex;
 	flex-direction: column;
@@ -66,8 +69,13 @@ img {
 	margin-inline: auto;
 }
 
-a {
-	color: var(--fg-color);
+a, a code {
+	color: var(--accent);
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 .articles {
@@ -83,8 +91,9 @@ a {
 
 		&:hover,
 		&:hover * {
+			text-decoration: none;
 			color: var(--bg-color);
-			background-color: var(--fg-color);
+			background-color: var(--accent);
 		}
 	}
 
@@ -106,18 +115,24 @@ blockquote {
 }
 
 code {
-	padding: 0.2em 0.6em;
-	border: 1px solid var(--fg-color);
+	font-size: larger;
 }
 
 pre {
 	padding: 1em;
 	overflow-y: scroll;
-	border: 1px solid var(--fg-color);
+	background-color: var(--pre-bg);
+
+	position: relative;
 
 	code {
-		padding: 0;
-		border: 0;
+		font-size: medium;
+		&::after {
+			content: attr(data-lang);
+			position: absolute;
+			top: 0;
+			right: 0.5em;
+		}
 	}
 }
 
