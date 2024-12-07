@@ -9,19 +9,19 @@ It means that some effects are not the products of what came before. They
 emerged outside of the physical laws, in a non-physical space.
 
 Gaps are not _unexplainability_: electricity was not explained a thousand year
-ago. Moreover, future research could explain phenomenons we don't yet
+ago. Moreover, future research could explain phenomena we don't yet
 understand.
 
 Gaps are not _unpredictability_: the weather is unpredictable because of its
 complexness, yet it respects known laws of atmospheric dynamics and physics.
 
-Gaps are phenomenons that don't respect the physical laws: paranormal, miracles,
+Gaps are phenomena that don't respect the physical laws: paranormal, miracles,
 gods, etc.
 
 There has been attempts to prove that such gap exist. So far, none have
-succeeded; none have demonstrated that non-physical phenomenons exist.
+succeeded; none have demonstrated that non-physical phenomena exist.
 
-It is _possible_ for extraordinary, extra-physical, phenomenons to exists, but
+It is _possible_ for extraordinary, extra-physical, phenomena to exists, but
 until their discovery, the only intellectually sound position is not to assume
 their existence. The burden of proof lies on the extraordinary position.
 
