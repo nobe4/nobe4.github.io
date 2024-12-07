@@ -34,6 +34,7 @@ body {
 
 main {
 	flex-grow: 1;
+	text-align: justify;
 
 	h2:first-child {
 		margin-top: 0;
@@ -69,7 +70,8 @@ img {
 	margin-inline: auto;
 }
 
-a, a code {
+a,
+a code {
 	color: var(--accent);
 	text-decoration: none;
 
@@ -108,10 +110,13 @@ a, a code {
 
 blockquote {
 	font-style: italic;
-	margin: 0;
 	margin: 0.2em 0;
 	padding: 0.2em 1em;
 	border-left: 3px solid var(--fg-color);
+
+	p {
+		margin: 0;
+	}
 }
 
 code {
@@ -148,4 +153,19 @@ input {
 	border: 1px solid var(--fg-color);
 	border-radius: 2px;
 	padding: 0.2em 0.4em;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	padding: 0.2em 0.6em;
+	tr {
+		border: 1px solid var(--fg-color);
+
+		td,
+		th {
+			padding: 0.2em 0.6em;
+			border: 1px solid var(--fg-color);
+		}
+	}
 }
