@@ -1,6 +1,6 @@
 +++
 title = "Determinism"
-date = 2024-10-25
+date = 2024-12-07
 +++
 
 ## If causality has gaps
