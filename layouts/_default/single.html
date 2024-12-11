@@ -24,4 +24,15 @@
 	{{ end }}
 
 	{{ .Content }}
+
+	{{ with .Params.References }}
+		<hr />
+
+		References:
+		<ul>
+			{{ range . }}
+				<li><a href="{{ . }}">{{ . }}</a></li>
+			{{ end }}
+		</ul>
+	{{ end }}
 {{ end }}

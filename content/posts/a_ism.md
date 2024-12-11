@@ -2,6 +2,12 @@
 title = "A*ism"
 date = 2024-12-11
 tags = ["philosophy"]
+references = [
+    "https://en.wikipedia.org/wiki/Agnosticism",
+    "https://en.wikipedia.org/wiki/Atheism",
+    "https://en.wikipedia.org/wiki/Negative_and_positive_atheism",
+    "https://en.wikipedia.org/wiki/Implicit_and_explicit_atheism",
+]
 +++
 
 Agnosticism and Atheism are often used interchangeably.
@@ -29,12 +35,3 @@ E.g.
 | atheist | I know without believing. | I don't believe or know.   |
 
 Gnostism is misguided, as unprovable ideas can't be knowable.
-
----
-
-**References:**
-
-- https://en.wikipedia.org/wiki/Agnosticism
-- https://en.wikipedia.org/wiki/Atheism
-- https://en.wikipedia.org/wiki/Negative_and_positive_atheism
-- https://en.wikipedia.org/wiki/Implicit_and_explicit_atheism

@@ -2,6 +2,15 @@
 title = "Shellcode for/by a Newbie"
 date = 2017-09-02
 tags = ["technology", "ctf"]
+references = [
+    "http://phrack.org/issues/49/14.html#article",
+    "ttps://www.goodreads.com/book/show/61619.Hacking",
+    "(http://eu.wiley.com/WileyCDA/WileyTitle/productCd-0764544683.html",
+    "http://shell-storm.org/shellcode/files/shellcode-827.php",
+    "https://en.wikibooks.org/wiki/X86_Assembly/Interfacing_with_Linux",
+    "https://stackoverflow.com/questions/2535989/what-are-the-calling-conventions-for-unix-linux-system-calls-on-x86-64",
+    "https://reverseengineering.stackexchange.com/questions/16244/asm-working-as-is-but-not-in-a-c-program",
+]
 [image]
 link = "/images/posts/shellcode_newbies/presentation.jpg"
 copyright = "https://unsplash.com/photos/8LkImhM6qeA"
@@ -590,13 +599,3 @@ $ gcc -o shellcode shellcode.c
 $ ./shellcode
 $ # new shell
 ```
-
-References:
-
-- [Smashing The Stack For Fun And Profit by Aleph One](http://phrack.org/issues/49/14.html#article)
-- [Hacking: The Art of Exploitation by Jon Erickson](https://www.goodreads.com/book/show/61619.Hacking)
-- [The Shellcoder's Handbook by Jack Koziol et al.](http://eu.wiley.com/WileyCDA/WileyTitle/productCd-0764544683.html) 
-- [execve /bin/sh shellcode 23 bytes by Hamza Megahed](http://shell-storm.org/shellcode/files/shellcode-827.php)
-- [X86 Assembly Interfacing with Linux](https://en.wikibooks.org/wiki/X86_Assembly/Interfacing_with_Linux)
-- [What are the calling conventions for UNIX & Linux system calls on x86-64](https://stackoverflow.com/questions/2535989/what-are-the-calling-conventions-for-unix-linux-system-calls-on-x86-64)
-- [ASM working as is, but not in a C program](https://reverseengineering.stackexchange.com/questions/16244/asm-working-as-is-but-not-in-a-c-program)

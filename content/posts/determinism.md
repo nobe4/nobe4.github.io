@@ -2,6 +2,23 @@
 title = "Determinism"
 date = 2024-12-07
 tags = ["philosophy"]
+references = [
+    "https://en.wikipedia.org/wiki/Atmospheric_science",
+    "https://en.wikipedia.org/wiki/Atom",
+    "https://en.wikipedia.org/wiki/Big_Bang",
+    "https://en.wikipedia.org/wiki/Determined:_A_Science_of_Life_Without_Free_Will",
+    "https://en.wikipedia.org/wiki/Determinism",
+    "https://en.wikipedia.org/wiki/Free_will",
+    "https://en.wikipedia.org/wiki/Ghrelin",
+    "https://en.wikipedia.org/wiki/List_of_prizes_for_evidence_of_the_paranormal",
+    "https://en.wikipedia.org/wiki/Miracle",
+    "https://en.wikipedia.org/wiki/Paranormal",
+    "https://en.wikipedia.org/wiki/Physics",
+    "https://github.com/nobe4/nobe4.github.io/issues/11",
+    "https://plato.stanford.edu/entries/definitions",
+    "https://theconversation.com/a-stanford-professor-says-science-shows-free-will-doesnt-exist-heres-why-hes-mistaken-218525",
+    "https://www.britannica.com/topic/determinism",
+]
 +++
 
 ## If causality has gaps
@@ -59,23 +76,3 @@ For example, you can choose to not eat, even if you are hungry. <br>
 The choice is a product of physical laws, which are outside of your control.
 
 Free will, much like control, is an illusionary state.
-
----
-
-**References:**
-
-- https://en.wikipedia.org/wiki/Atmospheric_science
-- https://en.wikipedia.org/wiki/Atom
-- https://en.wikipedia.org/wiki/Big_Bang
-- https://en.wikipedia.org/wiki/Determined:_A_Science_of_Life_Without_Free_Will
-- https://en.wikipedia.org/wiki/Determinism
-- https://en.wikipedia.org/wiki/Free_will
-- https://en.wikipedia.org/wiki/Ghrelin
-- https://en.wikipedia.org/wiki/List_of_prizes_for_evidence_of_the_paranormal
-- https://en.wikipedia.org/wiki/Miracle
-- https://en.wikipedia.org/wiki/Paranormal
-- https://en.wikipedia.org/wiki/Physics
-- https://github.com/nobe4/nobe4.github.io/issues/11
-- https://plato.stanford.edu/entries/definitions
-- https://theconversation.com/a-stanford-professor-says-science-shows-free-will-doesnt-exist-heres-why-hes-mistaken-218525
-- https://www.britannica.com/topic/determinism
