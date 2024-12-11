@@ -4,6 +4,7 @@ date = 2017-09-20
 [image]
 link = "/images/posts/lamp_ctf4/presentation.jpg"
 copyright = "https://unsplash.com/@felexelix"
+tags = ["technology", "ctf"]
 +++
 
 > Source: https://www.vulnhub.com/entry/lampsecurity-ctf4,83/

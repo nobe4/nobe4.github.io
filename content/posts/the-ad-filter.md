@@ -1,6 +1,7 @@
 +++
 title = "The Ad Filter"
 date = 2015-03-15
+tags = ["technology", "work"]
 [image]
 link = "/images/posts/the-ad-filter/presentation.jpg"
 copyright = "http://www.dandad.org/en/d-ad-browser-ad-filter/"

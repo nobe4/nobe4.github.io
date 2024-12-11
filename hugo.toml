@@ -2,6 +2,9 @@ baseURL = 'https://nobe4.fr/'
 languageCode = 'en-us'
 title = "nobe4"
 
+[taxonomies]
+tag = "tags"
+
 [markup.highlight]
 codeFences = true
 noClasses = false

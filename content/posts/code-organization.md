@@ -1,6 +1,7 @@
 +++
 title = "Code organization"
 date = 2024-11-26
+tags = ["technology"]
 +++
 
 Here's a pattern I use to organize all my development work.

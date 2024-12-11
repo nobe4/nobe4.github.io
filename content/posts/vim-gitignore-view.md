@@ -2,6 +2,7 @@
 title = 'Vim Gitignore view'
 description = 'How to test gitignore patterns'
 date = 2016-03-06
+tags = ["technology"]
 +++
 
 # Introduction

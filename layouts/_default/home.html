@@ -1,17 +1,11 @@
 {{ define "main" }}
-	{{ $posts := where site.RegularPages "Section" "eq" "posts" }}
-
-	<section class="articles">
-		<p> Total {{ $posts | len }} </p>
-		{{ range $posts }}
-			<a href="{{ .RelPermalink }}">
-				<span class="length">{{ .Content | countwords }}</span>
-				<time datetime="{{ .Date | time.Format "2006-01-02" }}">
-					{{ .Date | time.Format "2006-01-02" }}
-				</time>
-				{{ .LinkTitle }}
-			</a>
+	{{ with (site.GetPage "/tags").Pages }}
+		<a href="/tags">Tags</a>:
+		{{ range . }}
+			<a href="{{ .RelPermalink }}">{{ .LinkTitle | lower }}</a>
 		{{ end }}
-	</section>
+	{{ end }}
 
+	{{ $posts := where site.RegularPages "Section" "eq" "posts" }}
+	{{ partial "articles.html" $posts }}
 {{ end }}

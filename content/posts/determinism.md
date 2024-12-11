@@ -1,6 +1,7 @@
 +++
 title = "Determinism"
 date = 2024-12-07
+tags = ["philosophy"]
 +++
 
 ## If causality has gaps

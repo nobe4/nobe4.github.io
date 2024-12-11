@@ -1,6 +1,7 @@
 +++
 title = "Shellcode for/by a Newbie"
 date = 2017-09-02
+tags = ["technology", "ctf"]
 [image]
 link = "/images/posts/shellcode_newbies/presentation.jpg"
 copyright = "https://unsplash.com/photos/8LkImhM6qeA"
