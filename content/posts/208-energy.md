@@ -1,6 +1,7 @@
 +++
 title = "208 Energy"
 date = 2015-06-30
+tags = ["technology", "work"]
 [image]
 link = "/images/posts/208-energy/presentation.jpg"
 copyright = "http://www.peugeot.com"

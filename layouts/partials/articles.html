@@ -1,0 +1,22 @@
+<section class="articles">
+	<p>Total {{ . | len }}</p>
+	{{ range . }}
+		<a href="{{ .RelPermalink }}">
+			{{ if eq .Kind "page" }}
+				{{ with .Content | countwords }}
+					<span class="length">{{ . }}</span>
+				{{ end }}
+
+				{{ with .Date | time.Format "2006-01-02" }}
+					<time datetime="{{ . }}"> {{ . }} </time>
+				{{ end }}
+			{{ else if eq .Kind "term" }}
+				{{ with .Data.Pages | len }}
+					<span class="length">{{ . }}</span>
+				{{ end }}
+			{{ end }}
+
+			{{ .LinkTitle }}
+		</a>
+	{{ end }}
+</section>

@@ -2,6 +2,7 @@
 title = "Cube"
 date = 2017-10-16
 image.link = "/images/posts/cube/presentation.png"
+tags = ["technology", "art"]
 +++
 
 This blog post presents the little toy I made while exploring the HTML5's

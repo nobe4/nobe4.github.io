@@ -2,6 +2,7 @@
 title = "Golfed Dragon's Curve"
 modified = 2016-06-26
 image.link = "/images/posts/golfed-dragon-curve/presentation.png"
+tags = ["technology", "art"]
 +++
 
 [Little dragon's curve.](https://en.wikipedia.org/wiki/Dragon_curve)

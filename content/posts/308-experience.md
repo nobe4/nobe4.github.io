@@ -1,6 +1,7 @@
 +++
 title = "308 Experience"
 date = 2015-03-22
+tags = ["technology", "work"]
 [image]
 link = "/images/posts/308-experience/presentation.jpg"
 copyright = "http://www.peugeot.com"

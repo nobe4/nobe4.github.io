@@ -1,20 +1,27 @@
 {{ define "main" }}
-	{{ if .Date }}
-		<time datetime="{{ .Date | time.Format "2006-01-02" }}">
-			{{ .Date | time.Format "2006-01-02" }}
-		</time>
-	{{ end }}
+	<div class="metadata">
+		{{ with .Date }}
+			<time datetime="{{ . | time.Format "2006-01-02" }}">
+				{{ . | time.Format "2006-01-02" }}
+			</time>
+		{{ end }}
+
+		{{ with .GetTerms "tags" }}
+			&nbsp; | &nbsp;
+			{{ range . }}
+				<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+			{{ end }}
+		{{ end }}
+	</div>
 
 	{{ if .Params.Image }}
 		<figure>
-			<img src="{{ .Params.Image.Link }}" alt="">
+			<img src="{{ .Params.Image.Link }}" alt="" />
 			{{ if .Params.Image.Copyright }}
-				<a class="copyright" href={{ .Params.Image.Copyright }}>Copyright</a>
+				<a class="copyright" href="{{ .Params.Image.Copyright }}">Copyright</a>
 			{{ end }}
 		</figure>
 	{{ end }}
 
 	{{ .Content }}
-
-	{{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 {{ end }}

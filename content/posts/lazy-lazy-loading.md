@@ -1,6 +1,7 @@
 +++
 title = "Lazy Lazy Loading"
 date = 2024-07-21
+tags = ["technology"]
 +++
 
 

@@ -1,6 +1,7 @@
 +++
 title = "/dev/random: Pipe"
 date = 2016-10-19
+tags = ["technology", "ctf"]
 [image]
 link = "/images/posts/dev-random-pipe/presentation.jpg"
 copyright = "https://unsplash.com/"

@@ -1,6 +1,7 @@
 +++
 title = "Vim Syntax Generator"
 date = 2015-10-10
+tags = ["technology"]
 description = 'How to create a dynamicly generated Vim syntax file'
 image.link = "/images/posts/vim-syntax-generator/presentation.png"
 +++
