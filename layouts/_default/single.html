@@ -15,7 +15,7 @@
 		{{ end }}
 		<br />
 
-		{{ if (ne .Lastmod .Date) }}
+		{{ if not (and (eq .Date.Year .Lastmod.Year) (eq .Date.YearDay .Lastmod.YearDay)) }}
 			{{ with .Lastmod }}
 				<time datetime="{{ . | time.Format "2006-01-02" }}">
 					Updated:

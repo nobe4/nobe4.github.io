@@ -1,6 +1,7 @@
 baseURL = 'https://nobe4.fr/'
 languageCode = 'en-us'
 title = "nobe4"
+enableGitInfo = true
 
 [taxonomies]
 tag = "tags"

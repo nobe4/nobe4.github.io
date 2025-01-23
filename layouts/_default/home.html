@@ -2,7 +2,7 @@
 	{{ with (site.GetPage "/tags").Pages }}
 		<a href="/tags">Tags</a>:
 		{{ range . }}
-			<a href="{{ .RelPermalink }}">{{ .LinkTitle | lower }}</a>
+			<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
 		{{ end }}
 	{{ end }}
 

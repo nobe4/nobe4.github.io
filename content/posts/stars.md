@@ -1,7 +1,7 @@
 +++
 title = "Stars"
 date = 2025-01-23
-tags = ["philosophy", "technology"]
+tags = ["philosophy", "technology", "work"]
 +++
 
 Being idealistic is hard for me to brush off. I overly enjoy perfection and the
