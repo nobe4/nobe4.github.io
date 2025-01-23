@@ -203,7 +203,8 @@ h9 {
 }
 
 blink {
-	animation: blink 2s steps(1, end) infinite;
+	font-weight: normal;
+	animation: blink 3s steps(1, end) infinite;
 }
 
 @keyframes blink {
