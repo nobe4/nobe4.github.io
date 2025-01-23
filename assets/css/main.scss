@@ -4,7 +4,9 @@
 	--black: #1d1f21;
 	--white: #c5c8c6;
 	--pre-bg: #2d3031;
-	--accent: #5f819d;
+	--link-accent: #859abc;
+	--em-accent: #7c9e9b;
+	--strong-accent: #93b6a4;
 
 	--fg-color: var(--white);
 	--bg-color: var(--black);
@@ -68,12 +70,20 @@ img {
 
 a,
 a code {
-	color: var(--accent);
+	color: var(--link-accent);
 	text-decoration: none;
 
 	&:hover {
 		text-decoration: underline;
 	}
+}
+
+em {
+	color: var(--em-accent);
+}
+
+strong {
+	color: var(--strong-accent);
 }
 
 .articles {
@@ -91,7 +101,7 @@ a code {
 		&:hover * {
 			text-decoration: none;
 			color: var(--bg-color);
-			background-color: var(--accent);
+			background-color: var(--link-accent);
 		}
 	}
 
@@ -167,4 +177,40 @@ table {
 
 hr {
 	margin: 2em 0;
+}
+
+.metadata {
+	margin-bottom: 1em;
+}
+
+.hanchor {
+	font-size: 0.8em;
+	visibility: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h7,
+h8,
+h9 {
+	&:hover .hanchor {
+		visibility: visible;
+	}
+}
+
+blink {
+	animation: blink 2s steps(1, end) infinite;
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	80% {
+		opacity: 0;
+	}
 }

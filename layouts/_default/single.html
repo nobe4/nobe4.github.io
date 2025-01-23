@@ -2,6 +2,7 @@
 	<div class="metadata">
 		{{ with .Date }}
 			<time datetime="{{ . | time.Format "2006-01-02" }}">
+				Written:
 				{{ . | time.Format "2006-01-02" }}
 			</time>
 		{{ end }}
@@ -10,6 +11,16 @@
 			&nbsp; | &nbsp;
 			{{ range . }}
 				<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+			{{ end }}
+		{{ end }}
+		<br />
+
+		{{ if (ne .Lastmod .Date) }}
+			{{ with .Lastmod }}
+				<time datetime="{{ . | time.Format "2006-01-02" }}">
+					Updated:
+					{{ . | time.Format "2006-01-02" }}
+				</time>
 			{{ end }}
 		{{ end }}
 	</div>
@@ -23,7 +34,11 @@
 		</figure>
 	{{ end }}
 
-	{{ .Content }}
+	{{- with .Content -}}
+		<div>
+			{{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Anchor"> 🔗 </a> ${3}` | safeHTML }}
+		</div>
+	{{- end -}}
 
 	{{ with .Params.References }}
 		<hr />
