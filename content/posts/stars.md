@@ -7,8 +7,8 @@ tags = ["philosophy", "technology"]
 Being idealistic is hard for me to brush off. I overly enjoy perfection and the
 feeling of having created something _just right_.
 
-Having guidelines, or rules matters only if constitently applied. Code fits
-greatly to this via linter, type checkers, formatters, ...
+Having guidelines, or rules matters only if constituently applied. Code fits
+greatly to this via linter, type checkers, formatters, etc.
 
 For other things, I find it useful to have guiding principles, less as strong
 rules and more as _unreachable states_. Aiming, if never reaching, for something
@@ -18,52 +18,52 @@ Here is a constantly-updated list of guiding stars I have collected.
 
 TBD: write a small paragraph for each.
 
-## It's written, so it exists.
+## It's written, so it exists
 
-## It's tested, so it might work.
+## It's tested, so it might work
 
-## It always takes more time.
+## It always takes more time
 
-## Comments lie.
+## Comments lie
 
-## Everything decays.
+## Everything decays
 
-## Code create bugs.
+## Code create bugs
 
-## Understanding is a muscle.
+## Understanding is a muscle
 
-## Comment via types and names.
+## Comment via types and names
 
-## Geniuses are liabilities.
+## Geniuses are liabilities
 
-## Completion is illusory.
+## Completion is illusory
 
-## API is mandatory.
+## API is mandatory
 
-## Compose from small.
+## Compose from small
 
-## Prefer the least.
+## Prefer the least
 
-## It's never about you.
+## It's never about you
 
-## Speak less, listen more.
+## Speak less, listen more
 
-## Become nonessential.
+## Become nonessential
 
-## Feedback over feelings.
+## Feedback over feelings
 > Prefer intelligent pushback to thoughtless acceptance. -
 > [@gleeblezoid](https://github.com/gleeblezoid)
 
-## ISO 8601.
+## ISO 8601
 
-## RFC 1925: (8), (11).
+## RFC 1925: 8, 11
 
-## Tenacity isn't correctness.
+## Tenacity isn't correctness
 
-## New isn't good. Old isn't good.
+## New isn't good; old isn't good
 
-## Underwhelm trather than overwhelm. 
+## Underwhelm rather than overwhelm
 
 https://www.youtube.com/watch?v=Jf0cjocP8Wk
 
-## Non-security features must be opt-in.
+## Non-security features must be opt-in
