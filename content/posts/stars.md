@@ -21,9 +21,6 @@ Here is a constantly-updated list of guiding stars I have collected.
 
 TBD: write a small paragraph for each.
 
-
-## Table Of Contents
-
 {{< table-of-contents >}}
 
 ## It's written, so it exists
