@@ -10,14 +10,14 @@ references = [
 Being idealistic is hard for me to brush off. I overly enjoy perfection and the
 feeling of having created something _just right_.
 
-Having guidelines, or rules matters only if constituently applied. Code fits
+Having guidelines, or rules matters only if consistently applied. Code fits
 greatly to this via linter, type checkers, formatters, etc.
 
 For other things, I find it useful to have guiding principles, less as strong
 rules and more as _unreachable states_. Aiming, if never reaching, for something
 **perfectly great**.
 
-Here is a constantly-updated list of guiding stars I have collected.
+Here is a constantly-updated list of guiding stars I collected.
 
 TBD: write a small paragraph for each.
 
