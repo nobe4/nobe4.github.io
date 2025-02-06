@@ -88,6 +88,10 @@ Corollary to [comments lie](#comments-lie).
 
 ## API is mandatory
 
+## Everything should have a URL
+
+https://ben.balter.com/2015/11/12/why-urls/
+
 ## Compose from small
 
 ## Prefer the least
