@@ -108,6 +108,18 @@ https://ben.balter.com/2015/11/12/why-urls/
 
 ## ISO 8601
 
+> What where you doing on 08-03-11?
+
+> I was either:
+> - Celebrating the 100th anniversary of International Women's Day (2011-03-08)
+> - Dancing to the #1 song: Crazy In Love - Beyonce Ft JayZ (2003-08-11)
+> - Hearing that W. H. Taft got elected 27th president of the USA (1908-11-03)
+
+Time is confusing enough as it is, there's no need to sprinkle some nonsensical
+ordering in the mix.
+
+Large to small, always.
+
 ## RFC 1925: 8, 11
 
 ## Existence isn't correctness
