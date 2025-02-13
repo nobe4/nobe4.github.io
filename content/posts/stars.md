@@ -130,8 +130,8 @@ Large to small, always.
 
 ## Underwhelm rather than overwhelm
 
-## It always takes more time
-
 https://www.youtube.com/watch?v=Jf0cjocP8Wk
+
+## It always takes more time
 
 ## Non-security features must be opt-in
