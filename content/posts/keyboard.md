@@ -6,7 +6,7 @@ tags = ["technology"]
 
 <style>
 pre code {
-    font-size: x-large;
+    font-size: large;
 }
 </style>
 
