@@ -3,3 +3,8 @@
 public/
 resources
 node_modules/
+
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.lock
