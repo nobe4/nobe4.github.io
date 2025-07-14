@@ -4,13 +4,17 @@ date = 2025-07-13
 tags = ["technology"]
 references = [
     "http://www.x.org/releases/individual/data/xkeyboard-config/xkeyboard-config-2.44.tar.xz",
-    "https://espanso.org/",
-    "https://qmk.fm/",
+    "https://docs.kernel.org/hid/index.html",
     "https://docs.qmk.fm/how_keyboards_work",
+    "https://espanso.org/",
+    "https://github.com/torvalds/linux/blob/347e9f5043c89695b01e66b3ed111755afcf1911/include/uapi/linux/input-event-codes.h",
+    "https://qmk.fm/",
+    "https://sw.kovidgoyal.net/kitty/keyboard-protocol/",
+    "https://unix.stackexchange.com/a/545281",
+    "https://www.kernel.org/doc/html/v6.6/hid/hidintro.html",
     "https://www.usb.org/sites/default/files/documents/hid1_11.pdf",
     "https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf",
     "https://www.x.org/wiki/XKB/",
-    "https://sw.kovidgoyal.net/kitty/keyboard-protocol/",
 ]
 +++
 
@@ -18,7 +22,8 @@ In this post, I explain the various steps I used to type accents on my QMK-based
 keyboard.
 
 I by no mean am an expert in this domain, but I learned a lot and wants to share
-my understanding.
+my understanding. The flow probably contains an un-holy amount holes, but should
+still give a somewhat complete picture of the process.
 
 ## Espanso
 
@@ -57,7 +62,7 @@ keyboard, literally.
 ## How to type accents?
 
 Typing accents requires a whole lot of processing that seems counter-intuitive
-at first glance. For a user, "pressing the key with é" and "seeing é on the
+at first glance. For a user, "tapping the key with é" and "seeing é on the
 screen" are so common, that we rarely try to understand what is going on under
 the hood.
 
@@ -67,7 +72,7 @@ follows for other keyboard systems.
 
 ### 1. Keyboard's `scancode`
 
-Pressing a key on a keyboard triggers the keyboard firmeware to send a
+Pressing a key on a keyboard triggers the keyboard firmeware to send a HID
 `scancode`. Those are _not_ character, only predefined values that are expected
 to be sent and received by keyboards.
 
@@ -102,37 +107,39 @@ pressed to the correct scancode.
 You'll notice that this list also doesn't contain accented characters or special
 symbols. We'll get to them in a second.
 
-### 2. USB-HID events
+### 2. USB's `HID events`
 
-The OS receives keycodes from the keyboard that we can visualize with
+The OS receives HID events from the keyboard; we can visualize them with
 `usbhid-dump`:
 
-- Pressing `e`
+- Tapping `e`
 
     ```
-    ~ sudo usbhid-dump -s 1:6 -f -e all # Simplified view
-     00 00 08 00 00 00 00 00
-     00 00 00 00 00 00 00 00
+    $ sudo usbhid-dump -s 1:6 -f -e all # Simplified view
+    00 00 08 00 00 00 00 00
+    00 00 00 00 00 00 00 00
     ```
 
     It registers the `0x08` keycode. This corresponds to the character `e` as
     defined by the HID table.
 
-- Pressing `é`
+- Tapping `é`
 
     ```
-    ~ sudo usbhid-dump -s 1:6 -f -e all # Simplified view
-     40 00 00 00 00 00 00 00
-     40 00 0A 00 00 00 00 00
-     40 00 00 00 00 00 00 00
-     00 00 00 00 00 00 00 00
+    $ sudo usbhid-dump -s 1:6 -f -e all # Simplified view
+    40 00 00 00 00 00 00 00
+    40 00 0A 00 00 00 00 00
+    40 00 00 00 00 00 00 00
+    00 00 00 00 00 00 00 00
     ```
 
-    We get the modifier `0x40` and the keycode `0x0A`.
+    We get the modifier `0x40` and the keycode `0x0A`. The modifier `0x40` stays
+    pressed while the keycode `0x0A` gets pressed and released.
 
-    - The keycode `0x0A` corresponds to the character `g`.
+    - The keycode `0x0A` corresponds to the character `g` as defined by the HID
+    table.
 
-    - The modifier equals `01000000`, which is the "RightAlt"/"AltGr" modifier
+    - The modifier equals `0b01000000`, which is the "RightAlt"/"AltGr" modifier
     (see [section "8.3 Report Format for Array Items", page
     66](https://www.usb.org/sites/default/files/documents/hid1_11.pdf)):
 
@@ -148,8 +155,91 @@ The OS receives keycodes from the keyboard that we can visualize with
         7   RIGHT_GUI   10000000
         ```
 
+Those are immediately handled by the kernel.
 
-### 3. Keyboard's mapping
+### 3. Linux kernel's `evdev`
+
+Upon receiving the `scancodes`, Linux HID's subsystem translate those into
+device events: `evdev`.
+
+The device events are defined in the [linux
+kernel](https://github.com/torvalds/linux/blob/347e9f5043c89695b01e66b3ed111755afcf1911/include/uapi/linux/input-event-codes.h):
+
+```c
+...
+#define KEY_W        17
+#define KEY_E        18
+#define KEY_R        19
+...
+#define KEY_F        33
+#define KEY_G        34
+#define KEY_H        35
+...
+#define KEY_SYSRQ    99
+#define KEY_RIGHTALT 100
+#define KEY_LINEFEED 101
+...
+```
+
+Interestingly, the QWERTY keyboard is used as the official layout for
+interpreting keycodes, instead of the HID alphabetical order.
+
+```shell
+$ sudo libinput record -o record /dev/input/event18 --show-keycodes --with-hidraw
+Receiving events: [              *      ]^C
+```
+
+```yaml
+devices:
+- node: /dev/input/event18
+  evdev:
+    # Supported Events:
+    # ...
+    #   Event code 18 (KEY_E)
+    # ...
+    #   Event code 34 (KEY_G)
+    # ...
+    #   Event code 100 (KEY_RIGHTALT)
+  events:
+
+  # tapping 'e'
+  - hid:
+      hidraw2: [ 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+  - evdev:
+    - [  1, 348988,   1,  18,       1] # EV_KEY / KEY_E        1
+  - hid:
+      hidraw2: [ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+  - evdev:
+    - [  1, 385986,   1,  18,       0] # EV_KEY / KEY_E        0
+  - hid:
+      hidraw2: [ 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+
+  # tapping 'é'
+  - evdev:
+    - [  2, 989974,   1, 100,       1] # EV_KEY / KEY_RIGHTALT 1
+  - hid:
+      hidraw2: [ 0x40, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+  - evdev:
+    - [  2, 990972,   1,  34,       1] # EV_KEY / KEY_G        1
+  - hid:
+      hidraw2: [ 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+  - evdev:
+    - [  2, 991969,   1,  34,       0] # EV_KEY / KEY_G        0
+  - hid:
+      hidraw2: [ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+  - evdev:
+    - [  2, 992970,   1, 100,       0] # EV_KEY / KEY_RIGHTALT 0
+  - hid:
+      hidraw2: [ 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+```
+
+Each `hid` event is converted into a `evdev` event that maps expectedly to the
+Linux code definition. `1` is for press, `0` for release.
+
+In summary:
+- `HID 0x08` is converted to `evdev 18`
+
+### 4. Keyboard's mapping
 
 
 
