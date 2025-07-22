@@ -96,6 +96,12 @@ https://ben.balter.com/2015/11/12/why-urls/
 
 ## Prefer the least
 
+Whenever it's about clothings, tools, third party libraries, ... Each brings
+additional responsibility. Caring for the end result should be prioritized over
+caring for the way to get there.
+
+Find what is truly necessary, learn to live with less.
+
 ## It's never about you
 
 ## Speak less, listen more
