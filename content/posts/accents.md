@@ -4,6 +4,7 @@ date = 2025-07-13
 tags = ["technology"]
 references = [
     "http://www.x.org/releases/individual/data/xkeyboard-config/xkeyboard-config-2.44.tar.xz",
+    "https://docs.kernel.org/hid/hidintro.html",
     "https://docs.kernel.org/hid/index.html",
     "https://docs.qmk.fm/how_keyboards_work",
     "https://espanso.org/",
@@ -11,6 +12,8 @@ references = [
     "https://qmk.fm/",
     "https://sw.kovidgoyal.net/kitty/keyboard-protocol/",
     "https://unix.stackexchange.com/a/545281",
+    "https://wayland.freedesktop.org/architecture.html",
+    "https://wiki.archlinux.org/title/X_keyboard_extension",
     "https://www.kernel.org/doc/html/v6.6/hid/hidintro.html",
     "https://www.usb.org/sites/default/files/documents/hid1_11.pdf",
     "https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf",
@@ -76,6 +79,12 @@ Pressing a key on a keyboard triggers the keyboard firmeware to send a HID
 `scancode`. Those are _not_ character, only predefined values that are expected
 to be sent and received by keyboards.
 
+Acceptable scancodes are  fixed values (see [section "10 Keyboard/Keypad Page
+(0x07)", page
+53)](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf), one of
+the main job of a keyboard's firmeware is to correctly map the physical key
+pressed to the correct scancode.
+
 Excerpt:
 
 ```
@@ -99,61 +108,57 @@ UsageID(Dec) UsageID(Hex) UsageName
 232-65535    E8-FFFF      Reserved
 ```
 
-Because those have fixed values (see [section "10 Keyboard/Keypad Page (0x07)",
-page 53)](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf), one
-of the main job of a keyboard's firmeware is to correctly map the physical key
-pressed to the correct scancode.
-
 You'll notice that this list also doesn't contain accented characters or special
-symbols. We'll get to them in a second.
+symbols.
 
 ### 2. USB's `HID events`
 
 The OS receives HID events from the keyboard; we can visualize them with
 `usbhid-dump`:
 
-- Tapping `e`
 
-    ```
-    $ sudo usbhid-dump -s 1:6 -f -e all # Simplified view
-    00 00 08 00 00 00 00 00
-    00 00 00 00 00 00 00 00
-    ```
+```shell
+$ sudo usbhid-dump -s 1:6 -f -e all # Simplified view
+# tapping `e`
+00 00 08 00 00 00 00 00
+00 00 00 00 00 00 00 00
+...
+```
 
-    It registers the `0x08` keycode. This corresponds to the character `e` as
-    defined by the HID table.
+It registers the `0x08` keycode. This corresponds to the character `e` as
+defined by the HID table.
 
-- Tapping `é`
 
-    ```
-    $ sudo usbhid-dump -s 1:6 -f -e all # Simplified view
-    40 00 00 00 00 00 00 00
-    40 00 0A 00 00 00 00 00
-    40 00 00 00 00 00 00 00
-    00 00 00 00 00 00 00 00
-    ```
+```shell
+...
+# Tapping `é`
+40 00 00 00 00 00 00 00
+40 00 0A 00 00 00 00 00
+40 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+```
 
-    We get the modifier `0x40` and the keycode `0x0A`. The modifier `0x40` stays
-    pressed while the keycode `0x0A` gets pressed and released.
+We get the modifier `0x40` and the keycode `0x0A`. The modifier `0x40` stays
+pressed while the keycode `0x0A` gets pressed and released.
 
-    - The keycode `0x0A` corresponds to the character `g` as defined by the HID
-    table.
+The keycode `0x0A` corresponds to the character `g` as defined by the HID
+table.
 
-    - The modifier equals `0b01000000`, which is the "RightAlt"/"AltGr" modifier
-    (see [section "8.3 Report Format for Array Items", page
-    66](https://www.usb.org/sites/default/files/documents/hid1_11.pdf)):
+The modifier equals `0b01000000`, which is the "RightAlt"/"AltGr" modifier
+(see [section "8.3 Report Format for Array Items", page
+66](https://www.usb.org/sites/default/files/documents/hid1_11.pdf)):
 
-        ```
-        Bit Key         Mask
-        0   LEFT_CTRL   00000001
-        1   LEFT_SHIFT  00000010
-        2   LEFT_ALT    00000100
-        3   LEFT_GUI    00001000
-        4   RIGHT_CTRL  00010000
-        5   RIGHT_SHIFT 00100000
-        6   RIGHT_ALT   01000000
-        7   RIGHT_GUI   10000000
-        ```
+```
+Bit Key         Mask
+0   LEFT_CTRL   00000001
+1   LEFT_SHIFT  00000010
+2   LEFT_ALT    00000100
+3   LEFT_GUI    00001000
+4   RIGHT_CTRL  00010000
+5   RIGHT_SHIFT 00100000
+6   RIGHT_ALT   01000000
+7   RIGHT_GUI   10000000
+```
 
 Those are immediately handled by the kernel.
 
@@ -189,6 +194,8 @@ $ sudo libinput record -o record /dev/input/event18 --show-keycodes --with-hidra
 Receiving events: [              *      ]^C
 ```
 
+After tapping `e` and `é`, we get:
+
 ```yaml
 devices:
 - node: /dev/input/event18
@@ -211,10 +218,10 @@ devices:
       hidraw2: [ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
   - evdev:
     - [  1, 385986,   1,  18,       0] # EV_KEY / KEY_E        0
-  - hid:
-      hidraw2: [ 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
 
   # tapping 'é'
+  - hid:
+      hidraw2: [ 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
   - evdev:
     - [  2, 989974,   1, 100,       1] # EV_KEY / KEY_RIGHTALT 1
   - hid:
@@ -229,19 +236,69 @@ devices:
       hidraw2: [ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
   - evdev:
     - [  2, 992970,   1, 100,       0] # EV_KEY / KEY_RIGHTALT 0
-  - hid:
-      hidraw2: [ 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
 ```
 
 Each `hid` event is converted into a `evdev` event that maps expectedly to the
 Linux code definition. `1` is for press, `0` for release.
 
 In summary:
-- `HID 0x08` is converted to `evdev 18`
+| HID        | evdev | key            |
+| ---        | ---   | ---            |
+| `0x000008` | 18    | `KEY_E`        |
+| `0x400000` | 100   | `KEY_RIGHTALT` |
+| `0x00000a` | 34    | `KEY_G`        |
 
-### 4. Keyboard's mapping
 
+### 4. X's `keycode`
 
+Now that the evdev event is generated by the kernel, X (or other display
+servers) can handle them according to their inner logic.
+
+X and Wayland both use xkb to handle keyboard mappings, so we'll study it here.
+
+TODO
+```
+$ xev -evenv keyboard
+KeyPress event, serial 28, synthetic NO, window 0x600001,
+    root 0x350, subw 0x0, time 429500, (280,455), root:(1242,481),
+    state 0x0, keycode 26 (keysym 0x65, e), same_screen YES,
+    XLookupString gives 1 bytes: (65) "e"
+    XmbLookupString gives 1 bytes: (65) "e"
+    XFilterEvent returns: False
+
+KeyRelease event, serial 28, synthetic NO, window 0x600001,
+    root 0x350, subw 0x0, time 429530, (280,455), root:(1242,481),
+    state 0x0, keycode 26 (keysym 0x65, e), same_screen YES,
+    XLookupString gives 1 bytes: (65) "e"
+    XFilterEvent returns: False
+
+KeyPress event, serial 28, synthetic NO, window 0x600001,
+    root 0x350, subw 0x0, time 433204, (280,455), root:(1242,481),
+    state 0x0, keycode 108 (keysym 0xfe03, ISO_Level3_Shift), same_screen YES,
+    XKeysymToKeycode returns keycode: 92
+    XLookupString gives 0 bytes:
+    XmbLookupString gives 0 bytes:
+    XFilterEvent returns: False
+
+KeyPress event, serial 28, synthetic NO, window 0x600001,
+    root 0x350, subw 0x0, time 433205, (280,455), root:(1242,481),
+    state 0x80, keycode 42 (keysym 0xe9, eacute), same_screen YES,
+    XLookupString gives 2 bytes: (c3 a9) "é"
+    XmbLookupString gives 2 bytes: (c3 a9) "é"
+    XFilterEvent returns: False
+
+KeyRelease event, serial 28, synthetic NO, window 0x600001,
+    root 0x350, subw 0x0, time 433206, (280,455), root:(1242,481),
+    state 0x80, keycode 42 (keysym 0xe9, eacute), same_screen YES,
+    XLookupString gives 2 bytes: (c3 a9) "é"
+    XFilterEvent returns: False
+
+KeyRelease event, serial 28, synthetic NO, window 0x600001,
+    root 0x350, subw 0x0, time 433207, (280,455), root:(1242,481),
+    state 0x80, keycode 108 (keysym 0xfe03, ISO_Level3_Shift), same_screen YES,
+    XKeysymToKeycode returns keycode: 92
+    XLookupString gives 0 bytes:
+    XFilterEvent returns: False
 
 
 wev
