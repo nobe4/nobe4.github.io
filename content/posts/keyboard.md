@@ -1,7 +1,7 @@
 +++
 title = "Keyboard"
 date = 2025-05-27
-tags = ["technology"]
+tags = ["technology", "keyboard"]
 +++
 
 <style>

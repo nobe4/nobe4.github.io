@@ -1,7 +1,7 @@
 +++
 title = "QMK Leader Accents"
 date = 2025-07-25
-tags = ["technology"]
+tags = ["technology", "keyboard"]
 references = [ ]
 draft = true
 +++
