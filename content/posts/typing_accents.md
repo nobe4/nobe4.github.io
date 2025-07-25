@@ -1,6 +1,6 @@
 +++
 title = "Typing Accents"
-date = 2025-07-13
+date = 2025-07-25
 tags = ["technology"]
 references = [
     "https://docs.kernel.org/hid/hidintro.html",
