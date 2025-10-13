@@ -1,12 +1,36 @@
+{{/* Find a way to simplify this duplication */}}
 {{ with resources.Get "css/main.scss" }}
-  {{ $opts := dict "transpiler" "dartsass" "targetPath" "css/style.css" }}
-  {{ with . | toCSS $opts }}
-    {{ if hugo.IsDevelopment }}
-      <link rel="stylesheet" href="{{ .RelPermalink }}">
-    {{ else }}
-      {{ with . | minify | fingerprint }}
-        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
-      {{ end }}
-    {{ end }}
-  {{ end }}
+	{{ $opts := dict "transpiler" "dartsass" }}
+	{{ with . | toCSS $opts }}
+		{{ if hugo.IsDevelopment }}
+			<link rel="stylesheet" href="{{ .RelPermalink }}" />
+		{{ else }}
+			{{ with . | minify | fingerprint }}
+				<link
+					rel="stylesheet"
+					href="{{ .RelPermalink }}"
+					integrity="{{ .Data.Integrity }}"
+					crossorigin="anonymous"
+				/>
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+{{ with .Resources.Get "css/main.scss" }}
+	{{ $opts := dict "transpiler" "dartsass" }}
+	{{ with . | toCSS $opts }}
+		{{ if hugo.IsDevelopment }}
+			<link rel="stylesheet" href="{{ .RelPermalink }}" />
+		{{ else }}
+			{{ with . | minify | fingerprint }}
+				<link
+					rel="stylesheet"
+					href="{{ .RelPermalink }}"
+					integrity="{{ .Data.Integrity }}"
+					crossorigin="anonymous"
+				/>
+			{{ end }}
+		{{ end }}
+	{{ end }}
 {{ end }}

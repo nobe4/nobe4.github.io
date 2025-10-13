@@ -1,12 +1,12 @@
 +++
-title = "privacy policy"
+title = "Privacy policy"
 +++
 
 This privacy policy covers how data is collected and processed on nobe4.fr.
 
 ## Data collected
 
-[GoatCounter](goatcounter.com) is used to perform analytics without collecting
+[GoatCounter](https://goatcounter.com) is used to perform analytics without collecting
 personal information.
 
 It is configured to collect the following information:

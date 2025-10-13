@@ -1,0 +1,36 @@
++++
+title = "Pairs"
++++
+
+<label for="value_count">
+	Value count
+	<input
+		type="number"
+		id="value_count"
+		value="5"
+		min="2"
+		max="100"
+		step="1"
+		onchange="gen();"
+	/>
+</label>
+
+<label for="color_count">
+	Color count
+	<input
+		type="number"
+		id="color_count"
+		value="2"
+		min="2"
+		max="10"
+		step="1"
+		onchange="gen();"
+	/>
+</label>
+
+<label for="delete">
+	Delete on match
+	<input type="checkbox" id="delete_on_match" />
+</label>
+
+<div id="board"></div>

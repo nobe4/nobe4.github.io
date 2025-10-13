@@ -1,5 +1,21 @@
 {
-	"devDependencies": {
+	"dependencies": {
+		"prettier": "^3.6.2",
 		"prettier-plugin-go-template": "^0.0.15"
+	},
+	"prettier": {
+		"plugins": [
+			"prettier-plugin-go-template"
+		],
+		"overrides": [
+			{
+				"files": [
+					"*.html"
+				],
+				"options": {
+					"parser": "go-template"
+				}
+			}
+		]
 	}
 }
