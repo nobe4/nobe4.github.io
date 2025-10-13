@@ -1,5 +1,8 @@
 <h1>
 	<a href="/">{{ site.Title }}</a>
+	{{ range after 1 .Ancestors.Reverse }}
+		/ <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+	{{ end }}
 	{{ if .Title }}
 		/
 		{{ .Title }}

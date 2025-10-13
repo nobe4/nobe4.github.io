@@ -1,9 +1,5 @@
 <p>
-	Created with ❤️ - &copy; {{ now.Year }} - <a href="/about/">About</a> -
-	<a href="/privacy/">Privacy</a>
+	Created with ❤️ - &copy; {{ now.Year }} -
+	<a href="{{ .RelRef (dict "path" "/pages/about") }}">About</a> -
+	<a href="{{ .RelRef (dict "path" "/pages/privacy") }}">Privacy</a>
 </p>
-<script
-	data-goatcounter="https://nobe4.goatcounter.com/count"
-	async
-	src="//gc.zgo.at/count.js"
-></script>
