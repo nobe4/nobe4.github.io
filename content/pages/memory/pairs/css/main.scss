@@ -1,3 +1,7 @@
+body {
+	max-width: 70em;
+}
+
 #board {
 	margin-top: 1em;
 	display: flex;
@@ -6,7 +10,8 @@
 	justify-content: center;
 
 	.card {
-		color: black;
+		user-select: none;
+		color: white;
 		font-size: 2em;
 		border: 1px solid white;
 
@@ -17,8 +22,10 @@
 		align-items: center;
 		cursor: pointer;
 
-		&:hover {
+		&:hover,
+		&.solved {
 			background-color: white;
+			color: black;
 		}
 	}
 }
