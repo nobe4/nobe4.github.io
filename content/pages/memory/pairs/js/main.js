@@ -8,6 +8,9 @@ let start;
 
 window.gen = () => {
 	board.innerHTML = "";
+	active_cards = [];
+	solved_pairs = 0;
+	start = undefined;
 	total.innerText = `Total: ${value_count.value * letter_count.value * 2}`;
 
 	gen_items(value_count.value).forEach(gen_card);
@@ -18,12 +21,12 @@ window.click_card = (e) => {
 		start = Date.now();
 	}
 
-	if (active_cards.indexOf(e.target) != -1) {
-		return;
-	}
-
 	if (active_cards.length == 2) {
 		clean_active_cards();
+	}
+
+	if (active_cards.indexOf(e.target) != -1) {
+		return;
 	}
 
 	e.target.classList.toggle("active");
