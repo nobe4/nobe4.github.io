@@ -11,9 +11,9 @@ body {
 
 	.card {
 		user-select: none;
-		color: white;
+		color: var(--white);
 		font-size: 2em;
-		border: 1px solid white;
+		border: 1px solid var(--white);
 
 		width: 3em;
 		height: 3em;
@@ -24,8 +24,8 @@ body {
 
 		&:hover,
 		&.solved {
-			background-color: white;
-			color: black;
+			background-color: var(--white);
+			color: var(--black);
 		}
 	}
 }
