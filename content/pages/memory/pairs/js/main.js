@@ -1,5 +1,3 @@
-const board = document.getElementById("board");
-
 let available_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 let active_cards = [];
 let solved_pairs = 0;

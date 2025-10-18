@@ -1,0 +1,36 @@
++++
+title = "N-Back"
++++
+
+<label for="x_back_count">
+	X-Back
+	<input
+		type="number"
+		id="x_back_count"
+		value="3"
+		min="2"
+		max="100"
+		step="1"
+		onchange="gen();"
+	/>
+</label>
+
+<label for="value_count">
+	Count
+	<input
+		type="number"
+		id="value_count"
+		value="20"
+		min="10"
+		max="100"
+		step="1"
+		onchange="gen();"
+	/>
+</label>
+
+<div id="counter"></div>
+<div id="board"></div>
+
+<button onclick="click_button(true);">Seen</button>
+<button onclick="click_button(false);">Not seen</button>
+<span id="result"></span>
