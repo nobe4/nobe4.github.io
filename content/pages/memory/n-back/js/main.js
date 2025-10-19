@@ -2,10 +2,13 @@ let available_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 let index = 0;
 let letters = [];
 let seen = [];
+let score = 0;
 
 window.gen = () => {
 	board.innerHTML = "";
 	active_cards = 0;
+	index = 0;
+	score = 0;
 	letters = [];
 	seen = [];
 
@@ -20,12 +23,13 @@ window.click_button = (seen) => {
 
 	if (seen == was_seen) {
 		result.innerText = "✓";
+		score += 1;
 	} else {
 		result.innerText = "✗";
 	}
 
 	if (index == letters.length) {
-		alert("done");
+		alert(`score: ${score}/${value_count.value}`);
 		gen();
 		return;
 	}

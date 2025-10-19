@@ -1,0 +1,14 @@
+#board {
+	font-size: 3em;
+	border: 1px solid var(--fg-color);
+	padding: 1em;
+	width: 3em;
+	margin: 1em 0;
+	text-align: center;
+}
+#controls {
+	font-size: 2em;
+	button {
+		font-size: 1em;
+	}
+}
