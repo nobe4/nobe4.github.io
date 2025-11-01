@@ -1,6 +1,8 @@
 let available_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 let active_cards = [];
 let solved_pairs = 0;
+let clicks = 0;
+let pair_count = 0;
 
 let start;
 
@@ -8,10 +10,12 @@ window.gen = () => {
 	board.innerHTML = "";
 	active_cards = [];
 	solved_pairs = 0;
+	clicks = 0;
+	pair_count = value_count.value * letter_count.value;
 	start = undefined;
 	total.innerText = `Total: ${value_count.value * letter_count.value * 2}`;
 
-	gen_items(value_count.value).forEach(gen_card);
+	gen_items().forEach(gen_card);
 };
 
 window.click_card = (e) => {
@@ -39,8 +43,17 @@ window.click_card = (e) => {
 		let ms = Date.now() - start;
 		let minutes = Math.floor(ms / 60000);
 		let seconds = ((ms % 60000) / 1000).toFixed(0);
+		let precision =
+			100 -
+			Math.min(
+				100,
+				Math.max(
+					0,
+					(100 * (clicks - 2 * pair_count)) / (pair_count * (pair_count - 2)),
+				),
+			);
 
-		alert(`Solved in ${minutes}m${seconds}s`);
+		alert(`Solved in ${minutes}m${seconds}s\nPrecision ${precision}%`);
 
 		gen();
 	}
@@ -55,6 +68,8 @@ function clean_active_cards() {
 }
 
 function check_active_cards() {
+	clicks += 1;
+
 	if (
 		active_cards[0].getAttribute("data-v") !=
 		active_cards[1].getAttribute("data-v")
@@ -73,11 +88,11 @@ function check_active_cards() {
 	active_cards = [];
 }
 
-function gen_items(count) {
+function gen_items() {
 	let items = [];
 	const colors = available_letters.slice(0, letter_count.value);
 
-	for (let i = 0; i < count; i++) {
+	for (let i = 0; i < value_count.value; i++) {
 		for (let c of colors) {
 			items.push(`${i}${c}`);
 			items.push(`${i}${c}`);
