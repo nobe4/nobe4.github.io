@@ -1,12 +1,4 @@
 {{ define "main" }}
-	{{ $ancestors := math.Add (.Ancestors | len) 1 }}
-	{{ range .RegularPagesRecursive }}
-		<h2>
-			{{ range after $ancestors .Ancestors.Reverse }}
-				> <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-			{{ end }}
-			>
-			<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-		</h2>
-	{{ end }}
+	{{ $pages := .RegularPagesRecursive }}
+	{{ partial "articles.html" (dict "posts" $pages "context" .) }}
 {{ end }}

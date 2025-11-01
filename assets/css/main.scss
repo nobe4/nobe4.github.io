@@ -89,29 +89,56 @@ strong {
 
 .articles {
 	font-family: monospace;
+	margin-bottom: 1em;
+
+	summary {
+		cursor: pointer;
+		list-style-type: "?";
+	}
+
+	&[open] > summary {
+		list-style-type: ">";
+	}
 
 	p {
 		margin: 0;
 	}
 
-	a {
-		display: flex;
-		text-decoration: none;
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
 
-		&:hover,
-		&:hover * {
-			text-decoration: none;
-			color: var(--bg-color);
-			background-color: var(--link-accent);
+		&.inline li {
+			display: inline-block;
 		}
-	}
+		&:not(.inline) li a {
+			display: flex;
+		}
 
-	time {
-		width: 8em;
-	}
+		li {
+			a {
+				text-decoration: none;
 
-	.length {
-		width: 5em;
+				&:hover,
+				&:hover * {
+					text-decoration: none;
+					color: var(--bg-color);
+					background-color: var(--link-accent);
+				}
+			}
+			time {
+				width: 8em;
+			}
+
+			.length {
+				width: 5em;
+			}
+
+			:last-child {
+				color: var(--link-accent);
+			}
+		}
 	}
 }
 
@@ -132,6 +159,7 @@ code {
 }
 
 pre {
+	line-height: 1.2em;
 	padding: 2em 1em;
 	overflow-y: scroll;
 	background-color: var(--pre-bg);
@@ -145,7 +173,7 @@ pre {
 		&::after {
 			content: attr(data-lang);
 			position: absolute;
-			top: 0;
+			top: 0.5em;
 			right: 0.5em;
 		}
 	}
