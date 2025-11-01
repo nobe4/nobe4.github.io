@@ -35,6 +35,14 @@ body {
 	height: 100vh;
 }
 
+header {
+	margin-bottom: 1em;
+
+	a {
+		display: inline;
+	}
+}
+
 main {
 	flex-grow: 1;
 	text-align: justify;
@@ -44,14 +52,18 @@ main {
 	}
 }
 
-h1,
-h2,
-h3 {
-	line-height: 1.2em;
-}
-
 footer {
 	text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	line-height: 1.2em;
+	margin-bottom: 0;
 }
 
 time {
@@ -69,6 +81,10 @@ img {
 	margin-inline: auto;
 }
 
+p {
+	margin-top: 0;
+}
+
 a,
 a code {
 	color: var(--link-accent);
@@ -77,6 +93,12 @@ a code {
 	&:hover {
 		text-decoration: underline;
 	}
+
+	text-overflow: ellipsis;
+	overflow: hidden;
+	max-width: 100%;
+	display: inline-block;
+	white-space: nowrap;
 }
 
 em {
@@ -125,18 +147,22 @@ strong {
 					text-decoration: none;
 					color: var(--bg-color);
 					background-color: var(--link-accent);
+					:last-child {
+						color: var(--bg-color);
+					}
 				}
-			}
-			time {
-				width: 8em;
-			}
 
-			.length {
-				width: 5em;
-			}
+				.length {
+					width: 5em;
+				}
 
-			:last-child {
-				color: var(--link-accent);
+				time {
+					width: 8em;
+				}
+
+				:last-child {
+					color: var(--link-accent);
+				}
 			}
 		}
 	}

@@ -10,7 +10,7 @@ copyright = "http://www.dandad.org/en/d-ad-browser-ad-filter/"
 The [Ad Filter](http://www.dandad.org/en/d-ad-browser-ad-filter/) is a Chrome
 and Firefox extension that only shows the "best" ads.
 
-<iframe width="768" height="432" src="https://www.youtube.com/embed/T4jniN89mnQ" frameborder="0" allowfullscreen></iframe>
+<iframe width="100%" height="432" src="https://www.youtube.com/embed/T4jniN89mnQ" frameborder="0" allowfullscreen></iframe>
 
 This work was done with [Cogit Studio](http://cogitstudio.com) and
 [D&AD](https://www.dandad.org/).
