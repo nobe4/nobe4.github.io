@@ -2,9 +2,9 @@
 	{{ $tags := (site.GetPage "/tags").Pages }}
 	{{ partial "articles.html" (dict "context" . "path" "/tags" "posts" $tags "inline" true) }}
 
-	{{ $posts := where site.RegularPages "Section" "eq" "posts" }}
-	{{ partial "articles.html" (dict "context" . "path" "/posts" "posts" $posts "ancestorSkip" 2) }}
-
 	{{ $pages := where site.RegularPages "Section" "eq" "pages" }}
 	{{ partial "articles.html" (dict "context" . "path" "/pages" "posts" $pages ) }}
+
+	{{ $posts := where site.RegularPages "Section" "eq" "posts" }}
+	{{ partial "articles.html" (dict "context" . "path" "/posts" "posts" $posts "ancestorSkip" 2 "open" true) }}
 {{ end }}

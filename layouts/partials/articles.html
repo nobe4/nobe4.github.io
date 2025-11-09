@@ -1,4 +1,4 @@
-<details class="articles" open>
+<details class="articles" {{ if .open }}open{{ end }}>
 	{{ $ancestorSkip := 1 }}
 	{{ with .ancestorSkip }}
 		{{ $ancestorSkip = . }}

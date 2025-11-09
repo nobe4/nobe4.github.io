@@ -1,6 +1,5 @@
 {
 	"dependencies": {
-		"@picocss/pico": "^2.1.1",
 		"prettier": "^3.6.2",
 		"prettier-plugin-go-template": "^0.0.15"
 	},
