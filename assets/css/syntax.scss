@@ -1,6 +1,10 @@
 .chroma {
+	* {
+		color: var(--fg-code);
+	}
+
 	.err {
-		color: #cc342b;
+		color: var(--red);
 	}
 
 	.s,
@@ -17,7 +21,7 @@
 	.sr,
 	.s1,
 	.ss {
-		color: #93b6a4;
+		color: var(--green);
 	}
 
 	.c,
@@ -27,6 +31,6 @@
 	.cs,
 	.cp,
 	.cpf {
-		color: #878988;
+		color: var(--comment);
 	}
 }

@@ -1,0 +1,58 @@
+@use "sass:color";
+
+$black: #1d1f21;
+$white: #f1f3f5;
+
+$grey: color.mix($black, $white);
+$dark: color.mix($black, $grey, $weight: 80%);
+$light: color.mix($grey, $white);
+
+$teal: #7c9e9b;
+$green: #93b6a4;
+$blue: #859abc;
+$red: #cc342b;
+
+:root {
+	--black: #{$black};
+	--dark: #{$dark};
+	--grey: #{$grey};
+	--light: #{$light};
+	--white: #{$white};
+	--teal: #{$teal};
+	--green: #{$green};
+	--blue: #{$blue};
+	--red: #{$red};
+
+	--fg: var(--white);
+	--bg: var(--black);
+
+	--fg-code: var(--white);
+	--comment: var(--grey);
+	--bg-code: var(--dark);
+	--border: var(--dark);
+}
+
+@mixin light-theme {
+	--fg: var(--black);
+	--bg: var(--white);
+	--border: var(--light);
+}
+
+html {
+	color-scheme: dark light;
+}
+
+:root:has(#theme [value="🌚"]:checked) {
+	color-scheme: dark;
+}
+
+:root:has(#theme [value="🌞"]:checked) {
+	color-scheme: light;
+	@include light-theme();
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		@include light-theme();
+	}
+}

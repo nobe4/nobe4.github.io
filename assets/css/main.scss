@@ -1,20 +1,9 @@
+@use "./colors.scss";
 @use "./syntax.scss";
 @use "./breakpoints.scss";
 
-:root {
-	--black: #1d1f21;
-	--white: #c5c8c6;
-	--pre-bg: #2d3031;
-	--link-accent: #859abc;
-	--em-accent: #7c9e9b;
-	--strong-accent: #93b6a4;
-
-	--fg-color: var(--white);
-	--bg-color: var(--black);
-}
-
 * {
-	color: var(--fg-color);
+	color: var(--fg);
 	box-sizing: border-box;
 }
 
@@ -24,24 +13,28 @@ body {
 	margin: 0 auto;
 
 	line-height: 1.5em;
-	border-right: 1px solid var(--pre-bg);
-	border-left: 1px solid var(--pre-bg);
+	border-right: 1px solid var(--border);
+	border-left: 1px solid var(--border);
 
 	/* https://css-tricks.com/snippets/css/system-font-stack/ */
 	font-family:
 		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
 		sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
-	background-color: var(--bg-color);
+	background-color: var(--bg);
 
 	display: flex;
 	flex-direction: column;
+
+	transition:
+		background 0.3s,
+		color 0.3s;
 
 	header,
 	footer,
 	main > * {
 		padding: 1em;
-		border-bottom: 1px solid var(--pre-bg);
+		border-bottom: 1px solid var(--border);
 	}
 }
 
@@ -78,7 +71,10 @@ h6 {
 
 	padding-block: 0.5em;
 	margin-bottom: 0;
-	border-top: 1px solid var(--pre-bg);
+	border-top: 1px solid var(--border);
+	&:hover .hanchor {
+		visibility: visible;
+	}
 }
 
 time {
@@ -100,6 +96,24 @@ p {
 	margin-top: 0;
 }
 
+a {
+	color: var(--blue);
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+a code {
+	background-color: var(--blue);
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
 #references a {
 	display: inline-block;
 	text-overflow: ellipsis;
@@ -109,22 +123,12 @@ p {
 	vertical-align: bottom;
 }
 
-a,
-a code {
-	color: var(--link-accent);
-	text-decoration: none;
-
-	&:hover {
-		text-decoration: underline;
-	}
-}
-
 em {
-	color: var(--em-accent);
+	color: var(--teal);
 }
 
 strong {
-	color: var(--strong-accent);
+	color: var(--green);
 }
 
 ul {
@@ -136,14 +140,14 @@ ul {
 .articles {
 	font-family: monospace;
 
-	border-bottom: 1px solid var(--pre-bg);
+	border-bottom: 1px solid var(--border);
 
 	summary {
 		cursor: pointer;
 		list-style-type: "?";
 		&:hover {
-			color: var(--bg-color);
-			background-color: var(--fg-color);
+			color: var(--bg);
+			background-color: var(--blue);
 		}
 	}
 
@@ -174,10 +178,10 @@ ul {
 				&:hover,
 				&:hover * {
 					text-decoration: none;
-					color: var(--bg-color);
-					background-color: var(--link-accent);
+					color: var(--bg);
+					background-color: var(--blue);
 					:last-child {
-						color: var(--bg-color);
+						color: var(--bg);
 					}
 				}
 
@@ -190,7 +194,7 @@ ul {
 				}
 
 				:last-child {
-					color: var(--link-accent);
+					color: var(--blue);
 				}
 			}
 		}
@@ -201,27 +205,30 @@ blockquote {
 	font-style: italic;
 	margin: 0.2em 0;
 	padding: 0.2em 1em;
-	border-left: 3px solid var(--fg-color);
+	border-left: 3px solid var(--border);
 
 	p {
 		margin: 0;
 	}
 }
 
-code {
-	background-color: var(--pre-bg);
+code,
+pre {
+	color: var(--fg-code);
+	background-color: var(--bg-code);
+	padding: 0.2em;
 }
 
 pre {
-	line-height: 1.2em;
-	padding: 2em 1em;
+	line-height: 1.4em;
+	padding: 2em 1em 0.2em;
 	overflow-y: scroll;
-	background-color: var(--pre-bg);
 
 	position: relative;
 
 	code {
 		&::after {
+			color: var(--comment);
 			content: attr(data-lang);
 			position: absolute;
 			top: 0.5em;
@@ -235,22 +242,22 @@ figure {
 }
 
 input {
-	background-color: var(--bg-color);
-	color: var(--fg-color);
-	border: 1px solid var(--fg-color);
+	background-color: var(--bg);
+	color: var(--fg);
+	border: 1px solid var(--fg);
 	border-radius: 2px;
 	padding: 0.2em 0.4em;
 }
 
 button {
-	background: var(--bg-color);
-	border: 1px solid var(--fg-color);
+	background: var(--bg);
+	border: 1px solid var(--fg);
 	border-radius: 2px;
 	cursor: pointer;
 
 	&:hover {
-		background-color: var(--fg-color);
-		color: var(--bg-color);
+		background-color: var(--fg);
+		color: var(--bg);
 	}
 }
 
@@ -258,12 +265,12 @@ table {
 	width: 100%;
 	border-collapse: collapse;
 	tr {
-		border: 1px solid var(--fg-color);
+		border: 1px solid var(--fg);
 
 		td,
 		th {
 			padding: 0.2em 0.6em;
-			border: 1px solid var(--fg-color);
+			border: 1px solid var(--fg);
 		}
 	}
 }
@@ -271,7 +278,7 @@ table {
 hr {
 	margin: 2em 0;
 	border: 0;
-	border-bottom: 1px solid var(--pre-bg);
+	border-bottom: 1px solid var(--dark);
 	text-align: center;
 }
 
@@ -280,18 +287,15 @@ hr {
 	visibility: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-h7,
-h8,
-h9 {
-	&:hover .hanchor {
-		visibility: visible;
-	}
+#theme {
+	cursor: pointer;
+	position: fixed;
+	font-size: 1.5em;
+	right: 0.5em;
+	top: 0.5em;
+	background: 0;
+	border: 0;
+	appearance: none;
 }
 
 blink {
