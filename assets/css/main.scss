@@ -1,4 +1,5 @@
 @use "./syntax.scss";
+@use "./breakpoints.scss";
 
 :root {
 	--black: #1d1f21;
@@ -18,10 +19,13 @@
 }
 
 body {
+	min-height: 100vh;
 	max-width: 40em;
 	margin: 0 auto;
-	padding-inline: 1em;
+
 	line-height: 1.5em;
+	border-right: 1px solid var(--pre-bg);
+	border-left: 1px solid var(--pre-bg);
 
 	/* https://css-tricks.com/snippets/css/system-font-stack/ */
 	font-family:
@@ -32,14 +36,19 @@ body {
 
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+
+	header,
+	footer,
+	main > * {
+		padding: 1em;
+		border-bottom: 1px solid var(--pre-bg);
+	}
 }
 
 header {
-	margin-bottom: 1em;
-
-	a {
-		display: inline;
+	h1 {
+		margin-top: 0;
+		border-top: 0;
 	}
 }
 
@@ -54,6 +63,9 @@ main {
 
 footer {
 	text-align: center;
+	p {
+		margin-bottom: 0;
+	}
 }
 
 h1,
@@ -63,7 +75,10 @@ h4,
 h5,
 h6 {
 	line-height: 1.2em;
+
+	padding-block: 0.5em;
 	margin-bottom: 0;
+	border-top: 1px solid var(--pre-bg);
 }
 
 time {
@@ -85,6 +100,15 @@ p {
 	margin-top: 0;
 }
 
+#references a {
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	max-width: 100%;
+	white-space: nowrap;
+	vertical-align: bottom;
+}
+
 a,
 a code {
 	color: var(--link-accent);
@@ -93,12 +117,6 @@ a code {
 	&:hover {
 		text-decoration: underline;
 	}
-
-	text-overflow: ellipsis;
-	overflow: hidden;
-	max-width: 100%;
-	display: inline-block;
-	white-space: nowrap;
 }
 
 em {
@@ -109,13 +127,24 @@ strong {
 	color: var(--strong-accent);
 }
 
+ul {
+	margin: 0;
+	padding-left: 1em;
+	list-style-type: "- ";
+}
+
 .articles {
 	font-family: monospace;
-	margin-bottom: 1em;
+
+	border-bottom: 1px solid var(--pre-bg);
 
 	summary {
 		cursor: pointer;
 		list-style-type: "?";
+		&:hover {
+			color: var(--bg-color);
+			background-color: var(--fg-color);
+		}
 	}
 
 	&[open] > summary {
@@ -129,7 +158,6 @@ strong {
 	ul {
 		list-style: none;
 		padding: 0;
-		margin: 0;
 
 		&.inline li {
 			display: inline-block;
@@ -139,6 +167,7 @@ strong {
 		}
 
 		li {
+			list-style: none;
 			a {
 				text-decoration: none;
 
@@ -180,7 +209,6 @@ blockquote {
 }
 
 code {
-	font-size: larger;
 	background-color: var(--pre-bg);
 }
 
@@ -192,10 +220,7 @@ pre {
 
 	position: relative;
 
-	scrollbar-width: none;
-
 	code {
-		font-size: medium;
 		&::after {
 			content: attr(data-lang);
 			position: absolute;
@@ -245,10 +270,9 @@ table {
 
 hr {
 	margin: 2em 0;
-}
-
-.metadata {
-	margin-bottom: 1em;
+	border: 0;
+	border-bottom: 1px solid var(--pre-bg);
+	text-align: center;
 }
 
 .hanchor {

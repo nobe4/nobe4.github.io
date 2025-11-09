@@ -12,8 +12,8 @@
 			{{ range . }}
 				<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
 			{{ end }}
+			<br />
 		{{ end }}
-		<br />
 
 		{{ if not (and (eq .Date.Year .Lastmod.Year) (eq .Date.YearDay .Lastmod.YearDay)) }}
 			{{ $path := .File.Path }}
@@ -48,13 +48,13 @@
 	{{- end -}}
 
 	{{ with .Params.References }}
-		<hr />
-
-		References:
-		<ul>
-			{{ range . }}
-				<li><a href="{{ . }}">{{ . }}</a></li>
-			{{ end }}
-		</ul>
+		<div>
+			References:
+			<ul id="references">
+				{{ range . }}
+					<li><a href="{{ . }}">{{ . }}</a></li>
+				{{ end }}
+			</ul>
+		</div>
 	{{ end }}
 {{ end }}

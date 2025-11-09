@@ -1,4 +1,4 @@
 {{ define "main" }}
 	{{ $pages := .RegularPagesRecursive }}
-	{{ partial "articles.html" (dict "posts" $pages "context" .) }}
+	{{ partial "articles.html" (dict "posts" $pages "context" . "open" true) }}
 {{ end }}
