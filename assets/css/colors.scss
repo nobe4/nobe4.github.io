@@ -36,6 +36,8 @@ $red: #cc342b;
 	--fg: var(--black);
 	--bg: var(--white);
 	--border: var(--light);
+
+	--blue: #{darken($blue, 20%)};
 }
 
 html {
