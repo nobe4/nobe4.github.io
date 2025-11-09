@@ -27,7 +27,7 @@ TBD: write a small paragraph for each.
 
 Having an awful memory, and low object permanence, it's a challenge to trust
 what is in my head and what people _say_. Using a written proof of an exchange,
-decision, idea, and tracking it (ideally with a VSC), is the best way to make it
+decision, idea, and tracking it (ideally with a VCS), is the best way to make it
 **real**.
 
 Relates to [existence isn't correctness](#existence-isnt-correctness).

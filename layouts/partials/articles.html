@@ -7,13 +7,13 @@
 
 
 	<summary>
-		ls
-		{{ with .path }}
-			{{ . }}
-		{{ else }}
-			{{ .context.Path }}
-		{{ end }}
-		{{ if .inline }}-inline{{ end }}
+		&nbsp;ls
+		{{- with .path -}}
+			&nbsp;{{- . -}}
+		{{- else -}}
+			&nbsp;{{- .context.Path -}}
+		{{- end -}}
+		{{- if .inline -}}&nbsp;-inline{{- end -}}
 	</summary>
 
 	{{ if .inline }}
