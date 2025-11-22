@@ -22,10 +22,10 @@ See the code at https://github.com/nobe4/keyboards/blob/main/ferris/keymap.c
 <details>
 <summary>Glossary</summary>
 
-- `[ ]`: space key
-- `GUI` key, AKA "command", "super", or "windows".
-- `<OS>`: OS layer
-- `<SY>`: Symbol layer
+- <kbd>[ ]</kbd>: space key
+- <kbd>GUI</kbd>: "command", "super", or "windows".
+- <kbd>OS</kbd>: OS layer
+- <kbd>SY</kbd>: Symbol layer
 
 </details>
 
@@ -35,28 +35,28 @@ See the code at https://github.com/nobe4/keyboards/blob/main/ferris/keymap.c
 q    w    f    p    g         j    l    u    y    '
 a    r    s    t    d         h    n    e    i    o
 z    x    c    v    b         k    m    ,    .    ↵
-               ⇑    [ ]       CTRL <SY>
+               ⇑    [ ]       CTRL SY
 ```
 
-# `⇑` held: Shift layer
+# <kbd>⇑</kbd> held: Shift layer
 
 ```
 Q    W    F    P    G         J    L    U    Y    "
 A    R    S    T    D         H    N    E    I    O
 Z    X    C    V    B         K    M    ;    :    ↵
-               ⇑    [ ]       CTRL <SY>
+               ⇑    [ ]       CTRL SY
 ```
 
 Changing the defaults to have more logical shifted characters:  `'"`, `,;`,
 `.:`.
 
-# `<SY>` held: Symbol layer
+# <kbd>SY</kbd> held: Symbol layer
 
 ```
 0    1    2    3    +        (    )    [    ]    |
 ␛    4    5    6    =        ←    ↓    ↑    →    \
 ⇒    7    8    9    -        {    }    <    >    /
-                    GUI      CTRL <OS>
+                    GUI      CTRL OS
 ```
 
 Fun how the arrows stay in the HJKL place, because Vim ingrained those in my
@@ -75,9 +75,9 @@ modifier.
 
 ```
 
-This leaves `GUI` + `acvxzt` available for common operations.
+This leaves <kbd>GUI</kbd> + <kbd>acvxzt</kbd> available for common operations.
 
-# `<OS>` held: OS layer
+# <kbd>OS</kbd> held: OS layer
 
 ```
 F1   F2   F3   F4   F5       🔊

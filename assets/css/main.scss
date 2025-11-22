@@ -132,7 +132,6 @@ strong {
 }
 
 ul {
-	margin: 0;
 	padding-left: 1em;
 	list-style-type: "- ";
 }
@@ -297,6 +296,14 @@ hr {
 	background: 0;
 	border: 0;
 	appearance: none;
+}
+
+kbd {
+	border-radius: 3px;
+	border: 1px solid var(--comment);
+	color: var(--comment);
+	padding: 0.2em;
+	white-space: nowrap;
 }
 
 blink {
