@@ -1,0 +1,11 @@
+name = "Peace Lily"
+
+watering = [
+	"keep soil lightly moist",
+	"mist the leaves",
+]
+
+location = [
+	"indirect but bright",
+	"room temperature",
+]

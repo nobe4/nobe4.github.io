@@ -1,0 +1,14 @@
+name = "Crassula Ovata"
+
+watering = [
+	"prefer under than over watering",
+	"soak and let drain fully",
+]
+
+location = [
+	"direct sunlight"
+]
+
+fertilizing = [
+	"growing season: every month"
+]

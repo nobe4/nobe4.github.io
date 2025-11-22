@@ -1,0 +1,23 @@
+name = "Yucca Gigantea"
+
+watering = [
+	"low humidity",
+	"let dry between watering",
+	"~ once a week to once every few weeks",
+]
+
+location = [
+	"indirect sunlight",
+]
+
+fertilizing = [
+	"growing season: every month",
+]
+
+reppoting = [
+	"none"
+]
+
+pruning = [
+	"none"
+]

@@ -1,0 +1,19 @@
+name = "Ficus Benjamina"
+
+watering = [
+	"moderate",
+	"~ once a week",
+	"if the 2-3cm are dry",
+	"TODO: should the whole soil be wet?",
+	"remove excess from saucer",
+]
+
+location = [
+	"indirect sunlight",
+	"away from air movement",
+]
+
+fertilizing = [
+	"beginning of march",
+	"TODO",
+]

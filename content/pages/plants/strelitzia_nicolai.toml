@@ -1,0 +1,15 @@
+name = "Strelitzia Nicolai"
+
+watering = [
+	"moist soil",
+	"water when the top feels dry",
+	"less in winter",
+]
+
+location = [
+	"direct sunlight",
+]
+
+fertilizing = [
+	"growing season: every two weeks",
+]

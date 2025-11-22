@@ -1,0 +1,14 @@
+name = "Hedera helix"
+
+watering = [
+	"prefer dry than moist",
+	"always slightly moist",
+]
+
+location = [
+	"full shade",
+]
+
+fertilizing = [
+	"growing season: every two weeks",
+]

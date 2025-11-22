@@ -1,0 +1,23 @@
+name = "Dracaena Reflexa"
+
+watering = [
+	"moist with good drainage",
+	"let dry between watering",
+]
+
+location = [
+	"indirect sunlight",
+	"avoid cold air",
+]
+
+fertilizing = [
+	"growing season: every two weeks",
+]
+
+pruning = [
+	"none",
+]
+
+reppoting = [
+	"none",
+]

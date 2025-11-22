@@ -1,0 +1,14 @@
+name = "Pilea Peperomiodies"
+
+watering = [
+	"let dry until 2 cm are dry",
+	"notice drooping leaves",
+]
+
+location = [
+	"indirect sunlight",
+]
+
+fertilizing = [
+	"growing season: every month",
+]

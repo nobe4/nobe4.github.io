@@ -1,0 +1,23 @@
+name = "Avocado"
+
+watering = [
+	"let dry until 2 cm are dry and the pot feels light",
+	"fully water",
+	"mist occasionally",
+]
+
+location = [
+	"direct sunlight",
+]
+
+fertilizing = [
+	"growing season: every month",
+]
+
+pruning = [
+	"end of winter"
+]
+
+reppoting = [
+	"TODO",
+]

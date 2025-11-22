@@ -2,7 +2,7 @@
 	{{ $tags := (site.GetPage "/tags").Pages }}
 	{{ partial "articles.html" (dict "context" . "path" "/tags" "posts" $tags "inline" true) }}
 
-	{{ $pages := where site.RegularPages "Section" "eq" "pages" }}
+	{{ $pages := sort (where site.RegularPages "Section" "eq" "pages") "Path" }}
 	{{ partial "articles.html" (dict "context" . "path" "/pages" "posts" $pages ) }}
 
 	{{ $posts := where site.RegularPages "Section" "eq" "posts" }}

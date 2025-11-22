@@ -6,7 +6,7 @@
 	<head>
 		{{ partial "head.html" . }}
 	</head>
-	<body>
+	<body {{ if .Params.full_width }}class="full-width"{{ end }}>
 		{{ partial "theme.html" }}
 		<header>{{ partial "header.html" . }}</header>
 		<main>{{ block "main" . }}{{ end }}</main>

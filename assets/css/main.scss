@@ -9,8 +9,11 @@
 
 body {
 	min-height: 100vh;
-	max-width: 40em;
 	margin: 0 auto;
+
+	&.full-width {
+		width: 100%;
+	}
 
 	line-height: 1.5em;
 	border-right: 1px solid var(--border);
@@ -48,6 +51,7 @@ header {
 main {
 	flex-grow: 1;
 	text-align: justify;
+	overflow-y: scroll;
 
 	h2:first-child {
 		margin-top: 0;
@@ -79,10 +83,6 @@ h6 {
 
 time {
 	font-family: monospace;
-}
-
-figure {
-	margin-inline: 0;
 }
 
 img {
@@ -201,6 +201,10 @@ ul {
 	}
 }
 
+.metadata:empty {
+	display: none;
+}
+
 blockquote {
 	font-style: italic;
 	margin: 0.2em 0;
@@ -239,6 +243,10 @@ pre {
 
 figure {
 	text-align: right;
+	margin-inline: 0;
+	img {
+		width: 100%;
+	}
 }
 
 input {
@@ -265,13 +273,17 @@ table {
 	width: 100%;
 	border-collapse: collapse;
 	tr {
-		border: 1px solid var(--fg);
+		border: 1px solid var(--border);
 
 		td,
 		th {
 			padding: 0.2em 0.6em;
-			border: 1px solid var(--fg);
+			border: 1px solid var(--border);
 		}
+	}
+
+	&#plants {
+		display: inline-block;
 	}
 }
 
@@ -289,7 +301,7 @@ hr {
 
 #theme {
 	cursor: pointer;
-	position: fixed;
+	position: absolute;
 	font-size: 1.5em;
 	right: 0.5em;
 	top: 0.5em;

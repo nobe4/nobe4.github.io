@@ -1,0 +1,45 @@
+{{ define "main" }}
+	<table id="plants">
+		<thead>
+			<th></th>
+			<th>Watering</th>
+			<th>Location</th>
+			<th>Fertilizing</th>
+			<th>Prunning</th>
+		</thead>
+		{{ range .Resources }}
+			{{ with . | transform.Unmarshal }}
+				<tr>
+					<th>{{ .name | title }}</th>
+					<td>
+						{{ range .watering }}
+							{{ . }} <br />
+						{{ end }}
+					</td>
+
+					<td>
+						{{ range .location }}
+							{{ . }} <br />
+						{{ end }}
+					</td>
+
+					<td>
+						{{ range .fertilizing }}
+							{{ . }} <br />
+						{{ end }}
+					</td>
+
+					<td>
+						{{ range .pruning }}
+							{{ . }} <br />
+						{{ end }}
+					</td>
+				</tr>
+			{{ end }}
+		{{ end }}
+	</table>
+
+	<div>
+		{{ .Content }}
+	</div>
+{{ end }}

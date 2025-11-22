@@ -8,7 +8,7 @@ body {
 			// Font size: 17px
 			sm: (
 					breakpoint: 576px,
-					viewport: 510px,
+					viewport: 50em,
 					root-font-size: 106.25%,
 				),
 
@@ -16,7 +16,7 @@ body {
 			// Font size: 18px
 			md: (
 					breakpoint: 768px,
-					viewport: 700px,
+					viewport: 45em,
 					root-font-size: 112.5%,
 				),
 
@@ -24,7 +24,7 @@ body {
 			// Font size: 19px
 			lg: (
 					breakpoint: 1024px,
-					viewport: 950px,
+					viewport: 40em,
 					root-font-size: 118.75%,
 				),
 
@@ -32,7 +32,7 @@ body {
 			// Font size: 20px
 			xl: (
 					breakpoint: 1280px,
-					viewport: 1200px,
+					viewport: 40em,
 					root-font-size: 125%,
 				),
 
@@ -40,7 +40,7 @@ body {
 			// Font size: 21px
 			xxl: (
 					breakpoint: 1536px,
-					viewport: 1450px,
+					viewport: 40em,
 					root-font-size: 131.25%,
 				)
 		)
@@ -50,7 +50,7 @@ body {
 	@each $key, $values in $breakpoints {
 		@if $values {
 			@media (min-width: map.get($values, "breakpoint")) {
-				max-width: map.get($values, "viewport");
+				width: map.get($values, "viewport");
 				font-size: map.get($values, "root-font-size");
 				@if $first-breakpoint {
 					$first-breakpoint: false;
