@@ -22,7 +22,7 @@ git commit
 
 I don't usually create the best gitignore pattern on the first time, so I need to test multiple times for correctness.
 
-> Wait, that seems to be a lot of repetition ! Let's create a vim plugin ! 
+> Wait, that seems to be a lot of repetition ! Let's create a vim plugin !
 
 # Git ignore
 
@@ -35,6 +35,7 @@ The options that interest us are:
 - `--exclude-from=<file>`: read the exclude patterns from the `<file>`
 
 e.g.
+
 ```bash
 $ git ls-file --others --ignored --exclude-from=.gitignore
 ```
@@ -52,6 +53,7 @@ The plugin is straightforward and runs as follow:
 We choose to create a file in the `/tmp` folder and to read/write from here. The file path is stored in the `s:gitignore_file` variable.
 
 ## Write the pattern
+
 This part is simple as vim provides us the `getline` function that fetchs the line in the current buffer.
 
 To write it to the gitignore file, we can use the common `echo` method from bash along with the operator `>` to override the file.
@@ -65,6 +67,7 @@ call system(l:export_command)
 **Note**: at first I didn't put enclosing `''` to the content of the line. But in zsh, some patterns expanded before writing to the file. e.g. `*` expanded to all file in the current folder.
 
 ## Read the excluded files
+
 To read an external command, vim has multiple solutions. I tried to use the `:read!` command but I found out the `:systemlist` was better for my case.
 
 The `systemlist` command runs a system command and returns its output as a list, whereas the `system` command returns it as a string. It's more practical to this case because we will get a list of files.
@@ -78,6 +81,7 @@ call setline(2, l:result)
 ```
 
 ## Clear the file
+
 The last step we need to complete the plugin is to clear the file between reload. The main issue here is to do so without moving the cursor.
 
 The simplest solution is `:2,$d`, but it changes the cursor position. Instead, we can use the `setline` command to set blank lines to all lines. Then when inserting the new excluded files, we may have blank line at the end of the file, but at least the cursor don't move.
@@ -96,7 +100,6 @@ endwhile
 
 call setline(2, l:reset_lines)
 ```
-
 
 ## Improvements
 

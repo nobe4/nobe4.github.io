@@ -13,7 +13,6 @@ All plants
 - want lukewarm water
 - are potentially toxic to pets
 
-
 TODO
 
 - research repotting

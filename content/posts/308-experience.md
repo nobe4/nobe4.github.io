@@ -13,5 +13,4 @@ For the release of the new Peugeot 308, we developed at [Cogit
 Studio](http://cogitstudio.com) a single scrolling webpage to beautifully
 present the car.
 
-
 [Live the Experience](http://www.308experience.com/) (website down)

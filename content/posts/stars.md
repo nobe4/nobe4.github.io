@@ -34,7 +34,6 @@ Relates to [existence isn't correctness](#existence-isnt-correctness).
 
 ## It's tested, so it might work
 
-
 ## Comments lie
 
 Comments are often under less scrutiny than code. It is more difficult to lint
@@ -81,7 +80,6 @@ Corollary to [comments lie](#comments-lie).
 
 ## Understanding is a muscle
 
-
 ## Geniuses are liabilities
 
 ## Completion is illusory
@@ -109,6 +107,7 @@ Find what is truly necessary, learn to live with less.
 ## Become nonessential
 
 ## Feedback over feelings
+
 > Prefer intelligent pushback to thoughtless acceptance. -
 > [@gleeblezoid](https://corner.gleeblezoid.com/)
 
@@ -117,6 +116,7 @@ Find what is truly necessary, learn to live with less.
 > What where you doing on 08-03-11?
 
 > I was either:
+>
 > - Celebrating the 100th anniversary of International Women's Day (2011-03-08)
 > - Dancing to the #1 song: Crazy In Love - Beyonce Ft JayZ (2003-08-11)
 > - Hearing that W. H. Taft got elected 27th president of the USA (1908-11-03)

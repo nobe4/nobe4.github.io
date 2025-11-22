@@ -161,7 +161,7 @@ Table: user
 +---------+-----------+--------------------------------------------------+
 ```
 
-Remember the `500` error previously? It mentioned the user `dstevens`, and we now have his password, great! 
+Remember the `500` error previously? It mentioned the user `dstevens`, and we now have his password, great!
 
 We can go back to the previous services we found:
 
@@ -186,10 +186,12 @@ HTTP/1.1" 200 2982 "-" "sqlmap/1.0.9.32#dev (http://sqlmap.org)"
 
 # /admin/ round 2
 
-The same login works here, it's the backend to the blog part of the website. We can create new blog posts with a title and a body. Nothing more to say apart from the fact that the fields won't protect against possible XSS. Posting 
+The same login works here, it's the backend to the blog part of the website. We can create new blog posts with a title and a body. Nothing more to say apart from the fact that the fields won't protect against possible XSS. Posting
 
 ```html
-<script> alert(1) </script>
+<script>
+  alert(1);
+</script>
 ```
 
 will lead to the script being executed.

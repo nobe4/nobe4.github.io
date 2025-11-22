@@ -12,6 +12,7 @@ I may not know everything about the syntax mechanisms in Vim, but at least I'll
 share what I understood building a syntax file generator.
 
 # TL;DR
+
 How I created a syntax file generator for displaying StackExchange API values.
 
 I have some data:
@@ -24,7 +25,7 @@ I have some data:
       "answer_count": 1,
       "creation_date": 1441047662,
       "is_answered": false,
-      "last_activity_date": 1441047900, 
+      "last_activity_date": 1441047900,
       "link": ...
 ```
 
@@ -72,7 +73,7 @@ The purpose of the code explained below was to interface with a plugin a friend 
 
 # Defining the data
 
-There are 4 data types used to build up the syntax file and to display the information: 
+There are 4 data types used to build up the syntax file and to display the information:
 
 - A set of data (e.g. [questions from StackOverflow](https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&site=stackoverflow)),
 - A formatting string, that represent how the user wants the information to be displayed,
@@ -84,7 +85,7 @@ There are 4 data types used to build up the syntax file and to display the infor
 The StackExchange API produce a dataset that is well defined, I can easily extract the following information from it:
 
 ```json
-[ 
+[
   {
     "answer_count": 1,
     "creation_date": 1441047662,
@@ -160,7 +161,6 @@ let s:syntax_rules={
 ```
 
 We will see the defined options in the next part, but for now we can say is that each key defined in the mapping object will have display options through the syntax.
-
 
 # Workflow
 
@@ -257,11 +257,11 @@ elseif type({}) == type(l:value)
         \ ,'')
 ```
 
-Remember a sample mapping: 
+Remember a sample mapping:
 
 ```vim
-'last_activity': { 
-    'function' : 'GetDiffDate', 
+'last_activity': {
+    'function' : 'GetDiffDate',
     'param' : 'last_activity_date'
 }
 ```
@@ -274,7 +274,7 @@ I am also replacing in the `l:format` string using a custom `call` :
 call('<SID>'.l:value['function'], [a:item[l:value['param']]])
 ```
 
-This call the function named in the object and pass as argument the value of the item defined in the object. 
+This call the function named in the object and pass as argument the value of the item defined in the object.
 
 With the previous values, the function call will be:
 
@@ -293,20 +293,21 @@ elseif type([]) == type(l:value)
         \ , '')
 ```
 
-You can guess what this part is doing by looking again at the mapping: 
+You can guess what this part is doing by looking again at the mapping:
 
 ```vim
 'owner': ['owner', 'display_name']
 ```
 
-This will take the following value from the dataset: 
+This will take the following value from the dataset:
 
 ```vim
 a:item['owner']['display_name']
 ```
 
 ### WrapValue
-This function is wrapping the value inside custom defined blocks to enhance the syntax: 
+
+This function is wrapping the value inside custom defined blocks to enhance the syntax:
 
 ```vim
 function! s:WrapValue(group, key, value) abort
@@ -341,6 +342,7 @@ Creating a syntax in Vim is quite a journey, doing it automatically is interesti
 We will only see three parts of the syntax: clearing, defining, linking. Even if there is more to see (`:h syntax`).
 
 ## Introduction On Syntax
+
 I will try to introduce as clearly as possible the few concepts behind Vim's syntax that we will use.
 
 Setting a syntax with `:syntax enable` or `:syntax on` does multiple things (`:h syntax-loading`):
@@ -354,8 +356,8 @@ You can put anything in the filetype, any valid `ex` command (just like in you `
 There are multiple types of syntax items (`:h :syn-define`):
 
 - Keyword: simple word,
-- Match:   regex match,
-- Region:  match between a `start` and an `end` pattern.
+- Match: regex match,
+- Region: match between a `start` and an `end` pattern.
 
 I defined a syntax that will suit the region item: `{start}value{/end}`, so this is what I will be using.
 
@@ -368,12 +370,12 @@ As an example of this you can take a look at the [lambdify](https://github.com/c
 
 In our case, we want to display only the content of the region (and not the enclosing pattern), or hide completely the content.
 
-
 ## Syntax Rules
+
 In my syntax rules mapping I defined some options to render the items:
 
 ```vim
-let rule = { 
+let rule = {
   \ "show" : 1,         " Shoud the item appears ?
   \ "link" : "Tag",     " Highlight linking category
   \ "matchgroup" : 1    " Capture the matchgroup
@@ -384,6 +386,7 @@ There are two basic cases: an element we want on screen, and an element hidden (
 Keeping data in the buffer without displaying them can be usefull for further reference to an item (for example, hidding his `id`).
 
 ## Defining The Regions
+
 Based on the two cases, I defined a function that create the two possible syntax region definitions:
 
 ```vim
@@ -409,6 +412,7 @@ exec l:syntax_string
 ```
 
 ## Linking the region to a highlight group
+
 We can define a set of colors for each of our syntax region, but for the sake of this example I decided to reuse the existing color groups.
 
 You can see all the defined syntax-group in the documentation: `:h group-name`. Thus, it is only a matter of taste to choose which color goes to which group.
@@ -422,7 +426,6 @@ exec 'highlight link '.a:group_name.' '.a:link_name
 # Result !
 
 Here is the fecthed result without the syntax :
-
 
 <pre id='vimCodeElement'>
 <code>
@@ -453,10 +456,7 @@ Here is the fecthed result without the syntax :
 </code>
 </pre>
 
-
-
 `:set syntax=mysyntax`
-
 
 <pre id='vimCodeElement'>
 <code>
@@ -492,4 +492,3 @@ And there you go, you have a fully customizable syntax and highlight generator. 
 # Conclusion
 
 I played a lot with Vim to build this little piece of code, but yet I didn't even scratch the surface of all the possibilities the Vim syntax can offer.
-

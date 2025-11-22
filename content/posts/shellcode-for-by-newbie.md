@@ -16,7 +16,7 @@ link = "/images/posts/shellcode_newbies/presentation.jpg"
 copyright = "https://unsplash.com/photos/8LkImhM6qeA"
 +++
 
-I wrote this blog post with a simple goal in mind: I never took the time to understand fully how a shellcode worked. I know about it, I know that it works, but I don't know *how*. So I made myself write this in order to finally grasp its logic. Ready? Let's dig in!
+I wrote this blog post with a simple goal in mind: I never took the time to understand fully how a shellcode worked. I know about it, I know that it works, but I don't know _how_. So I made myself write this in order to finally grasp its logic. Ready? Let's dig in!
 
 For this article I'm using a Ubuntu Trusty 32bits (with [Vagrant](https://www.vagrantup.com/)).
 
@@ -75,7 +75,7 @@ Let's do a simple example:
 shellcode = "\x90\x90\x90\x90";
 ```
 
-Just 4 `NOP` operations, let's compile and 
+Just 4 `NOP` operations, let's compile and
 
 ```shell
 $ gcc -o shellcode shellcode.c
@@ -99,14 +99,14 @@ End of assembler dump.
    0x80484a3 <shellcode+3>:     nop
 ```
 
-The interesting part here is to notice 
+The interesting part here is to notice
 
 ```shell
    0x080483f3 <+6>:     mov    $0x80484a0,%eax
    0x080483f8 <+11>:    call   *%eax
 ```
 
-This is setting the address of our shellcode into `$eax` and calling it. This [`call`](http://x86.renejeschke.de/html/file_module_x86_id_26.html) instruction will jump to the first instruction at the specified address. *This won't work* with the current shellcode, it's just to show the flow of the wrapper.
+This is setting the address of our shellcode into `$eax` and calling it. This [`call`](http://x86.renejeschke.de/html/file_module_x86_id_26.html) instruction will jump to the first instruction at the specified address. _This won't work_ with the current shellcode, it's just to show the flow of the wrapper.
 
 # Spawning a shell
 
@@ -170,7 +170,6 @@ int main(){
 
 The first argument of `argv` is by convention started with the name of the current filename being executed.
 
-
 ```shell
 $ gcc -o execve_ls execve_ls.c
 $ ./execve_ls
@@ -179,7 +178,6 @@ bin   dev  home        lib         media  opt   root  sbin  sys  usr      var
 ```
 
 Now we're interested in `/bin/sh` and not `/bin/ls`, but it works just the same. We can actually removes the `argv` and `envp` from our test:
-
 
 ```c
 // execve_sh.c
@@ -204,7 +202,6 @@ Before going any further I need to introduce a concept: the calling convention. 
 
 - Pass every argument on the stack
 - Pass some argument on registers (FastCall)
-
 
 It's important to know what to do, because you may not have the right kernel for the right calling convention. The compiler usually makes that transparent for you, but because we're doing our `ASM` by hand, we need to know which one works.
 
@@ -312,6 +309,7 @@ Breakpoint 1, 0x08048062 in main ()
 ```
 
 Here you can see we can access the string from `eax`, and the strange instructions in `toCall` are just `gdb` interpreting the string as instructions:
+
 ```shell
    0x08048068 <+5>:     das
    0x08048069 <+6>:     bound  %ebp,0x6e(%ecx)
@@ -331,7 +329,6 @@ Another technique is to push the string to the stack and get back the value of `
 ```
 
 In memory we don't store the string, but rather the numeric representation of the string. The computer doesn't care how we add the data in memory, so we could just `push` data directly to the stack:
-
 
 ```shell
 0x8048068 <toCall+5>:   "/bin/sh"
@@ -389,7 +386,7 @@ Breakpoint 1, 0x0804806a in _start ()
 
 So you can see we successfully got the address of the string in `$eax` again.
 
-*Quick note*: because the following memory byte was not null, it was taken as being part of the string, we'll need to fix that later, by pushing `0` to the stack first.
+_Quick note_: because the following memory byte was not null, it was taken as being part of the string, we'll need to fix that later, by pushing `0` to the stack first.
 
 # Writing the shellcode
 

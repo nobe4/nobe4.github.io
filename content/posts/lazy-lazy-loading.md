@@ -4,9 +4,7 @@ date = 2024-07-21
 tags = ["technology"]
 +++
 
-
 In this blog post, I showcase how I maintain my [cat website](https://cats.nobe4.fr).
-
 
 # Past
 
@@ -25,10 +23,10 @@ Which generated an HTML file I could then deploy:
 
 ```html
 <body>
-    <img src="pictures/0.jpeg"/>
-    <img src="pictures/1.jpeg"/>
-    <img src="pictures/2.jpeg"/>
-    ...
+  <img src="pictures/0.jpeg" />
+  <img src="pictures/1.jpeg" />
+  <img src="pictures/2.jpeg" />
+  ...
 </body>
 ```
 
@@ -49,20 +47,21 @@ like so:
 
 ```javascript
 for (let i = 0; ; i++) {
-    const image = fetch(`path/to/picture_${i}.jpeg`)
-    if (!image) {
-        break;
-    }
-    body.append(image)
+  const image = fetch(`path/to/picture_${i}.jpeg`);
+  if (!image) {
+    break;
+  }
+  body.append(image);
 }
 ```
 
-Except that `fetch` is an async function, which needs either `await` or 
+Except that `fetch` is an async function, which needs either `await` or
 wrapping everything in an `async function(){}`.
 
 Bah, both sounds too complex, let's do something simpler.
 
 Let's use `<img>` events to loop through the pictures:
+
 - `onload` the image was loaded correctly, load the next one
 - `onerror` the image wasn't found, stop loading
 
@@ -73,25 +72,25 @@ Here's the result:
 
 ```html
 <body>
-    <main id="cats"></main>
-    <script>
-        function load_next(i) {
-            if (event) {
-                event.target.onload = ''
-                event.target.onerror = ''
-            }
+  <main id="cats"></main>
+  <script>
+    function load_next(i) {
+      if (event) {
+        event.target.onload = "";
+        event.target.onerror = "";
+      }
 
-            cats.insertAdjacentHTML(
-                "beforeend",
-                `<img src="pictures/${i}.jpeg" onload="load_next(${i + 1})" onerror="done()"/>`
-            )
-        }
-        load_next(0)
+      cats.insertAdjacentHTML(
+        "beforeend",
+        `<img src="pictures/${i}.jpeg" onload="load_next(${i + 1})" onerror="done()"/>`,
+      );
+    }
+    load_next(0);
 
-        function done() {
-            cats.removeChild(cats.lastChild)
-        }
-    </script>
+    function done() {
+      cats.removeChild(cats.lastChild);
+    }
+  </script>
 </body>
 ```
 

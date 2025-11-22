@@ -6,8 +6,6 @@ references = [ ]
 draft = true
 +++
 
-
-
 ## Espanso
 
 Until very recently, I had been using this [Espanso
@@ -41,5 +39,3 @@ and has only seen limited update recently.
 
 This prompted me to try to bring this basic keyboard functionality into my
 keyboard, literally.
-
-

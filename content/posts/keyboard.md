@@ -47,7 +47,7 @@ Z    X    C    V    B         K    M    ;    :    ↵
                ⇑    [ ]       CTRL SY
 ```
 
-Changing the defaults to have more logical shifted characters:  `'"`, `,;`,
+Changing the defaults to have more logical shifted characters: `'"`, `,;`,
 `.:`.
 
 # <kbd>SY</kbd> held: Symbol layer
@@ -71,7 +71,7 @@ modifier.
 #                                            $    `
 
 *    %    @    ^    GUI      &    _    ?    !
- 
+
 
 ```
 
@@ -83,5 +83,5 @@ This leaves <kbd>GUI</kbd> + <kbd>acvxzt</kbd> available for common operations.
 F1   F2   F3   F4   F5       🔊
 F6   F7   F8   F9   F10      🔈 ⏯
 F11  F12  F13  F14  F15      🔉
- 
+
 ```

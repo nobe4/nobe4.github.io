@@ -16,10 +16,10 @@ This work was done with [Cogit Studio](http://cogitstudio.com) and
 [D&AD](https://www.dandad.org/).
 
 - [D&AD and BETC's new Ad
-Filter](http://www.adweek.com/adfreak/browser-extension-replaces-boring-old-preroll-worlds-best-ads-165008)
- - [The most hypocritical ad blocker ever replaces ‘bad’ clips with award
- winning ones](https://thenextweb.com/media/2015/05/27/bad-ads/)
+  Filter](http://www.adweek.com/adfreak/browser-extension-replaces-boring-old-preroll-worlds-best-ads-165008)
+- [The most hypocritical ad blocker ever replaces ‘bad’ clips with award
+  winning ones](https://thenextweb.com/media/2015/05/27/bad-ads/)
 - [D&AD’s 'bad ad' blocker a timely reminder of the importance of online
-creativity](http://www.thedrum.com/news/2015/05/30/dad-s-bad-ad-blocker-timely-reminder-importance-online-creativity)
+  creativity](http://www.thedrum.com/news/2015/05/30/dad-s-bad-ad-blocker-timely-reminder-importance-online-creativity)
 - [Why D&AD is wrong to create its ad
-blocker](https://www.linkedin.com/pulse/why-dad-wrong-create-its-ad-blocker-chris-barraclough)
+  blocker](https://www.linkedin.com/pulse/why-dad-wrong-create-its-ad-blocker-chris-barraclough)

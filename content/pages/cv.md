@@ -30,12 +30,13 @@ Joined the original security team. Did all things security: education, auditing,
 pentest, incident response, built and managed a SIEM.
 
 Technologies:
+
 - Elasticsearch
 - Python/Ruby/Bash
 - Datadog
 - Saltstack
 - Docker
-- Hashicorp/*
+- Hashicorp/\*
 - AWS
 
 ### [Meetreel](https://www.f6s.com/company/meetreel)
@@ -124,12 +125,11 @@ Computer Technician
 
 Computer workstations installation
 
-
 ### [Air Liquide Medical Device](https://medicaldevice.airliquide.com/)
+
 2012 Jun - 2012 Aug <br>
 Antony, FR <br>
 Engineering Technician
-
 
 ## Education
 

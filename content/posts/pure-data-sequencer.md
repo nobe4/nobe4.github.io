@@ -99,7 +99,7 @@ You know most of it already, but two new box are used here:
 
 Can you now understand the full patch? Here's a breakdown:
 
-The `[inlet value]` gets the number you want to count to.  The trigger **first**
+The `[inlet value]` gets the number you want to count to. The trigger **first**
 sends a `bang` to the `[increment]` box, which resets its
 internal value (see above for details). **Then** it sends the `float` to `[until]`
 which in turns sends multiple `bang`s to the `[increment]`'s hot inlet. Finally
@@ -150,7 +150,7 @@ now, along with a `[select 0 1 2 3]` box:
 The `[select]` box is quite simple, it will send a `bang` to the output
 corresponding to the input value.
 
-This is neat and all but we can't control our sequencer! 
+This is neat and all but we can't control our sequencer!
 
 No problem, let's talk about memory now.
 
@@ -159,7 +159,7 @@ No problem, let's talk about memory now.
 In order to store informations in Pd, you have different options, `[toggle]`,
 `[table]`, ... We'll use a table, for its read/write simplicity.
 
-We need to store 4 tracks * 4 steps, so 16 values. I used a single `[table]`
+We need to store 4 tracks \* 4 steps, so 16 values. I used a single `[table]`
 and then some maths to get the right index. This allows us to later change the
 size of our system without having to add anything else.
 
@@ -196,9 +196,9 @@ The circuit we're going to build is following this logic:
 
 1. Input the current time
 2. For every tracks
-    1. If the value is 1
-        1. Send the track number
-        2. Send a bang to the corresponding outlet
+   1. If the value is 1
+      1. Send the track number
+      2. Send a bang to the corresponding outlet
 
 And here's the full circuit:
 

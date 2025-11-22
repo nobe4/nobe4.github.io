@@ -61,7 +61,6 @@ class Log
 ?>
 ```
 
-
 It seems that this file define a simple logging class in PHP. We are not sure what to do with yet...
 
 But, we can combine this class and use it instead of the `Info` one in the `POST` request. Using the following script:
@@ -95,7 +94,6 @@ r = requests.post("http://ctf01.root-me.org/index.php", data=data)
 print r.content
 ```
 
-
 What will happen here is the following:
 
 - The `Log` string will be `unserialize`d by the PHP server script.
@@ -107,7 +105,6 @@ We had to figure out the directory to use. After some research, we figured out t
 The payload is a simple web shell and will be placed in the folder `scriptz`.
 
 Now, we must find something to do with this shell, first of, the following script enhance the usage of the web shell:
-
 
 ```python
 import requests

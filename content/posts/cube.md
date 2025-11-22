@@ -30,32 +30,37 @@ var step = 0;
 Next, a few different functions to clear/display stuff on the canvas:
 
 ```javascript
-function clearCanvas(){
-	ctx.fillStyle = 'white';
-	ctx.fillRect(0, 0, WIDTH, HEIGHT);
+function clearCanvas() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
-function drawPoint(point){
-	ctx.fillStyle = 'black';
-	ctx.fillRect(point.x - pointSize/2, point.y - pointSize/2, pointSize, pointSize);
+function drawPoint(point) {
+  ctx.fillStyle = "black";
+  ctx.fillRect(
+    point.x - pointSize / 2,
+    point.y - pointSize / 2,
+    pointSize,
+    pointSize,
+  );
 }
 
-function drawLines(lines, debug){
-	if(debug){
-		ctx.strokeStyle = 'grey';
-		ctx.setLineDash([4, 4]);
-		ctx.lineWidth=1;
-	} else {
-		ctx.strokeStyle = 'black';
-		ctx.setLineDash([]);
-		ctx.lineWidth=3;
-	}
-	ctx.beginPath();
-	lines.forEach(points => {
-		ctx.moveTo(points[0].x, points[0].y);
-		ctx.lineTo(points[1].x, points[1].y);
-	});
-	ctx.stroke();
+function drawLines(lines, debug) {
+  if (debug) {
+    ctx.strokeStyle = "grey";
+    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1;
+  } else {
+    ctx.strokeStyle = "black";
+    ctx.setLineDash([]);
+    ctx.lineWidth = 3;
+  }
+  ctx.beginPath();
+  lines.forEach((points) => {
+    ctx.moveTo(points[0].x, points[0].y);
+    ctx.lineTo(points[1].x, points[1].y);
+  });
+  ctx.stroke();
 }
 ```
 
@@ -66,34 +71,35 @@ lines, we can do this in one stroke.
 Next, let see the mouse handling, wrapped into 3 little functions. The first of is the `proxyEvent`:
 
 ```javascript
-function proxyEvent(event, callback){
-	canvas[event] = (e) => callback(e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop);
+function proxyEvent(event, callback) {
+  canvas[event] = (e) =>
+    callback(e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop);
 }
 ```
 
 This function will add a new listener to the canvas and will callback the
-passed function with the `x` and `y` of the canvas, and not the page.  It's
+passed function with the `x` and `y` of the canvas, and not the page. It's
 used like so:
 
 ```javascript
-function generateMouseMoveHandler(point){
-	proxyEvent('onmousemove', function(x, y){
-		point.x = x;
-		point.y = y;
-	});
+function generateMouseMoveHandler(point) {
+  proxyEvent("onmousemove", function (x, y) {
+    point.x = x;
+    point.y = y;
+  });
 
-	// Mouse up clears the mouse move handle.
-	canvas.onmouseup = () => canvas.onmousemove = undefined;
+  // Mouse up clears the mouse move handle.
+  canvas.onmouseup = () => (canvas.onmousemove = undefined);
 }
 
-proxyEvent('onmousedown', function(x, y){
-	if(distanceTo(x, y, handle1) < 300) {
-		generateMouseMoveHandler(handle1);
-	} else if(distanceTo(x, y, handle2) < 300) {
-		generateMouseMoveHandler(handle2);
-	} else if(distanceTo(x, y, handle3) < 300) {
-		generateMouseMoveHandler(handle3);
-	}
+proxyEvent("onmousedown", function (x, y) {
+  if (distanceTo(x, y, handle1) < 300) {
+    generateMouseMoveHandler(handle1);
+  } else if (distanceTo(x, y, handle2) < 300) {
+    generateMouseMoveHandler(handle2);
+  } else if (distanceTo(x, y, handle3) < 300) {
+    generateMouseMoveHandler(handle3);
+  }
 });
 ```
 
@@ -109,20 +115,20 @@ Finally, the obligatory `requestAnimationFrame`, as simple as:
 
 ```javascript
 (function animationFrame() {
-	window.requestAnimationFrame(animationFrame);
-	render();
-})()
+  window.requestAnimationFrame(animationFrame);
+  render();
+})();
 ```
 
 And a few event handlers, nothing too much.
 
 ```javascript
-changeDebug = e => debug = e.checked;
-changeStep  = s => {
-	step = s;
-	document.getElementsByClassName('displayed')[0].classList.remove('displayed');
-	document.getElementById('step'+step).classList.add('displayed');
-}
+changeDebug = (e) => (debug = e.checked);
+changeStep = (s) => {
+  step = s;
+  document.getElementsByClassName("displayed")[0].classList.remove("displayed");
+  document.getElementById("step" + step).classList.add("displayed");
+};
 ```
 
 # A happy little cube
@@ -130,21 +136,21 @@ changeStep  = s => {
 Now on the cube's side, and let's start with the render function:
 
 ```javascript
-function render(){
-	clearCanvas();
+function render() {
+  clearCanvas();
 
-	middle1 = computeMiddle(handle1, center)
-	middle2 = computeMiddle(handle2, center)
-	middle3 = computeMiddle(handle3, center)
+  middle1 = computeMiddle(handle1, center);
+  middle2 = computeMiddle(handle2, center);
+  middle3 = computeMiddle(handle3, center);
 
-	intersection1 = computeIntersection(handle1, middle2, handle2, middle1)
-	intersection2 = computeIntersection(handle2, middle3, handle3, middle2)
-	intersection3 = computeIntersection(handle1, middle3, handle3, middle1)
+  intersection1 = computeIntersection(handle1, middle2, handle2, middle1);
+  intersection2 = computeIntersection(handle2, middle3, handle3, middle2);
+  intersection3 = computeIntersection(handle1, middle3, handle3, middle1);
 
-	center2 = computeIntersection(handle1, intersection2, handle2, intersection3);
+  center2 = computeIntersection(handle1, intersection2, handle2, intersection3);
 
-	// Draw stuff
-	// ...
+  // Draw stuff
+  // ...
 }
 ```
 
@@ -157,11 +163,11 @@ linked to the center by taking the middle point of the "center/vanishing point"
 line. This is done with rather simple vector calculus:
 
 ```javascript
-function computeMiddle(point1, point2){
-	return {
-		x: point2.x/2 + point1.x/2,
-		y: point2.y/2 + point1.y/2,
-	};
+function computeMiddle(point1, point2) {
+  return {
+    x: point2.x / 2 + point1.x / 2,
+    y: point2.y / 2 + point1.y / 2,
+  };
 }
 ```
 
@@ -175,15 +181,17 @@ involve any math, because we're not creating any new points.
 The next step is to get the intersections for the back points, this is done with the following piece of code:
 
 ```javascript
-function computeIntersection(point1, point2, point3, point4){
-	let d = (point1.x - point2.x)*(point3.y - point4.y) - (point3.x - point4.x)*(point1.y - point2.y);
-	let t = (point1.x*point2.y-point1.y*point2.x)/d;
-	let s = (point3.x*point4.y-point3.y*point4.x)/d;
+function computeIntersection(point1, point2, point3, point4) {
+  let d =
+    (point1.x - point2.x) * (point3.y - point4.y) -
+    (point3.x - point4.x) * (point1.y - point2.y);
+  let t = (point1.x * point2.y - point1.y * point2.x) / d;
+  let s = (point3.x * point4.y - point3.y * point4.x) / d;
 
-	return {
-		x: (point3.x-point4.x)*t-(point1.x-point2.x)*s,
-		y: (point3.y-point4.y)*t-(point1.y-point2.y)*s
-	};
+  return {
+    x: (point3.x - point4.x) * t - (point1.x - point2.x) * s,
+    y: (point3.y - point4.y) * t - (point1.y - point2.y) * s,
+  };
 }
 ```
 

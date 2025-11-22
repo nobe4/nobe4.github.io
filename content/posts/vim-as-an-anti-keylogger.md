@@ -12,7 +12,7 @@ OK, this is a fictional title made just to sound cool, a more accurate title wou
 
 ![Cat](/images/posts/vim-anti-keylogger/cat.gif)
 
-Quick note about [fugitive](https://github.com/tpope/vim-fugitive). I'm using this Vim plugin *a lot*, it's one of the few I couldn't live without. I highly recommend it!
+Quick note about [fugitive](https://github.com/tpope/vim-fugitive). I'm using this Vim plugin _a lot_, it's one of the few I couldn't live without. I highly recommend it!
 
 You can commit, show the status, add, revert, blame, directly from Vim It's a delight.
 
@@ -42,7 +42,6 @@ Then, if this messages is found (i.e. you have stuff to commit), read the conten
 I discovered that my `env GIT_EDITOR=false git commit` command wasn't producing any errors, or anything at all. So here is a problem.
 
 `env` is used to print the current environment variables, such as:
-
 
 ```shell
 $ env
@@ -217,7 +216,7 @@ end
 
 ![Freakout](/images/posts/vim-anti-keylogger/freakout.gif)
 
-[Carbon](https://en.wikipedia.org/wiki/Carbon_(API)) is an API interacting with old Macintosh machines, in that case I think it's used to target a large number of machines without compatibility issues.
+[Carbon](<https://en.wikipedia.org/wiki/Carbon_(API)>) is an API interacting with old Macintosh machines, in that case I think it's used to target a large number of machines without compatibility issues.
 
 The keys were posted to a Google form, which doesn't give any information on its creator. Identifying the owner is apparently a common question, but the answer is always "you can, report the form if you want, but that's all". (if there's a way, please do let me know!)
 
@@ -255,20 +254,20 @@ Meaning each time the updater is called, the keylogger is too. Nasty!
 I wasn't sure how to react to this gloomy discover, so I [asked internet about it](https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/), and there were some really good answers:
 
 > First, use something like HandsOff or Little Snitch to monitor the applications on your system that opens outgoing connections.
-([pilibitti](https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib8ti2/))
+> ([pilibitti](https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib8ti2/))
 
 > [...] if you want to do more forensics on your system, use the free tools provided by https://objective-see.com/
-([pilibitti](https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib8ti2/))
+> ([pilibitti](https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib8ti2/))
 
 > My solution would be to format the entire system.
-([sorama2](https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib78ve/))
+> ([sorama2](https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dib78ve/))
 
 And my favourite:
 
 > "Take off and nuke the site from orbit. It's the only way to be sure".
-([Chaoslab](https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dibqesk/), reference to the [1986's Aliens movie](https://www.youtube.com/watch?v=aCbfMkh940Q))
+> ([Chaoslab](https://www.reddit.com/r/hacking/comments/6el3tl/found_a_keylogger_on_my_machine_now_what/dibqesk/), reference to the [1986's Aliens movie](https://www.youtube.com/watch?v=aCbfMkh940Q))
 
-Needless to say that the next day,  my debit card was cancelled, my computer wiped and reinstalled from scratch, and every single password in my password manager changed, along with the master password.
+Needless to say that the next day, my debit card was cancelled, my computer wiped and reinstalled from scratch, and every single password in my password manager changed, along with the master password.
 
 ![Explosion](/images/posts/vim-anti-keylogger/explosion.gif)
 

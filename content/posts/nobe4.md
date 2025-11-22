@@ -18,4 +18,3 @@ It's pronounced:
 > no before
 
 > ˈnoʊ bɪˈfɔr
-

@@ -19,37 +19,45 @@ Here is the full code. To make it work, you need a fixed-size canvas whose id is
 
 ```javascript
 // Canvas properties
-c = a.getContext('2d');
+c = a.getContext("2d");
 W = a.width;
 H = a.height;
 
 // Starting points
-p=[[W/3,H/3],[2*W/3,2*H/3]];
-j=l=i=1;
+p = [
+  [W / 3, H / 3],
+  [(2 * W) / 3, (2 * H) / 3],
+];
+j = l = i = 1;
 
 // Map each key to a number
-for(x in c){c[j++]=c[x]}
+for (x in c) {
+  c[j++] = c[x];
+}
 
-n=setInterval(_=>{
+n = setInterval((_) => {
   // Draw lines
-  c[33](0,0,W,H);
+  c[33](0, 0, W, H);
   c[36]();
-  for(j=l;j--;c[55](p[j][0],p[j][1],1,1));
+  for (j = l; j--; c[55](p[j][0], p[j][1], 1, 1));
   c[38]();
 
   // Create new separation
-  p.splice(i,0,
-      ((p,b,d)=>[
-       .5*(p[0]+b[0]+d*(p[1]-b[1])),
-       .5*(p[1]+b[1]+d*(b[0]-p[0])),
-      ])(p[i-1],p[i],i%4-2))
+  p.splice(
+    i,
+    0,
+    ((p, b, d) => [
+      0.5 * (p[0] + b[0] + d * (p[1] - b[1])),
+      0.5 * (p[1] + b[1] + d * (b[0] - p[0])),
+    ])(p[i - 1], p[i], (i % 4) - 2),
+  );
 
   // Update index and length
-  i=(i+=2)>++l?1:i;
+  i = (i += 2) > ++l ? 1 : i;
 
   // Breakpoint
-  l>4000&&clearInterval(n);
-})
+  l > 4000 && clearInterval(n);
+});
 ```
 
 Let's break it down:
@@ -71,7 +79,9 @@ I use four functions of the canvas's context: `c.clearRect`, `c.beginPath`, `c.s
 But with the following piece of code I can call `c[31]`, `c[34]` and so on:
 
 ```javascript
-for(x in c){c[j++]=c[x]}
+for (x in c) {
+  c[j++] = c[x];
+}
 ```
 
 Next we define our interval which will act as the rendering loop. We store it in a variable to be able to stop it later, but this can be omitted.
@@ -81,7 +91,7 @@ The first part of the loop draw the current state, all lines between the points.
 This erase everything in the canvas, giving us a fresh start.
 
 ```javascript
-c.clearRect(0,0,W,H);
+c.clearRect(0, 0, W, H);
 ```
 
 We are drawing a path, i.e. a continuous line on the canvas. Those two instructions start and finish the line.
@@ -95,8 +105,8 @@ c.stroke();
 Now the fun part, let's start by decomposing the loop:
 
 ```javascript
-for(j = l; j-- > 0;) {
-  c.lineTo(p[j][0],p[j][1],1,1);
+for (j = l; j-- > 0; ) {
+  c.lineTo(p[j][0], p[j][1], 1, 1);
 }
 ```
 
@@ -111,26 +121,20 @@ We are only generating a new point at a time, in order to produce the _growth_ a
 To insert a new element in the array at position `i`, we use the splice method:
 
 ```javascript
-p.splice(i,0, new_element)
+p.splice(i, 0, new_element);
 ```
 
 We call a function that use the current and previous element to generate the new points. `d` is the direction of the rotation, which alternate between `1` and `-1`, depending on the current index.
 
 ```javascript
-(
-  (p,b,d) => [x, y]
-)(
-  p[i-1],
-  p[i],
-  i%4-2
-)
+((p, b, d) => [x, y])(p[i - 1], p[i], (i % 4) - 2);
 ```
 
 The new element use the matrix transformation operation ([defined here](https://en.wikipedia.org/wiki/Dragon_curve)), but simplified to perform both rotation at the same time:
 
 ```javascript
-.5*(p[0]+b[0]+d*(p[1]-b[1]))
-.5*(p[1]+b[1]+d*(b[0]-p[0]))
+0.5 * (p[0] + b[0] + d * (p[1] - b[1]));
+0.5 * (p[1] + b[1] + d * (b[0] - p[0]));
 ```
 
 The actual formulas are:
@@ -150,7 +154,7 @@ Using the `d` variable we can factor them.
 Now we update our variables:
 
 ```javascript
-i = (i+=2) > ++l ? 1 : i;
+i = (i += 2) > ++l ? 1 : i;
 ```
 
 - `l` is incremented, since we just added a new point in the array
@@ -161,6 +165,7 @@ We increment the current index by two because, as we want to proceed the next el
 You can try it below:
 
 <button onclick="start();return false;">start</button>
+
 <div id="canvas_container"></div>
 <script>
     var canvas = document.createElement('canvas');
@@ -201,15 +206,15 @@ i.e. with Chrome, Firefox and Safari:
 Using the snippet:
 
 ```javascript
-i=0;
-for(a in document.createElement('canvas').getContext('2d')){
+i = 0;
+for (a in document.createElement("canvas").getContext("2d")) {
   console.log(i++, a);
 }
 ```
 
 You can change de corresponding code with the following:
 
-|  | c.clearRect|c.beginPath|c.stroke|c.lineTo |
-| ---:|:---:|:---:|:---:|:---:|
-| Firefox | 11 | 14 | 16 | 32 |
-| Safari | 34 | 36 | 47 | 39 |
+|         | c.clearRect | c.beginPath | c.stroke | c.lineTo |
+| ------: | :---------: | :---------: | :------: | :------: |
+| Firefox |     11      |     14      |    16    |    32    |
+|  Safari |     34      |     36      |    47    |    39    |

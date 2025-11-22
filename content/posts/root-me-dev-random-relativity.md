@@ -142,7 +142,7 @@ j8NkwULE5T1bKXuLyywSgHFCWaBmH2mdhiHCjtF/dFcEl4cOm5zWD6+iXa9E0AteogGUi1LTwyGhNpLR
 vF7DJ25a5Lki4U93F9weS3RxDuF7QBge6TmigIjhxrcHTFxJkgtar mauk@Relativity
 ```
 
-We even have access to the private ssh key, and we now that the current ssh user (mauk) is registered in the `authorized_keys`, so [we can use the private key to connect without password]( https://support.rackspace.com/how-to/logging-in-with-an-ssh-private-key-on-linuxmac/):
+We even have access to the private ssh key, and we now that the current ssh user (mauk) is registered in the `authorized_keys`, so [we can use the private key to connect without password](https://support.rackspace.com/how-to/logging-in-with-an-ssh-private-key-on-linuxmac/):
 
 ```bash
 ssh -i private.key mauk@ctf06.root-me.org
@@ -221,7 +221,6 @@ VERSION
 :relativity.localdomain 005 mk WALLCHOPS WATCH=128 WATCHOPTS=A SILENCE=15 MODES=12 CHANTYPES=# PREFIX=(qaohv)~&@%+ CHANMODES=beI,kfL,lj,psmntirRcOAQKVCuzNSMTG NETWORK=Relativity CASEMAPPING=ascii EXTBAN=~,cqnr ELIST=MNUCT STATUSMSG=~&@%+ :are supported by this server
 :relativity.localdomain 005 mk EXCEPTS INVEX CMDS=KNOCK,MAP,DCCALLOW,USERIP :are supported by this server
 ```
-
 
 Knowing this is an Unreal3.2.8.1 IRC server, we quickly find out about an [RCE exploit](https://www.exploit-db.com/exploits/13853/):
 
@@ -323,7 +322,6 @@ Starting Auth server..
 ```
 
 We can see that the call for `fortune` is not absolute path, so we can change the binary by modifying the path:
-
 
 We can change the path to use the "local" fortune script this way:
 
