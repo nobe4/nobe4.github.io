@@ -1,45 +1,6 @@
 {{ define "main" }}
-	<div class="metadata">
-		{{ with .Date }}
-			<time datetime="{{ . | time.Format "2006-01-02" }}">
-				Written:
-				{{ . | time.Format "2006-01-02" }}
-			</time>
-		{{ end }}
-
-		{{ with .GetTerms "tags" }}
-			&nbsp; | &nbsp;
-			{{ range . }}
-				<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-			{{ end }}
-			<br />
-		{{ end }}
-
-		{{ if not (and (eq .Date.Year .Lastmod.Year) (eq .Date.YearDay .Lastmod.YearDay)) }}
-			{{ $path := .File.Path }}
-			{{ with .Lastmod }}
-				<time datetime="{{ .| time.Format "2006-01-02" }}">
-					<a
-						href="https://github.com/nobe4/nobe4.github.io/commits/master/content/{{ $path }}"
-						title="history"
-						target="_blank"
-					>
-						Updated:
-						{{ .| time.Format "2006-01-02" }}
-					</a>
-				</time>
-			{{ end }}
-		{{ end }}
-	</div>
-
-	{{ if .Params.Image }}
-		<figure>
-			<img src="{{ .Params.Image.Link }}" alt="" />
-			{{ if .Params.Image.Copyright }}
-				<a class="copyright" href="{{ .Params.Image.Copyright }}">Copyright</a>
-			{{ end }}
-		</figure>
-	{{ end }}
+	{{ partial "metadata" . }}
+	{{ partial "image" . }}
 
 	{{- with .Content -}}
 		<div>
@@ -47,14 +8,5 @@
 		</div>
 	{{- end -}}
 
-	{{ with .Params.References }}
-		<div>
-			References:
-			<ul id="references">
-				{{ range . }}
-					<li><a href="{{ . }}">{{ . }}</a></li>
-				{{ end }}
-			</ul>
-		</div>
-	{{ end }}
+	{{ partial "references" . }}
 {{ end }}

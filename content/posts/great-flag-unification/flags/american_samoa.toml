@@ -1,0 +1,7 @@
+name = "American Samoa"
+emoji = "🇦🇸"
+code = """
+r 0  0 *  *   * #000066
+t 10 6 10 180 * #bd1021
+t 11 6 7  180 * #ffffff
+"""

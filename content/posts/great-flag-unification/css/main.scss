@@ -1,0 +1,10 @@
+.flag {
+	> * {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	pre {
+		margin: 0;
+	}
+}

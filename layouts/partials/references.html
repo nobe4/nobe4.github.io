@@ -1,0 +1,10 @@
+{{ with .Params.References }}
+	<div>
+		References:
+		<ul id="references">
+			{{ range . }}
+				<li><a href="{{ . }}">{{ . }}</a></li>
+			{{ end }}
+		</ul>
+	</div>
+{{ end }}

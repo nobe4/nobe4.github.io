@@ -1,0 +1,23 @@
+{{ define "main" }}
+	{{ partial "metadata" . }}
+
+
+	<div>
+		{{ range .Resources.Match "flags/*" }}
+			{{ with . | transform.Unmarshal }}
+				<h2>
+					{{ .name | title }}
+					{{ .emoji }}
+				</h2>
+				<div class="flag">
+					<canvas></canvas>
+					<pre><code data-lang="flag">{{- .code -}}</code></pre>
+				</div>
+			{{ end }}
+		{{ end }}
+
+		{{ .Content }}
+	</div>
+
+	{{ partial "references" . }}
+{{ end }}

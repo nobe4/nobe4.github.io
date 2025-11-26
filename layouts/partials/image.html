@@ -1,0 +1,8 @@
+{{ if .Params.Image }}
+	<figure>
+		<img src="{{ .Params.Image.Link }}" alt="" />
+		{{ if .Params.Image.Copyright }}
+			<a class="copyright" href="{{ .Params.Image.Copyright }}">Copyright</a>
+		{{ end }}
+	</figure>
+{{ end }}
