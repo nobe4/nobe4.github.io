@@ -4,51 +4,6 @@ const INC = SIZE / DIVISIONS;
 const normalizeRe = /\s+/g;
 
 const fn = {
-	r: (ctx, x, y, w, h, t) => {
-		if (t == "*") {
-			ctx.fillRect(x * INC, y * INC, w * INC, h * INC);
-		} else {
-			ctx.lineWidth = parseInt(t);
-			ctx.strokeRect(x * INC, y * INC, w * INC, h * INC);
-		}
-	},
-	c: (ctx, x, y, w, _, t) => {
-		ctx.beginPath();
-		ctx.arc(x * INC, y * INC, w * INC, 0, 2 * Math.PI);
-		if (t == "*") {
-			ctx.fill();
-		} else {
-			ctx.lineWidth = parseInt(t);
-			ctx.stroke();
-		}
-	},
-	t: (ctx, x, y, r, a, t) => {
-		x *= INC;
-		y *= INC;
-		r *= INC;
-		a -= 2;
-		a *= (45 * Math.PI) / 180;
-
-		const a0 = a;
-		const a1 = a + (2 * Math.PI) / 3;
-		const a2 = a + (4 * Math.PI) / 3;
-
-		ctx.beginPath();
-		ctx.moveTo(x + r * Math.cos(a0), y + r * Math.sin(a0));
-		ctx.lineTo(x + r * Math.cos(a1), y + r * Math.sin(a1));
-		ctx.lineTo(x + r * Math.cos(a2), y + r * Math.sin(a2));
-		ctx.closePath();
-
-		if (t == "*") {
-			ctx.fill();
-		} else {
-			ctx.lineWidth = parseInt(t);
-			ctx.stroke();
-		}
-	},
-};
-
-const fn2 = {
 	r: (x, y, w, h) => {
 		let e = document.createElementNS("http://www.w3.org/2000/svg", "rect");
 
@@ -61,13 +16,11 @@ const fn2 = {
 	},
 	c: (x, y, w, h) => {
 		let e = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-		let rx = w;
-		let ry = h;
 
-		e.setAttribute("cx", x + rx);
-		e.setAttribute("cy", y + ry);
-		e.setAttribute("rx", rx);
-		e.setAttribute("ry", ry);
+		e.setAttribute("cx", x + w);
+		e.setAttribute("cy", y + h);
+		e.setAttribute("rx", w);
+		e.setAttribute("ry", h);
 
 		return e;
 	},
@@ -81,6 +34,16 @@ const fn2 = {
 			.map((p) => p.join(","))
 			.join(" ");
 		e.setAttribute("points", points);
+		return e;
+	},
+	h: (x, y, w, h) => {
+		let e = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+		e.setAttribute(
+			"d",
+			`M ${x} ${y + h / 2} A ${w / 2} ${h / 2} 0 0 1 ${x + w} ${y + h / 2}`,
+		);
+
 		return e;
 	},
 };
@@ -99,7 +62,7 @@ const draw2 = (svg, code) => {
 		h = parseFloat(h) * INC;
 		const center = [x + w / 2, y + h / 2];
 
-		let e = fn2[f](x, y, w, h);
+		let e = fn[f](x, y, w, h);
 
 		if (t == "*") {
 			e.setAttribute("fill", c);
