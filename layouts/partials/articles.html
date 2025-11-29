@@ -31,9 +31,13 @@
 				<li>
 					<a href="{{ .RelPermalink }}">
 						{{ if eq .Kind "page" }}
-							{{ with .Content | countwords }}
-								<span class="length">{{ . }}</span>
-							{{ end }}
+							<span class="length">
+								{{ with .Content | countwords }}
+									{{ . }}
+								{{ else }}
+									0
+								{{ end }}
+							</span>
 
 							{{ with .Date }}
 								{{ with . | time.Format "2006-01-02" }}
