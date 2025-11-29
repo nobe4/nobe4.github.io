@@ -3,20 +3,25 @@
 
 
 	<div>
+		{{ .Content }}
+
 		{{ range .Resources.Match "flags/*" }}
+			{{ $file_name := replace (path.BaseName .Name) "_" " " | title }}
 			{{ with . | transform.Unmarshal }}
-				<h2>
-					{{ .name | title }}
-					{{ .emoji }}
-				</h2>
-				<div class="flag">
-					<canvas></canvas>
+				<div class="flag simple">
+					<h2>
+						{{ with .name }}
+							{{ . | title }}
+						{{ else }}
+							{{ $file_name }}
+						{{ end }}
+						{{ .emoji }}
+					</h2>
+					<svg xmlns="http://www.w3.org/2000/svg"></svg>
 					<pre><code data-lang="flag">{{- .code -}}</code></pre>
 				</div>
 			{{ end }}
 		{{ end }}
-
-		{{ .Content }}
 	</div>
 
 	{{ partial "references" . }}

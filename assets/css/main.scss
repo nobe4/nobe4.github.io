@@ -223,12 +223,14 @@ pre {
 
 pre {
 	line-height: 1.4em;
-	padding: 2em 1em 0.2em;
+	padding: 2em 1em 1em;
 	overflow-y: scroll;
 
 	position: relative;
 
 	code {
+		display: block;
+
 		&::after {
 			color: var(--comment);
 			content: attr(data-lang);

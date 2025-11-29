@@ -1,7 +1,6 @@
-name = "American Samoa"
 emoji = "🇦🇸"
 code = """
-r 0  0 *  *   * #000066
-t 10 6 10 180 * #bd1021
-t 11 6 7  180 * #ffffff
+r 0  0 *  * 0 * #000066
+t 0 0 12 12 2 * #bd1021
+t 4 0 12 12 2 * #ffffff
 """

@@ -1,9 +1,11 @@
-emoji = "🇦🇮"
+emoji = " 🇦🇺"
 code = """
 r 0 0   * * 0 * #012169
 r 0 1.5 5 2 0 * #ffffff
 r 0 1.5 5 2 2 * #ffffff
 r 0 2   5 1 0 * #c8102e
 r 0 2   5 1 2 * #c8102e
-t 7 7   4 4 0 * #ffffff
+t 8 7   2 2 0 * #ffffff
+t 8 2   2 2 0 * #ffffff
+t 1 7   3 3 0 * #ffffff
 """

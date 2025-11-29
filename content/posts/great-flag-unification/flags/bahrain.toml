@@ -1,0 +1,7 @@
+emoji = "🇧🇭"
+code = """
+r 0 0  * * 0 * #da291c
+t 0 -1 6 6 6 * #ffffff
+t 0 3  6 6 6 * #ffffff
+t 0 7  6 6 6 * #ffffff
+"""
