@@ -1,24 +1,21 @@
 .flag {
-	margin-bottom: 1em;
-
-	pre,
-	svg,
-	canvas {
-		margin: 1px;
-		display: inline-block;
+	svg {
 		vertical-align: top;
-	}
-
-	pre {
-		margin: 0;
+		width: 100%;
+		height: 100%;
 	}
 
 	&.simple {
-		margin-bottom: 0;
 		display: inline-block;
+
 		h2,
 		pre {
 			display: none;
+		}
+
+		svg {
+			width: 100px;
+			height: 100px;
 		}
 	}
 }

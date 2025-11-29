@@ -86,9 +86,6 @@ const fn2 = {
 };
 
 const draw2 = (svg, code) => {
-	svg.setAttribute("width", "100");
-	svg.setAttribute("height", "100");
-
 	code.split("\n").forEach((line) => {
 		let [f, x, y, w, h, a, t, c] = line.replace(normalizeRe, " ").split(" ");
 
