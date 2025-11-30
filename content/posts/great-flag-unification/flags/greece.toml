@@ -1,0 +1,10 @@
+emoji = " 🇬🇷"
+code = """
+r 0   0   *   *   0 * #0d5eaf
+r 0   2.6 6.5 1.3 0 * #ffffff
+r 2.6 0   1.3 6.5 0 * #ffffff
+r 6.5 1.3 *   1.3 0 * #ffffff
+r 6.5 3.9 *   1.3 0 * #ffffff
+r 0   6.5 *   1.3 0 * #ffffff
+r 0   9.3 *   1.3 0 * #ffffff
+"""
