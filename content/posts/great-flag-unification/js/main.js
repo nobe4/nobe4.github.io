@@ -88,6 +88,5 @@ document.querySelectorAll(".flag").forEach((e) => {
 });
 
 document.querySelectorAll('code[data-lang="flag"]').forEach((e) => {
-	console.log(e);
 	draw2(e.parentNode.parentNode.querySelector("svg"), e.innerText.trim(""));
 });
