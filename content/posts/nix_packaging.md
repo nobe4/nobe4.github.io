@@ -10,6 +10,7 @@ references = [
     "https://github.com/NixOS/nixpkgs/blob/25.11/pkgs/by-name/ba/bat/package.nix",
     "https://github.com/NixOS/nixpkgs/blob/25.11/lib/systems/default.nix#L50-L58",
     "https://github.com/NixOS/nixpkgs/blob/25.11/lib/systems/flake-systems.nix",
+    "https://github.com/NixOS/nixpkgs/blob/25.11/pkgs/by-name/ba/bat/package.nix",
     "https://nixos.org/manual/nixpkgs/stable/#function-library-lib.customisation.callPackageWith",
     "https://nix.dev/manual/nix/2.33/command-ref/new-cli/nix3-flake",
     "https://nix.dev/manual/nix/2.33/command-ref/new-cli/nix3-eval.html",
