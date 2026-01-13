@@ -8,9 +8,12 @@ references = [
     "https://github.com/NixOS/nixpkgs/blob/25.11/doc/build-helpers/fetchers.chapter.md#fetchfromgithub-fetchfromgithub",
     "https://github.com/NixOS/nixpkgs/blob/25.11/doc/languages-frameworks/rust.section.md#buildrustpackage-compiling-rust-applications-with-cargo-compiling-rust-applications-with-cargo",
     "https://github.com/NixOS/nixpkgs/blob/25.11/pkgs/by-name/ba/bat/package.nix",
+    "https://github.com/NixOS/nixpkgs/blob/25.11/lib/systems/default.nix#L50-L58",
+    "https://github.com/NixOS/nixpkgs/blob/25.11/lib/systems/flake-systems.nix",
     "https://nixos.org/manual/nixpkgs/stable/#function-library-lib.customisation.callPackageWith",
-    "https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-flake",
+    "https://nix.dev/manual/nix/2.33/command-ref/new-cli/nix3-flake",
     "https://nix.dev/manual/nix/2.33/command-ref/new-cli/nix3-eval.html",
+    "https://nix.dev/manual/nix/2.33/command-ref/new-cli/nix3-flake-show.html",
     "https://jvns.ca/blog/2023/11/11/notes-on-nix-flakes/",
 ]
 +++
@@ -124,36 +127,40 @@ reproducible and discoverable way. It's like a `Dockerfile`, but better.
 
   outputs =
     { self, nixpkgs }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-
-      repo = "bat";
-      version = "v0.26.0";
-    in
     {
-      packages.${system}.default = pkgs.rustPlatform.buildRustPackage {
-        pname = repo;
-        version = version;
+      packages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
 
-        src = pkgs.fetchFromGitHub {
-          owner = "sharkdp";
-          repo = repo;
-          rev = version;
-          hash = "sha256-[redacted]";
-        };
+          repo = "bat";
+          version = "v0.26.0";
+        in
 
-        cargoHash = "sha256-[redacted]";
+        {
+          default = pkgs.rustPlatform.buildRustPackage {
+            pname = repo;
+            version = version;
 
-        meta = with pkgs.lib; {
-          description = "A cat(1) clone with wings";
-          homepage = "https://github.com/sharkdp/bat";
-          license = licenses.asl20;
-          platforms = platforms.linux;
-        };
-      };
+            src = pkgs.fetchFromGitHub {
+              owner = "sharkdp";
+              repo = repo;
+              rev = version;
+              hash = "sha256-[redacted]";
+            };
 
-      bat = self.packages.${system}.default;
+            cargoHash = "sha256-[redacted]";
+            doCheck = false;
+
+            meta = with pkgs.lib; {
+              description = "A cat(1) clone with wings";
+              homepage = "https://github.com/sharkdp/bat";
+              license = licenses.asl20;
+              platforms = platforms.linux;
+            };
+          };
+        }
+      );
     };
 }
 ```
@@ -165,30 +172,48 @@ Lots of similarities with the no-flake version, and some differences:
 
 - `outputs`: the "product" of this flake.
 
-- `outputs.let`: defines some variables to be used for making the output.
+- `outputs.packages`: loops through all the available systems with `genAttrs`
+    and `flakeExposed`.
 
-    - `system`: the current system, adapt to your needs.
-    - `pkgs` imports `nixpkgs` as defined earlier, using the current system's
-    version.
+    It defines a `default` for each available system.
+
+    <details>
+    <summary> <code>getAttrs</code> and <code>flakeExposed</code> showcase </summary>
+
+    ```shell
+    nix-repl> lib = (import <nixpkgs> {}).lib
+    nix-repl> lib.genAttrs [ "foo" "bar" ] (name: "hello-${name}")
+    {
+      bar = "hello-bar";
+      foo = "hello-foo";
+    }
+    nix-repl> lib.systems.flakeExposed
+    [
+      "x86_64-linux"
+      "x86_64-darwin"
+      # ...
+    ]
+
+    nix-repl> lib.genAttrs lib.systems.flakeExposed (name: {default = "${name}";}
+    {
+      x86_64-linux = { default = "x86_64-linux"; };
+      # ...
+    }
+    ```
+    </details>
 
 - `outputs.packages.${system}.default` the "default" output for the specified
   system.
 
     It directly uses the result of `buildRustPackage`, as seen previously.
 
-    It is required to exist when running `nix build`, or `nixos-rebuild`.
+    It is required when running `nix build`, or `nixos-rebuild`.
 
-- `outputs.bat`: the package and its name.
+Build the flake with:
 
-    This creates an alias name for the default result, used for easier
-    referencing.
-
-    ℹ️ This is _not_ how the binary is called. It is an exported name to be
-    used in nix.
-
-### Test
-
-Flakes enable easy testing with `nix build`.
+```shell
+$ nix build
+```
 
 It creates a `flake.lock` to lock components to their hash, and produces a
 `result` directory:
@@ -203,6 +228,19 @@ $ tree -l
         └── bat
 ```
 
+**Note:** it builds only the current system:
+
+```shell
+$ nix flake show
+git+file:///path/to?dir=nixos/packages/bat_flake
+└───packages
+    ├───aarch64-darwin
+    │   └───default omitted (use '--all-systems' to show)
+    │   # ...
+    └───x86_64-linux
+        └───default: package 'bat-v0.26.0'
+```
+
 ### Install
 
 In your `configuration.nix`, add the following:
@@ -210,7 +248,8 @@ In your `configuration.nix`, add the following:
 ```nix
 { ... }:
 let
-  bat = (builtins.getFlake (toString ./bat_flake)).bat;
+  system = pkgs.stdenv.hostPlatform.system;
+  bat = (builtins.getFlake (toString ./bat_flake)).packages.${system}.default
 in
 {
   # ...
@@ -228,6 +267,8 @@ path. E.g.
 $ nix eval --expr 'builtins.toString ./bat_flake'
 "/path/to/nixos/packages/bat_flake"
 ```
+
+`system` references the current system, which matches against the built one.
 
 ## Rebuilding
 
@@ -254,3 +295,9 @@ $ nixos-rebuild
   steps that I don't yet know how to perform.
 - Probably not move my config to Flake-based, as I don't see too much
   benefits for now.
+
+
+## Acknowledments
+
+Thanks [@tebriel](https://blog.frodux.org) for reviewing and suggesting
+improvements.
