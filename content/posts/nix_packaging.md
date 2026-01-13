@@ -14,6 +14,7 @@ references = [
     "https://nix.dev/manual/nix/2.33/command-ref/new-cli/nix3-flake",
     "https://nix.dev/manual/nix/2.33/command-ref/new-cli/nix3-eval.html",
     "https://nix.dev/manual/nix/2.33/command-ref/new-cli/nix3-flake-show.html",
+    "https://nix.dev/manual/nix/2.33/language/builtins#builtins-getAttr",
     "https://jvns.ca/blog/2023/11/11/notes-on-nix-flakes/",
 ]
 +++
