@@ -1,5 +1,5 @@
 +++
-title = 'Nix ln, the wrong way'
+title = 'Nix ln, the wrong ways'
 date = 2026-01-25
 tags = ["tech", "nix"]
 references = [
@@ -19,12 +19,12 @@ references = [
 ]
 +++
 
-**TL;DR**: don't do this, everyone suggests to using `home-manager`, or a non-Nix
+**TL;DR**: don't do this, everyone suggests using `home-manager`, or a non-Nix
 solution.
 
-In the exploration of porting my configuration to Nix, the next step was to find
-a way to manage all the links. This article shows a couple of wrong way to do
-it, they are still good learning paths, hence this writing.
+In the exploration of porting my configuration to Nix, the next step was to
+manage all the links. This article shows a couple of wrong ways to do it, they
+are still good learning paths, hence this writing.
 
 Unless otherwise specified, all code examples are simplified for clarity.
 
@@ -42,8 +42,7 @@ ln -sfv "$DOTFILE_FOLDER/kitty/" "$HOME/.config/kitty"
 This works well enough for a single system, but is not easily configurable.
 Using Nix's options seemed like a good solution for this.
 
-I had head of `home-manager`, but didn't want to use it until I absolutely
-needed to.
+I heard of `home-manager`, but didn't want to use it until absolutely necessary.
 
 ## Using `mkDerivation`
 
@@ -155,7 +154,7 @@ in
 }
 ```
 
-This doesn't work if the file is expected to live in `$HOME/`, or `$XDG_CONFIG/`.
+This doesn't work if the file lives in `$HOME/`, or `$XDG_CONFIG/`.
 
 ## Using `userActivationScripts`
 
