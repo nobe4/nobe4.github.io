@@ -1,7 +1,7 @@
 +++
 title = "Nix packaging"
 date = 2026-01-12
-tags = ["tech"]
+tags = ["tech", "nix"]
 references = [
     "https://nixos.org/",
     "https://github.com/sharkdp/bat",
