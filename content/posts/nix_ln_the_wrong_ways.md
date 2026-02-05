@@ -172,7 +172,7 @@ This doesn't work if the file lives in `$HOME/`, or `$XDG_CONFIG/`.
       src = builtins.elemAt tuple 0;
       dst = builtins.elemAt tuple 1;
     in
-    ''ln -s ${src} ${dst}''
+    ''ln -vfsT ${src} ${dst}''
   ) config.ln;
 }
 
@@ -219,7 +219,7 @@ E.g.
       src = builtins.elemAt tuple 0;
       dst = builtins.elemAt tuple 1;
     in
-    ''ln -vfs ${src} ${dst} ''
+    ''ln -vfsT ${src} ${dst} ''
   ) config.ln-root;
   #...
 }
