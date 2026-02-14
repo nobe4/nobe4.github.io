@@ -299,7 +299,7 @@ $ nixos-rebuild
   benefits for now.
 
 
-## Acknowledments
+## Acknowledgments
 
 Thanks [@tebriel](https://blog.frodux.org) for reviewing and suggesting
 improvements.
