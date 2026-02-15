@@ -135,7 +135,7 @@ How hard would it be to add this back into Nix-Darwin?
 I remember reading `mkAfter` in the past and it was my first idea: appends the
 options/aliases to the `environment.etc.zshrc.text` value.
 
-Starting with `setOptions` (the easiest to format), I arrived at [a working
+Starting with the easiest to format: `setOptions` , I arrived at [a working
 `mkAfter` code]:
 
 ```nix
@@ -214,19 +214,99 @@ after all. My best guess at understanding what happens, it still feels like
 magic to me, is that `zshrc.text` becomes dependent on its own value, which
 create an infinite dependency loop.
 
-## Overlay-ish
+## Override and `disabledModule`
 
-@tebriel suggested that I use an overlay
+@tebriel suggested that I use an override, whose main idea is to replace a Nix
+module, with another one. Combined with [`disabledModules`] it completely
+replaces a module.
 
+E.g.
+
+```nix
+{}:{
+    disabledModules = [ "path/to/module" ];
+    imports = [ "path/to/custom/module" ];
+}
+```
+
+Using this method, I copied the entire [`darwin.programs.zsh`] and
+[`darwin.programs.bash`] into my dotfile repo and [added the missing options]:
+
+- `hosts/brahms.nix`
+
+    ```nix {hl_lines=[2 5]}
+    {}:{
+      disabledModules = [ "programs/zsh" ];
+      imports = [
+        # ...
+        ../modules/darwin-zsh.nix
+      ];
+      # ...
+    }
+    ```
+
+- `modules/darwin-zsh.nix`
+
+    A copy of [`darwin.programs.zsh`] with some additions copied straight from
+    [`programs.zsh`]:
+
+```nix {hl_lines=["8-12" "24-27"]}
+{}:{
+    # ...
+    programs.zsh.histFile = mkOption {
+      type = types.str;
+      # ...
+    };
+
+    programs.zsh.setOptions = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ "HIST_IGNORE_DUPS" ];
+      # ...
+    };
+
+    programs.zsh.enableCompletion = mkOption {
+      type = types.bool;
+      # ...
+    };
+    # ...
+
+    environment.etc."zshrc".text = ''
+      # ...
+      HISTFILE=${cfg.histFile}
+
+      ${lib.optionalString (cfg.setOptions != [ ]) ''
+        # Set zsh options.
+        setopt ${builtins.concatStringsSep " " cfg.setOptions}
+      ''}
+
+      bindkey -e
+      # ...
+    '';
+}
+```
+
+This offered two advantages:
+
+1. It worked, I could have the `zsh` options set correctly.
+2. It offered an easy way to prepare a patch to send this change upstream.
+
+Adding the remaining functionalities were similar, so I'll spare the repetition
+here. You can view the [final changes].
+
+## Porting the changes upstream
+
+> TODO once I actually make the PR.
 
 ## Acknowledgements
 
-Thanks [@tebriel](https://blog.frodux.org) for reviewing and suggesting
+Thanks [@tebriel](https://blog.frodux.org) for the [initial code], the reviews and
 improvements.
 
 
-
-
+[initial code]: https://github.com/nobe4/dotfiles/pull/50
+[final changes]: https://github.com/nobe4/dotfiles/pull/51
+[added the missing options]: https://github.com/nobe4/dotfiles/commit/cb8bd6d707dc75fbacd5bed7a054f062d2d96de1
+[`disabledModules`]: https://github.com/NixOS/nixpkgs/blob/master/nixos/doc/manual/development/replace-modules.section.md
 [`builtins.replaceStrings`]: https://github.com/NixOS/nix/blob/8fadcceb6d5c4458915fce58267695ef12bb048f/src/libutil/util.cc#L74-L84
 [a working `mkAfter` code]: https://github.com/nobe4/dotfiles/blob/beced1a1b4106c8478412dfe644794984a541be6/nixos/modules/darwin-shell.nix
 [default ZSH options]: https://github.com/nix-darwin/nix-darwin/blob/6c5a56295d2a24e43bcd8af838def1b9a95746b2/modules/programs/zsh/default.nix#L210
