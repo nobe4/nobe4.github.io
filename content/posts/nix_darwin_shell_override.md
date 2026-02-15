@@ -25,11 +25,9 @@ I came to:
     {
       "ls" = "ls --color=auto";
       "ll" = "ls -la";
-      # ...
     }
     // lib.optionalAttrs pkgs.stdenv.isDarwin {
       "kitty" = "$HOME/Applications/kitty.app/Contents/MacOS/kitty";
-      # ...
     }
     ```
 
@@ -106,7 +104,6 @@ in
   config = lib.mkIf cfg.enable {
     environment.etc.zshrc.text = ''
       # /etc/zshrc: DO NOT EDIT -- this file has been generated automatically.
-      # ...
 
       ${lib.optionalString (cfg.setOptions != [ ]) ''
         # Set zsh options.
@@ -115,7 +112,6 @@ in
 
       # Setup aliases.
       ${zshAliases}
-      #...
     '';
   };
 }
