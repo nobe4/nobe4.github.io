@@ -3,6 +3,14 @@
 		color: var(--fg-code);
 	}
 
+	.line {
+		display: block;
+	}
+
+	.hl {
+		background-color: var(--hl-code);
+	}
+
 	.gd,
 	.err {
 		color: var(--red);

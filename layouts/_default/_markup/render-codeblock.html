@@ -3,7 +3,7 @@
 
 {{ if transform.CanHighlight $lang }}
 	<div class="{{ $class }} highlight-wrapper" data-lang="{{ $lang }}">
-		{{ highlight .Inner $lang }}
+		{{ highlight .Inner $lang .Options }}
 	</div>
 {{ else }}
 	<div class="highlight-wrapper">
