@@ -1,9 +1,19 @@
 +++
 title = 'Nix-Darwin shell override'
 date = 2026-02-14T17:24:28+01:00
+tags = ["tech", "nix"]
 references = [
-    "https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/modules/programs/zsh/zsh.nix",
+    "https://github.com/NixOS/nix/blob/8fadcceb6d5c4458915fce58267695ef12bb048f/src/libutil/util.cc#L74-L84",
+    "https://github.com/NixOS/nixpkgs/blob/master/nixos/doc/manual/development/replace-modules.section.md",
     "https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/modules/programs/bash/bash.nix",
+    "https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/modules/programs/zsh/zsh.nix",
+    "https://github.com/nix-darwin/nix-darwin/blob/6c5a56295d2a24e43bcd8af838def1b9a95746b2/modules/programs/bash/default.nix",
+    "https://github.com/nix-darwin/nix-darwin/blob/6c5a56295d2a24e43bcd8af838def1b9a95746b2/modules/programs/zsh/default.nix",
+    "https://github.com/nix-darwin/nix-darwin/blob/6c5a56295d2a24e43bcd8af838def1b9a95746b2/modules/programs/zsh/default.nix#L210",
+    "https://github.com/nobe4/dotfiles/blob/0281789d26fa16b68a98c7e1a5f9b1ef915bbc11/nixos/packages/shell/aliases.nix",
+    "https://github.com/nobe4/dotfiles/blob/0281789d26fa16b68a98c7e1a5f9b1ef915bbc11/nixos/packages/shell/shell.nix",
+    "https://github.com/nobe4/dotfiles/blob/beced1a1b4106c8478412dfe644794984a541be6/nixos/modules/darwin-shell.nix",
+    "https://github.com/nobe4/dotfiles/commit/cb8bd6d707dc75fbacd5bed7a054f062d2d96de1",
 ]
 +++
 
