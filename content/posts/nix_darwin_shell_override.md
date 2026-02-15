@@ -282,7 +282,8 @@ here. You can view the [final changes].
 
 ## Porting the changes upstream
 
-> TODO once I actually make the PR.
+- https://github.com/nix-darwin/nix-darwin/pull/1697
+- https://github.com/nix-darwin/nix-darwin/pull/1698
 
 ## Acknowledgements
 
