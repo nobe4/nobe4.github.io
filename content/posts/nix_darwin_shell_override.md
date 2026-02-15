@@ -216,9 +216,9 @@ create an infinite dependency loop.
 
 ## Override and `disabledModule`
 
-@tebriel suggested that I use an override, whose main idea is to replace a Nix
-module, with another one. Combined with [`disabledModules`] it completely
-replaces a module.
+[@tebriel] suggested that I use an override, whose main idea is to replace a Nix
+module with another one. Combined with [`disabledModules`] it completely
+replaces a module's functionality.
 
 E.g.
 
@@ -234,14 +234,12 @@ Using this method, I copied the entire [`darwin.programs.zsh`] and
 
 - `hosts/brahms.nix`
 
-    ```nix {hl_lines=[2 5]}
+    ```nix {hl_lines=[2 4]}
     {}:{
       disabledModules = [ "programs/zsh" ];
       imports = [
-        # ...
         ../modules/darwin-zsh.nix
       ];
-      # ...
     }
     ```
 
@@ -250,40 +248,33 @@ Using this method, I copied the entire [`darwin.programs.zsh`] and
     A copy of [`darwin.programs.zsh`] with some additions copied straight from
     [`programs.zsh`]:
 
-```nix {hl_lines=["8-12" "24-27"]}
-{}:{
-    # ...
-    programs.zsh.histFile = mkOption {
-      type = types.str;
-      # ...
-    };
+    ```nix {hl_lines=["6-9" "18-21"]}
+    {}:{
+        programs.zsh.histFile = mkOption {
+          type = types.str;
+        };
 
-    programs.zsh.setOptions = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ "HIST_IGNORE_DUPS" ];
-      # ...
-    };
+        programs.zsh.setOptions = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ "HIST_IGNORE_DUPS" ];
+        };
 
-    programs.zsh.enableCompletion = mkOption {
-      type = types.bool;
-      # ...
-    };
-    # ...
+        programs.zsh.enableCompletion = mkOption {
+          type = types.bool;
+        };
 
-    environment.etc."zshrc".text = ''
-      # ...
-      HISTFILE=${cfg.histFile}
+        environment.etc."zshrc".text = ''
+          HISTFILE=${cfg.histFile}
 
-      ${lib.optionalString (cfg.setOptions != [ ]) ''
-        # Set zsh options.
-        setopt ${builtins.concatStringsSep " " cfg.setOptions}
-      ''}
+          ${lib.optionalString (cfg.setOptions != [ ]) ''
+            # Set zsh options.
+            setopt ${builtins.concatStringsSep " " cfg.setOptions}
+          ''}
 
-      bindkey -e
-      # ...
-    '';
-}
-```
+          bindkey -e
+        '';
+    }
+    ```
 
 This offered two advantages:
 
@@ -299,7 +290,7 @@ here. You can view the [final changes].
 
 ## Acknowledgements
 
-Thanks [@tebriel](https://blog.frodux.org) for the [initial code], the reviews and
+Thanks [@tebriel] for the [initial code], the reviews and
 improvements.
 
 
@@ -316,6 +307,7 @@ improvements.
 [`programs.bash`]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/modules/programs/bash/bash.n
 [`packages/shell/shell.nix`]: https://github.com/nobe4/dotfiles/blob/0281789d26fa16b68a98c7e1a5f9b1ef915bbc11/nixos/packages/shell/shell.nix
 [`packages/shell/aliases.nix`]: https://github.com/nobe4/dotfiles/blob/0281789d26fa16b68a98c7e1a5f9b1ef915bbc11/nixos/packages/shell/aliases.nix
+[@tebriel]: https://blog.frodux.org
 
 [^why /etc/zshrc]: Note that NixOS only installs ZSH options in the _global_
     config at `/etc/zshrc` and not `~/.zshrc`.
