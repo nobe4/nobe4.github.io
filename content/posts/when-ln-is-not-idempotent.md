@@ -74,469 +74,469 @@ link () {
 </details>
 <br>
 
-`$1` \ `$2` | �       | F       | D
----         | ---     | ---     | ---
-�           | `0` ❌  | `14` ❌ | `28` ❌
-�`/`        | `1` ❌  | `15` ❌ | `29` ❌
-F           | `2` ✅  | `16` ✅ | `30` ⚠️
-F`/`        | `3` ❌  | `17` ❌ | `31` ❌
-D           | `4` ✅  | `18` ✅ | `32` ⚠️
-D`/`        | `5` ✅  | `19` ✅ | `33` ⚠️
-�FL         | `6` ❌  | `20` ❌ | `34` ❌
-�FL`/`      | `7` ❌  | `21` ❌ | `35` ❌
-FL          | `8` ✅  | `22` ✅ | `36` ⚠️
-FL`/`       | `9` ❌  | `23` ❌ | `37` ❌
-�DL         | `10` ❌ | `24` ❌ | `38` ❌
-�DL`/`      | `11` ❌ | `25` ❌ | `39` ❌
-DL          | `12` ✅ | `26` ✅ | `40` ⚠️
-DL`/`       | `13` ✅ | `27` ✅ | `41` ⚠️
+| `$1` \ `$2` | �       | F       | D       |
+| ----------- | ------- | ------- | ------- |
+| �           | `0` ❌  | `14` ❌ | `28` ❌ |
+| �`/`        | `1` ❌  | `15` ❌ | `29` ❌ |
+| F           | `2` ✅  | `16` ✅ | `30` ⚠️ |
+| F`/`        | `3` ❌  | `17` ❌ | `31` ❌ |
+| D           | `4` ✅  | `18` ✅ | `32` ⚠️ |
+| D`/`        | `5` ✅  | `19` ✅ | `33` ⚠️ |
+| �FL         | `6` ❌  | `20` ❌ | `34` ❌ |
+| �FL`/`      | `7` ❌  | `21` ❌ | `35` ❌ |
+| FL          | `8` ✅  | `22` ✅ | `36` ⚠️ |
+| FL`/`       | `9` ❌  | `23` ❌ | `37` ❌ |
+| �DL         | `10` ❌ | `24` ❌ | `38` ❌ |
+| �DL`/`      | `11` ❌ | `25` ❌ | `39` ❌ |
+| DL          | `12` ✅ | `26` ✅ | `40` ⚠️ |
+| DL`/`       | `13` ✅ | `27` ✅ | `41` ⚠️ |
 
 _Notes:_
 
 - The indexes correspond to the test results listed below.
 
 - Results:
-
-    - ✅: the link is valid
-    - ❌: the link is broken
-    - ⚠️: the link exists but might not be what you want
-
+  - ✅: the link is valid
+  - ❌: the link is broken
+  - ⚠️: the link exists but might not be what you want
 
 - ⚠️: All the links are created _inside_ the directory, rather than _being_ the
-    directory.
+  directory.
 
-    E.g. for the same command `link a b`:
+  E.g. for the same command `link a b`:
 
-    ```shell
-    # instead of
-    ### [16] ###
-    .
-    ├── a
-    └── b -> /tmp/ln/a
+  ```shell
+  # instead of
+  ### [16] ###
+  .
+  ├── a
+  └── b -> /tmp/ln/a
 
-    # we get
-    ### [30] ###
-    .
-    ├── a
-    └── b
-        └── a -> /tmp/ln/a
-    ```
+  # we get
+  ### [30] ###
+  .
+  ├── a
+  └── b
+      └── a -> /tmp/ln/a
+  ```
 
-    This is what `man ln` calls the `3rd and 4th forms`:
+  This is what `man ln` calls the `3rd and 4th forms`:
 
-    > In the 3rd  and  4th  forms,  create links to each TARGET in DIRECTORY.
+  > In the 3rd and 4th forms, create links to each TARGET in DIRECTORY.
 
-    If you look back before the table, that's what the "sometimes" means for `$2`.
+  If you look back before the table, that's what the "sometimes" means for `$2`.
 
 <details>
 <summary> Full test results </summary>
 
 - `run.sh`
-    ```shell
-    #!/usr/bin/env bash
-    link () {
-        ln --verbose --force --symbolic "$(pwd)/${1:?}" "$(pwd)/${2:?}"
-    }
 
-    clean() { find . -not -name run.sh -delete ; }
+  ```shell
+  #!/usr/bin/env bash
+  link () {
+      ln --verbose --force --symbolic "$(pwd)/${1:?}" "$(pwd)/${2:?}"
+  }
 
-    run() {
-        echo -e "\n### [${id}] ###: $1"
-        eval "$1"
-        tree -I 'run.sh' | head -n -2
-        find . -xtype l -exec echo "Broken link: {}" \;
-        id=$((id + 1))
-        clean
-    }
+  clean() { find . -not -name run.sh -delete ; }
 
-    id=0
-    cases=(
-        # column 1
-        "link a b"
-        "link a/ b"
-        "touch a && link a b"
-        "touch a && link a/ b"
-        "mkdir a && link a b"
-        "mkdir a && link a/ b"
-        "link a b && link b c"
-        "link a b && link b/ c"
-        "touch a && link a b && link b c"
-        "touch a && link a b && link b/ c"
-        "link a/ b && link b c"
-        "link a/ b && link b/ c"
-        "mkdir a && link a b && link b c"
-        "mkdir a && link a b && link b/ c"
-        # column 2
-        "touch b && link a b"
-        "touch b && link a/ b"
-        "touch b && touch a && link a b"
-        "touch b && touch a && link a/ b"
-        "touch b && mkdir a && link a b"
-        "touch b && mkdir a && link a/ b"
-        "touch c && link a b && link b c"
-        "touch c && link a b && link b/ c"
-        "touch c && touch a && link a b && link b c"
-        "touch c && touch a && link a b && link b/ c"
-        "touch c && link a/ b && link b c"
-        "touch c && link a/ b && link b/ c"
-        "touch c && mkdir a && link a b && link b c"
-        "touch c && mkdir a && link a b && link b/ c"
-        # column 2
-        "mkdir b && link a b"
-        "mkdir b && link a/ b"
-        "mkdir b && touch a && link a b"
-        "mkdir b && touch a && link a/ b"
-        "mkdir b && mkdir a && link a b"
-        "mkdir b && mkdir a && link a/ b"
-        "mkdir c && link a b && link b c"
-        "mkdir c && link a b && link b/ c"
-        "mkdir c && touch a && link a b && link b c"
-        "mkdir c && touch a && link a b && link b/ c"
-        "mkdir c && link a/ b && link b c"
-        "mkdir c && link a/ b && link b/ c"
-        "mkdir c && mkdir a && link a b && link b c"
-        "mkdir c && mkdir a && link a b && link b/ c"
-    )
+  run() {
+      echo -e "\n### [${id}] ###: $1"
+      eval "$1"
+      tree -I 'run.sh' | head -n -2
+      find . -xtype l -exec echo "Broken link: {}" \;
+      id=$((id + 1))
+      clean
+  }
 
-    for t in "${cases[@]}"; do
-        run "$t"
-    done
-    ```
+  id=0
+  cases=(
+      # column 1
+      "link a b"
+      "link a/ b"
+      "touch a && link a b"
+      "touch a && link a/ b"
+      "mkdir a && link a b"
+      "mkdir a && link a/ b"
+      "link a b && link b c"
+      "link a b && link b/ c"
+      "touch a && link a b && link b c"
+      "touch a && link a b && link b/ c"
+      "link a/ b && link b c"
+      "link a/ b && link b/ c"
+      "mkdir a && link a b && link b c"
+      "mkdir a && link a b && link b/ c"
+      # column 2
+      "touch b && link a b"
+      "touch b && link a/ b"
+      "touch b && touch a && link a b"
+      "touch b && touch a && link a/ b"
+      "touch b && mkdir a && link a b"
+      "touch b && mkdir a && link a/ b"
+      "touch c && link a b && link b c"
+      "touch c && link a b && link b/ c"
+      "touch c && touch a && link a b && link b c"
+      "touch c && touch a && link a b && link b/ c"
+      "touch c && link a/ b && link b c"
+      "touch c && link a/ b && link b/ c"
+      "touch c && mkdir a && link a b && link b c"
+      "touch c && mkdir a && link a b && link b/ c"
+      # column 2
+      "mkdir b && link a b"
+      "mkdir b && link a/ b"
+      "mkdir b && touch a && link a b"
+      "mkdir b && touch a && link a/ b"
+      "mkdir b && mkdir a && link a b"
+      "mkdir b && mkdir a && link a/ b"
+      "mkdir c && link a b && link b c"
+      "mkdir c && link a b && link b/ c"
+      "mkdir c && touch a && link a b && link b c"
+      "mkdir c && touch a && link a b && link b/ c"
+      "mkdir c && link a/ b && link b c"
+      "mkdir c && link a/ b && link b/ c"
+      "mkdir c && mkdir a && link a b && link b c"
+      "mkdir c && mkdir a && link a b && link b/ c"
+  )
+
+  for t in "${cases[@]}"; do
+      run "$t"
+  done
+  ```
 
 - Output
-    ```shell
-    ### [0] ###: link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    └── b -> /tmp/ln/a
-    Broken link: ./b
 
-    ### [1] ###: link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    └── b -> /tmp/ln/a/
-    Broken link: ./b
+  ```shell
+  ### [0] ###: link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  └── b -> /tmp/ln/a
+  Broken link: ./b
 
-    ### [2] ###: touch a && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b -> /tmp/ln/a
+  ### [1] ###: link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  └── b -> /tmp/ln/a/
+  Broken link: ./b
 
-    ### [3] ###: touch a && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b -> /tmp/ln/a/
-    Broken link: ./b
+  ### [2] ###: touch a && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b -> /tmp/ln/a
 
-    ### [4] ###: mkdir a && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b -> /tmp/ln/a
+  ### [3] ###: touch a && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b -> /tmp/ln/a/
+  Broken link: ./b
 
-    ### [5] ###: mkdir a && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b -> /tmp/ln/a/
+  ### [4] ###: mkdir a && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b -> /tmp/ln/a
 
-    ### [6] ###: link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
-    Broken link: ./c
-    Broken link: ./b
+  ### [5] ###: mkdir a && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b -> /tmp/ln/a/
 
-    ### [7] ###: link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
-    Broken link: ./b
+  ### [6] ###: link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [8] ###: touch a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
+  ### [7] ###: link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [9] ###: touch a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
+  ### [8] ###: touch a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
 
-    ### [10] ###: link a/ b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c -> /tmp/ln/b
-    Broken link: ./c
-    Broken link: ./b
+  ### [9] ###: touch a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
 
-    ### [11] ###: link a/ b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
-    Broken link: ./b
+  ### [10] ###: link a/ b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c -> /tmp/ln/b
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [12] ###: mkdir a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
+  ### [11] ###: link a/ b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [13] ###: mkdir a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
+  ### [12] ###: mkdir a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
 
-    ### [14] ###: touch b && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    └── b -> /tmp/ln/a
-    Broken link: ./b
+  ### [13] ###: mkdir a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
 
-    ### [15] ###: touch b && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    └── b -> /tmp/ln/a/
-    Broken link: ./b
+  ### [14] ###: touch b && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  └── b -> /tmp/ln/a
+  Broken link: ./b
 
-    ### [16] ###: touch b && touch a && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b -> /tmp/ln/a
+  ### [15] ###: touch b && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  └── b -> /tmp/ln/a/
+  Broken link: ./b
 
-    ### [17] ###: touch b && touch a && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b -> /tmp/ln/a/
-    Broken link: ./b
+  ### [16] ###: touch b && touch a && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b -> /tmp/ln/a
 
-    ### [18] ###: touch b && mkdir a && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b -> /tmp/ln/a
+  ### [17] ###: touch b && touch a && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b -> /tmp/ln/a/
+  Broken link: ./b
 
-    ### [19] ###: touch b && mkdir a && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b -> /tmp/ln/a/
+  ### [18] ###: touch b && mkdir a && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b -> /tmp/ln/a
 
-    ### [20] ###: touch c && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
-    Broken link: ./c
-    Broken link: ./b
+  ### [19] ###: touch b && mkdir a && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b -> /tmp/ln/a/
 
-    ### [21] ###: touch c && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
-    Broken link: ./b
+  ### [20] ###: touch c && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [22] ###: touch c && touch a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
+  ### [21] ###: touch c && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [23] ###: touch c && touch a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
+  ### [22] ###: touch c && touch a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
 
-    ### [24] ###: touch c && link a/ b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c -> /tmp/ln/b
-    Broken link: ./c
-    Broken link: ./b
+  ### [23] ###: touch c && touch a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
 
-    ### [25] ###: touch c && link a/ b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
-    Broken link: ./b
+  ### [24] ###: touch c && link a/ b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c -> /tmp/ln/b
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [26] ###: touch c && mkdir a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
+  ### [25] ###: touch c && link a/ b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [27] ###: touch c && mkdir a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
+  ### [26] ###: touch c && mkdir a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
 
-    ### [28] ###: mkdir b && link a b
-    '/tmp/ln/b/a' -> '/tmp/ln/a'
-    .
-    └── b
-        └── a -> /tmp/ln/a
-    Broken link: ./b/a
+  ### [27] ###: touch c && mkdir a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
 
-    ### [29] ###: mkdir b && link a/ b
-    '/tmp/ln/b/a' -> '/tmp/ln/a/'
-    .
-    └── b
-        └── a -> /tmp/ln/a/
-    Broken link: ./b/a
+  ### [28] ###: mkdir b && link a b
+  '/tmp/ln/b/a' -> '/tmp/ln/a'
+  .
+  └── b
+      └── a -> /tmp/ln/a
+  Broken link: ./b/a
 
-    ### [30] ###: mkdir b && touch a && link a b
-    '/tmp/ln/b/a' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b
-        └── a -> /tmp/ln/a
+  ### [29] ###: mkdir b && link a/ b
+  '/tmp/ln/b/a' -> '/tmp/ln/a/'
+  .
+  └── b
+      └── a -> /tmp/ln/a/
+  Broken link: ./b/a
 
-    ### [31] ###: mkdir b && touch a && link a/ b
-    '/tmp/ln/b/a' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b
-        └── a -> /tmp/ln/a/
-    Broken link: ./b/a
+  ### [30] ###: mkdir b && touch a && link a b
+  '/tmp/ln/b/a' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b
+      └── a -> /tmp/ln/a
 
-    ### [32] ###: mkdir b && mkdir a && link a b
-    '/tmp/ln/b/a' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b
-        └── a -> /tmp/ln/a
+  ### [31] ###: mkdir b && touch a && link a/ b
+  '/tmp/ln/b/a' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b
+      └── a -> /tmp/ln/a/
+  Broken link: ./b/a
 
-    ### [33] ###: mkdir b && mkdir a && link a/ b
-    '/tmp/ln/b/a' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b
-        └── a -> /tmp/ln/a/
+  ### [32] ###: mkdir b && mkdir a && link a b
+  '/tmp/ln/b/a' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b
+      └── a -> /tmp/ln/a
 
-    ### [34] ###: mkdir c && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c/b' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a
-    └── c
-        └── b -> /tmp/ln/b
-    Broken link: ./c/b
-    Broken link: ./b
+  ### [33] ###: mkdir b && mkdir a && link a/ b
+  '/tmp/ln/b/a' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b
+      └── a -> /tmp/ln/a/
 
-    ### [35] ###: mkdir c && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c/b' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a
-    └── c
-        └── b -> /tmp/ln/b/
-    Broken link: ./c/b
-    Broken link: ./b
+  ### [34] ###: mkdir c && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c/b' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a
+  └── c
+      └── b -> /tmp/ln/b
+  Broken link: ./c/b
+  Broken link: ./b
 
-    ### [36] ###: mkdir c && touch a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c/b' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c
-        └── b -> /tmp/ln/b
+  ### [35] ###: mkdir c && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c/b' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a
+  └── c
+      └── b -> /tmp/ln/b/
+  Broken link: ./c/b
+  Broken link: ./b
 
-    ### [37] ###: mkdir c && touch a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c/b' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c
-        └── b -> /tmp/ln/b/
-    Broken link: ./c/b
+  ### [36] ###: mkdir c && touch a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c/b' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c
+      └── b -> /tmp/ln/b
 
-    ### [38] ###: mkdir c && link a/ b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c/b' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c
-        └── b -> /tmp/ln/b
-    Broken link: ./c/b
-    Broken link: ./b
+  ### [37] ###: mkdir c && touch a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c/b' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c
+      └── b -> /tmp/ln/b/
+  Broken link: ./c/b
 
-    ### [39] ###: mkdir c && link a/ b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c/b' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c
-        └── b -> /tmp/ln/b/
-    Broken link: ./c/b
-    Broken link: ./b
+  ### [38] ###: mkdir c && link a/ b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c/b' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c
+      └── b -> /tmp/ln/b
+  Broken link: ./c/b
+  Broken link: ./b
 
-    ### [40] ###: mkdir c && mkdir a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c/b' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c
-        └── b -> /tmp/ln/b
+  ### [39] ###: mkdir c && link a/ b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c/b' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c
+      └── b -> /tmp/ln/b/
+  Broken link: ./c/b
+  Broken link: ./b
 
-    ### [41] ###: mkdir c && mkdir a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c/b' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c
-        └── b -> /tmp/ln/b/
-    ```
+  ### [40] ###: mkdir c && mkdir a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c/b' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c
+      └── b -> /tmp/ln/b
+
+  ### [41] ###: mkdir c && mkdir a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c/b' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c
+      └── b -> /tmp/ln/b/
+  ```
 
 </details>
 
@@ -553,22 +553,22 @@ We now understand the weird behavior:
 1. First run, the `$HOME/.config/nvim` link is created, it points to the
    directory `$DOTFILE_FOLDER/nvim/`.
 
-    ```shell
-    $HOME/.config/nvim -> $DOTFILE_FOLDER/nvim
-    ```
+   ```shell
+   $HOME/.config/nvim -> $DOTFILE_FOLDER/nvim
+   ```
 
 2. Second run, `ln` sees a directory, and assumes that you want to link _into
    the directory_, rather than link _the directory_.
 
-    ```shell
-    $DOTFILE_FOLDER/nvim/nvim -> $HOME/.config/nvim -> $DOTFILE_FOLDER/nvim
-    ```
+   ```shell
+   $DOTFILE_FOLDER/nvim/nvim -> $HOME/.config/nvim -> $DOTFILE_FOLDER/nvim
+   ```
 
 3. The result is a new link inside the linked directory:
 
-    ```shell
-    $DOTFILE_FOLDER/nvim/nvim -> $DOTFILE_FOLDER/nvim
-    ```
+   ```shell
+   $DOTFILE_FOLDER/nvim/nvim -> $DOTFILE_FOLDER/nvim
+   ```
 
 ## The solution
 
@@ -627,50 +627,50 @@ link () {
 }
 ```
 
-`$1` \ `$2` | �       | F       | D
----         | ---     | ---     | ---
-�           | `0` ❌  | `14` ❌ | `28` 💥
-�`/`        | `1` ❌  | `15` ❌ | `29` 💥
-F           | `2` ✅  | `16` ✅ | `30` 💥
-F`/`        | `3` ❌  | `17` ❌ | `31` 💥
-D           | `4` ✅  | `18` ✅ | `32` 💥
-D`/`        | `5` ✅  | `19` ✅ | `33` 💥
-�FL         | `6` ❌  | `20` ❌ | `34` 💥
-�FL`/`      | `7` ❌  | `21` ❌ | `35` 💥
-FL          | `8` ✅  | `22` ✅ | `36` 💥
-FL`/`       | `9` ❌  | `23` ❌ | `37` 💥
-�DL         | `10` ❌ | `24` ❌ | `38` 💥
-�DL`/`      | `11` ❌ | `25` ❌ | `39` 💥
-DL          | `12` ✅ | `26` ✅ | `40` 💥
-DL`/`       | `13` ✅ | `27` ✅ | `41` 💥
+| `$1` \ `$2` | �       | F       | D       |
+| ----------- | ------- | ------- | ------- |
+| �           | `0` ❌  | `14` ❌ | `28` 💥 |
+| �`/`        | `1` ❌  | `15` ❌ | `29` 💥 |
+| F           | `2` ✅  | `16` ✅ | `30` 💥 |
+| F`/`        | `3` ❌  | `17` ❌ | `31` 💥 |
+| D           | `4` ✅  | `18` ✅ | `32` 💥 |
+| D`/`        | `5` ✅  | `19` ✅ | `33` 💥 |
+| �FL         | `6` ❌  | `20` ❌ | `34` 💥 |
+| �FL`/`      | `7` ❌  | `21` ❌ | `35` 💥 |
+| FL          | `8` ✅  | `22` ✅ | `36` 💥 |
+| FL`/`       | `9` ❌  | `23` ❌ | `37` 💥 |
+| �DL         | `10` ❌ | `24` ❌ | `38` 💥 |
+| �DL`/`      | `11` ❌ | `25` ❌ | `39` 💥 |
+| DL          | `12` ✅ | `26` ✅ | `40` 💥 |
+| DL`/`       | `13` ✅ | `27` ✅ | `41` 💥 |
 
 _Notes:_
 
 - Results:
-    - Same as before
+  - Same as before
 
-    - 💥: The command fail with `Cannot overwrite directory`.
+  - 💥: The command fail with `Cannot overwrite directory`.
 
-        This happens for the entire column, because the directory already exists
-        and `ln` _does not_ override it if it's supposed to be a _normal file_.
+    This happens for the entire column, because the directory already exists
+    and `ln` _does not_ override it if it's supposed to be a _normal file_.
 
-        To get a valid link the full path must be specified, inside the
-        directory.
+    To get a valid link the full path must be specified, inside the
+    directory.
 
-        E.g.
+    E.g.
 
-        ```shell
-        $ mkdir a b
-        $ link a b
-        ln: /tmp/ln/b: cannot overwrite directory
-        $ link a b/a
-        '/tmp/ln/b/a' -> '/tmp/ln/a'
-        $ tree
-        .
-        ├── a
-        └── b
-            └── a -> /tmp/ln/a
-        ```
+    ```shell
+    $ mkdir a b
+    $ link a b
+    ln: /tmp/ln/b: cannot overwrite directory
+    $ link a b/a
+    '/tmp/ln/b/a' -> '/tmp/ln/a'
+    $ tree
+    .
+    ├── a
+    └── b
+        └── a -> /tmp/ln/a
+    ```
 
 <details>
 <summary> Full test results </summary>
@@ -686,317 +686,317 @@ _Notes:_
 
 - Output
 
-    ```shell
-    ### [0] ###: link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    └── b -> /tmp/ln/a
-    Broken link: ./b
+  ```shell
+  ### [0] ###: link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  └── b -> /tmp/ln/a
+  Broken link: ./b
 
-    ### [1] ###: link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    └── b -> /tmp/ln/a/
-    Broken link: ./b
+  ### [1] ###: link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  └── b -> /tmp/ln/a/
+  Broken link: ./b
 
-    ### [2] ###: touch a && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b -> /tmp/ln/a
+  ### [2] ###: touch a && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b -> /tmp/ln/a
 
-    ### [3] ###: touch a && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b -> /tmp/ln/a/
-    Broken link: ./b
+  ### [3] ###: touch a && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b -> /tmp/ln/a/
+  Broken link: ./b
 
-    ### [4] ###: mkdir a && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b -> /tmp/ln/a
+  ### [4] ###: mkdir a && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b -> /tmp/ln/a
 
-    ### [5] ###: mkdir a && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b -> /tmp/ln/a/
+  ### [5] ###: mkdir a && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b -> /tmp/ln/a/
 
-    ### [6] ###: link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
-    Broken link: ./c
-    Broken link: ./b
+  ### [6] ###: link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [7] ###: link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
-    Broken link: ./b
+  ### [7] ###: link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [8] ###: touch a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
+  ### [8] ###: touch a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
 
-    ### [9] ###: touch a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
+  ### [9] ###: touch a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
 
-    ### [10] ###: link a/ b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c -> /tmp/ln/b
-    Broken link: ./c
-    Broken link: ./b
+  ### [10] ###: link a/ b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c -> /tmp/ln/b
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [11] ###: link a/ b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
-    Broken link: ./b
+  ### [11] ###: link a/ b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [12] ###: mkdir a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
+  ### [12] ###: mkdir a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
 
-    ### [13] ###: mkdir a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
+  ### [13] ###: mkdir a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
 
-    ### [14] ###: touch b && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    └── b -> /tmp/ln/a
-    Broken link: ./b
+  ### [14] ###: touch b && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  └── b -> /tmp/ln/a
+  Broken link: ./b
 
-    ### [15] ###: touch b && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    └── b -> /tmp/ln/a/
-    Broken link: ./b
+  ### [15] ###: touch b && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  └── b -> /tmp/ln/a/
+  Broken link: ./b
 
-    ### [16] ###: touch b && touch a && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b -> /tmp/ln/a
+  ### [16] ###: touch b && touch a && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b -> /tmp/ln/a
 
-    ### [17] ###: touch b && touch a && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b -> /tmp/ln/a/
-    Broken link: ./b
+  ### [17] ###: touch b && touch a && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b -> /tmp/ln/a/
+  Broken link: ./b
 
-    ### [18] ###: touch b && mkdir a && link a b
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    .
-    ├── a
-    └── b -> /tmp/ln/a
+  ### [18] ###: touch b && mkdir a && link a b
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  .
+  ├── a
+  └── b -> /tmp/ln/a
 
-    ### [19] ###: touch b && mkdir a && link a/ b
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    .
-    ├── a
-    └── b -> /tmp/ln/a/
+  ### [19] ###: touch b && mkdir a && link a/ b
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  .
+  ├── a
+  └── b -> /tmp/ln/a/
 
-    ### [20] ###: touch c && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
-    Broken link: ./c
-    Broken link: ./b
+  ### [20] ###: touch c && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [21] ###: touch c && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
-    Broken link: ./b
+  ### [21] ###: touch c && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [22] ###: touch c && touch a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
+  ### [22] ###: touch c && touch a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
 
-    ### [23] ###: touch c && touch a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
+  ### [23] ###: touch c && touch a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
 
-    ### [24] ###: touch c && link a/ b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c -> /tmp/ln/b
-    Broken link: ./c
-    Broken link: ./b
+  ### [24] ###: touch c && link a/ b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c -> /tmp/ln/b
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [25] ###: touch c && link a/ b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── b -> /tmp/ln/a/
-    └── c -> /tmp/ln/b/
-    Broken link: ./c
-    Broken link: ./b
+  ### [25] ###: touch c && link a/ b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── b -> /tmp/ln/a/
+  └── c -> /tmp/ln/b/
+  Broken link: ./c
+  Broken link: ./b
 
-    ### [26] ###: touch c && mkdir a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b
+  ### [26] ###: touch c && mkdir a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b
 
-    ### [27] ###: touch c && mkdir a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    '/tmp/ln/c' -> '/tmp/ln/b/'
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c -> /tmp/ln/b/
+  ### [27] ###: touch c && mkdir a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  '/tmp/ln/c' -> '/tmp/ln/b/'
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c -> /tmp/ln/b/
 
-    ### [28] ###: mkdir b && link a b
-    ln: /tmp/ln/b: cannot overwrite directory
-    .
-    └── b
+  ### [28] ###: mkdir b && link a b
+  ln: /tmp/ln/b: cannot overwrite directory
+  .
+  └── b
 
-    ### [29] ###: mkdir b && link a/ b
-    ln: /tmp/ln/b: cannot overwrite directory
-    .
-    └── b
+  ### [29] ###: mkdir b && link a/ b
+  ln: /tmp/ln/b: cannot overwrite directory
+  .
+  └── b
 
-    ### [30] ###: mkdir b && touch a && link a b
-    ln: /tmp/ln/b: cannot overwrite directory
-    .
-    ├── a
-    └── b
+  ### [30] ###: mkdir b && touch a && link a b
+  ln: /tmp/ln/b: cannot overwrite directory
+  .
+  ├── a
+  └── b
 
-    ### [31] ###: mkdir b && touch a && link a/ b
-    ln: /tmp/ln/b: cannot overwrite directory
-    .
-    ├── a
-    └── b
+  ### [31] ###: mkdir b && touch a && link a/ b
+  ln: /tmp/ln/b: cannot overwrite directory
+  .
+  ├── a
+  └── b
 
-    ### [32] ###: mkdir b && mkdir a && link a b
-    ln: /tmp/ln/b: cannot overwrite directory
-    .
-    ├── a
-    └── b
+  ### [32] ###: mkdir b && mkdir a && link a b
+  ln: /tmp/ln/b: cannot overwrite directory
+  .
+  ├── a
+  └── b
 
-    ### [33] ###: mkdir b && mkdir a && link a/ b
-    ln: /tmp/ln/b: cannot overwrite directory
-    .
-    ├── a
-    └── b
+  ### [33] ###: mkdir b && mkdir a && link a/ b
+  ln: /tmp/ln/b: cannot overwrite directory
+  .
+  ├── a
+  └── b
 
-    ### [34] ###: mkdir c && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    ln: /tmp/ln/c: cannot overwrite directory
-    .
-    ├── b -> /tmp/ln/a
-    └── c
-    Broken link: ./b
+  ### [34] ###: mkdir c && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  ln: /tmp/ln/c: cannot overwrite directory
+  .
+  ├── b -> /tmp/ln/a
+  └── c
+  Broken link: ./b
 
-    ### [35] ###: mkdir c && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    ln: /tmp/ln/c: cannot overwrite directory
-    .
-    ├── b -> /tmp/ln/a
-    └── c
-    Broken link: ./b
+  ### [35] ###: mkdir c && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  ln: /tmp/ln/c: cannot overwrite directory
+  .
+  ├── b -> /tmp/ln/a
+  └── c
+  Broken link: ./b
 
-    ### [36] ###: mkdir c && touch a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    ln: /tmp/ln/c: cannot overwrite directory
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c
+  ### [36] ###: mkdir c && touch a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  ln: /tmp/ln/c: cannot overwrite directory
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c
 
-    ### [37] ###: mkdir c && touch a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    ln: /tmp/ln/c: cannot overwrite directory
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c
+  ### [37] ###: mkdir c && touch a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  ln: /tmp/ln/c: cannot overwrite directory
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c
 
-    ### [38] ###: mkdir c && link a/ b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    ln: /tmp/ln/c: cannot overwrite directory
-    .
-    ├── b -> /tmp/ln/a/
-    └── c
-    Broken link: ./b
+  ### [38] ###: mkdir c && link a/ b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  ln: /tmp/ln/c: cannot overwrite directory
+  .
+  ├── b -> /tmp/ln/a/
+  └── c
+  Broken link: ./b
 
-    ### [39] ###: mkdir c && link a/ b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a/'
-    ln: /tmp/ln/c: cannot overwrite directory
-    .
-    ├── b -> /tmp/ln/a/
-    └── c
-    Broken link: ./b
+  ### [39] ###: mkdir c && link a/ b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a/'
+  ln: /tmp/ln/c: cannot overwrite directory
+  .
+  ├── b -> /tmp/ln/a/
+  └── c
+  Broken link: ./b
 
-    ### [40] ###: mkdir c && mkdir a && link a b && link b c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    ln: /tmp/ln/c: cannot overwrite directory
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c
+  ### [40] ###: mkdir c && mkdir a && link a b && link b c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  ln: /tmp/ln/c: cannot overwrite directory
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c
 
-    ### [41] ###: mkdir c && mkdir a && link a b && link b/ c
-    '/tmp/ln/b' -> '/tmp/ln/a'
-    ln: /tmp/ln/c: cannot overwrite directory
-    .
-    ├── a
-    ├── b -> /tmp/ln/a
-    └── c
-    ```
+  ### [41] ###: mkdir c && mkdir a && link a b && link b/ c
+  '/tmp/ln/b' -> '/tmp/ln/a'
+  ln: /tmp/ln/c: cannot overwrite directory
+  .
+  ├── a
+  ├── b -> /tmp/ln/a
+  └── c
+  ```
 
 </details>
 

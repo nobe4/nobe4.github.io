@@ -54,17 +54,17 @@ different ways:
 
 - `.zprofile`
 
-    ```zsh
-    export PATH="$PATH:/usr/bin"
-    ```
+  ```zsh
+  export PATH="$PATH:/usr/bin"
+  ```
 
 - `configuration.nix`
 
-    ```nix
-    {
-      environment.sessionVariables.PATH = [ "/usr/bin" ];
-    }
-    ```
+  ```nix
+  {
+    environment.sessionVariables.PATH = [ "/usr/bin" ];
+  }
+  ```
 
 This technically works. However I know that in a couple of months, I'll look
 back and think "Why did I wanted to add this path?" I would rather not create
@@ -79,6 +79,7 @@ link for us.
 users and contributors to create new derivations.
 
 In our case, we want:
+
 1. get the path to the installed `gojq`
 2. create a link to it, called `jq`.
 
@@ -121,6 +122,7 @@ given by the `stdenv` builder and can be used directly.
 The `$out` are symlinked and added into the user's `$PATH`.
 
 Additional information:
+
 - `mkDerivation.name` is the required name of the package
 - `mkDerivation.version` is the optional version of the package
 
@@ -167,7 +169,6 @@ And can even be added directly in `users.users.<user>.package`:
 This, IMHO, is the best way to explicitly declare that `jq` is a link to `gojq`.
 The Nix configuration shows what it is, and if any additional comments are
 needed, they can be added _here_ and not lack context.
-
 
 ## A list of links
 

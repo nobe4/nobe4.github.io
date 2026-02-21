@@ -31,15 +31,15 @@ predefined package.
 
 1. Download the source code
 
-    This is achieved with `fetchFromGitHub`.
+   This is achieved with `fetchFromGitHub`.
 
 2. Compile the rust binary
 
-    This is achieved with `buildRustPackage`.
+   This is achieved with `buildRustPackage`.
 
 3. Install it
 
-    This step varies, see below.
+   This step varies, see below.
 
 ## Nix-only
 
@@ -90,10 +90,8 @@ rustPlatform.buildRustPackage {
   you probably should inspect the diff as well.
 
 - `rustPlatform.buildRustPackage` builds the Rust package, from its `src`.
-
   - `cargoHash` ensures the downloaded content, including dependencies, is locked.
   - `meta` adds various metadata to the package.
-
 
 ### Install
 
@@ -120,7 +118,6 @@ compilation. You can then install it, here as a system package.
 reproducible and discoverable way. It's like a `Dockerfile`, but better.
 
 ### Build
-
 
 ```nix
 # ./bat_flake/flake.nix
@@ -175,41 +172,42 @@ Lots of similarities with the no-flake version, and some differences:
 - `outputs`: the "product" of this flake.
 
 - `outputs.packages`: loops through all the available systems with `genAttrs`
-    and `flakeExposed`.
+  and `flakeExposed`.
 
-    It defines a `default` for each available system.
+  It defines a `default` for each available system.
 
     <details>
     <summary> <code>getAttrs</code> and <code>flakeExposed</code> showcase </summary>
 
-    ```shell
-    nix-repl> lib = (import <nixpkgs> {}).lib
-    nix-repl> lib.genAttrs [ "foo" "bar" ] (name: "hello-${name}")
-    {
-      bar = "hello-bar";
-      foo = "hello-foo";
-    }
-    nix-repl> lib.systems.flakeExposed
-    [
-      "x86_64-linux"
-      "x86_64-darwin"
-      # ...
-    ]
+  ```shell
+  nix-repl> lib = (import <nixpkgs> {}).lib
+  nix-repl> lib.genAttrs [ "foo" "bar" ] (name: "hello-${name}")
+  {
+    bar = "hello-bar";
+    foo = "hello-foo";
+  }
+  nix-repl> lib.systems.flakeExposed
+  [
+    "x86_64-linux"
+    "x86_64-darwin"
+    # ...
+  ]
 
-    nix-repl> lib.genAttrs lib.systems.flakeExposed (name: {default = "${name}";}
-    {
-      x86_64-linux = { default = "x86_64-linux"; };
-      # ...
-    }
-    ```
+  nix-repl> lib.genAttrs lib.systems.flakeExposed (name: {default = "${name}";}
+  {
+    x86_64-linux = { default = "x86_64-linux"; };
+    # ...
+  }
+  ```
+
     </details>
 
 - `outputs.packages.${system}.default` the "default" output for the specified
   system.
 
-    It directly uses the result of `buildRustPackage`, as seen previously.
+  It directly uses the result of `buildRustPackage`, as seen previously.
 
-    It is required when running `nix build`, or `nixos-rebuild`.
+  It is required when running `nix build`, or `nixos-rebuild`.
 
 Build the flake with:
 
@@ -265,6 +263,7 @@ to build the specified flake.
 
 `toString` is used to convert the relative path `./bat_flake` to an absolute
 path. E.g.
+
 ```shell
 $ nix eval --expr 'builtins.toString ./bat_flake'
 "/path/to/nixos/packages/bat_flake"
@@ -297,7 +296,6 @@ $ nixos-rebuild
   steps that I don't yet know how to perform.
 - Probably not move my config to Flake-based, as I don't see too much
   benefits for now.
-
 
 ## Acknowledgments
 

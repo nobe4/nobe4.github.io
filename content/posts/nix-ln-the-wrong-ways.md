@@ -95,6 +95,7 @@ in
   argument on each item and then join the result with its 1st.
 
 Why this doesn't work:
+
 - `installPhase` expect the result to be installed in a directory called "$out"
   which exists only in the Nix store.
 - Writing to a path outside of the Nix store is explicitly forbidden.
@@ -132,6 +133,7 @@ in
 - The rest of the code looks similar.
 
 Why this doesn't work:
+
 - `runCommand` is also bound to the nix store, making writing to any file
   outside of it impossible.
 
@@ -194,7 +196,7 @@ This doesn't work if the file lives in `$HOME/`, or `$XDG_CONFIG/`.
 
 - `userActivationScripts` is a collection of scripts executed when the
   configuration is activated, either by booting or running `nixos-rebuild
-  switch`.
+switch`.
 - The scripts are executed outside of the Nix sandbox, where
   `$HOME` is available to write.
 
@@ -236,6 +238,7 @@ E.g.
 ```
 
 Why it's not ideal:
+
 - The scripts are run _on every activation_, meaning each boot, which is highly
   unnecessary.
 - It's not what those scripts are typically meant for.

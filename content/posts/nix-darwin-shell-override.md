@@ -30,37 +30,37 @@ I came to:
 
 - [`packages/shell/aliases.nix`]
 
-    ```nix
-    { lib, pkgs, ... }:
-    {
-      "ls" = "ls --color=auto";
-      "ll" = "ls -la";
-    }
-    // lib.optionalAttrs pkgs.stdenv.isDarwin {
-      "kitty" = "$HOME/Applications/kitty.app/Contents/MacOS/kitty";
-    }
-    ```
+  ```nix
+  { lib, pkgs, ... }:
+  {
+    "ls" = "ls --color=auto";
+    "ll" = "ls -la";
+  }
+  // lib.optionalAttrs pkgs.stdenv.isDarwin {
+    "kitty" = "$HOME/Applications/kitty.app/Contents/MacOS/kitty";
+  }
+  ```
 
 - [`packages/shell/shell.nix`]
 
-    ```nix
-    { lib, pkgs, ... }:
-    let
-      shellAliases = import ./aliases.nix { lib = lib; pkgs = pkgs; };
-    in
-    {
-      programs.zsh = {
-        enable = true;
-        setOptions = [ "ALWAYS_TO_END" ];
-        shellAliases = shellAliases;
-      };
+  ```nix
+  { lib, pkgs, ... }:
+  let
+    shellAliases = import ./aliases.nix { lib = lib; pkgs = pkgs; };
+  in
+  {
+    programs.zsh = {
+      enable = true;
+      setOptions = [ "ALWAYS_TO_END" ];
+      shellAliases = shellAliases;
+    };
 
-      programs.bash = {
-        enable = true;
-        shellAliases = shellAliases;
-      };
-    }
-    ```
+    programs.bash = {
+      enable = true;
+      shellAliases = shellAliases;
+    };
+  }
+  ```
 
 And I can import `shell.nix` wherever needed, so far so good.
 
@@ -128,6 +128,7 @@ in
 ```
 
 The logic is pretty straightforward:
+
 1. the options are defined following a specific type
 2. the values are formatted
 3. the formatted result is added to `/etc/zshrc`.
@@ -240,47 +241,47 @@ Using this method, I copied the entire [`darwin.programs.zsh`] and
 
 - `hosts/brahms.nix`
 
-    ```nix {hl_lines=[2 4]}
-    {}:{
-      disabledModules = [ "programs/zsh" ];
-      imports = [
-        ../modules/darwin-zsh.nix
-      ];
-    }
-    ```
+  ```nix {hl_lines=[2 4]}
+  {}:{
+    disabledModules = [ "programs/zsh" ];
+    imports = [
+      ../modules/darwin-zsh.nix
+    ];
+  }
+  ```
 
 - `modules/darwin-zsh.nix`
 
-    A copy of [`darwin.programs.zsh`] with some additions copied straight from
-    [`programs.zsh`]:
+  A copy of [`darwin.programs.zsh`] with some additions copied straight from
+  [`programs.zsh`]:
 
-    ```nix {hl_lines=["6-9" "18-21"]}
-    {}:{
-        programs.zsh.histFile = mkOption {
-          type = types.str;
-        };
+  ```nix {hl_lines=["6-9" "18-21"]}
+  {}:{
+      programs.zsh.histFile = mkOption {
+        type = types.str;
+      };
 
-        programs.zsh.setOptions = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
-          default = [ "HIST_IGNORE_DUPS" ];
-        };
+      programs.zsh.setOptions = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ "HIST_IGNORE_DUPS" ];
+      };
 
-        programs.zsh.enableCompletion = mkOption {
-          type = types.bool;
-        };
+      programs.zsh.enableCompletion = mkOption {
+        type = types.bool;
+      };
 
-        environment.etc."zshrc".text = ''
-          HISTFILE=${cfg.histFile}
+      environment.etc."zshrc".text = ''
+        HISTFILE=${cfg.histFile}
 
-          ${lib.optionalString (cfg.setOptions != [ ]) ''
-            # Set zsh options.
-            setopt ${builtins.concatStringsSep " " cfg.setOptions}
-          ''}
+        ${lib.optionalString (cfg.setOptions != [ ]) ''
+          # Set zsh options.
+          setopt ${builtins.concatStringsSep " " cfg.setOptions}
+        ''}
 
-          bindkey -e
-        '';
-    }
-    ```
+        bindkey -e
+      '';
+  }
+  ```
 
 This offered two advantages:
 
@@ -300,7 +301,6 @@ here. You can view the [final changes].
 Thanks [@tebriel] for the [initial code], the reviews and
 improvements.
 
-
 [initial code]: https://github.com/nobe4/dotfiles/pull/50
 [final changes]: https://github.com/nobe4/dotfiles/pull/51
 [added the missing options]: https://github.com/nobe4/dotfiles/commit/cb8bd6d707dc75fbacd5bed7a054f062d2d96de1
@@ -317,4 +317,4 @@ improvements.
 [@tebriel]: https://blog.frodux.org
 
 [^why /etc/zshrc]: Note that NixOS only installs ZSH options in the _global_
-    config at `/etc/zshrc` and not `~/.zshrc`.
+config at `/etc/zshrc` and not `~/.zshrc`.
