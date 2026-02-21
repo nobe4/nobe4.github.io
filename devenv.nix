@@ -18,4 +18,8 @@
   '';
   scripts.build.exec = "hugo build --minify";
   scripts.format.exec = "prettier -w .";
+
+  git-hooks.hooks.prettier = {
+    enable = true;
+  };
 }

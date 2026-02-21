@@ -8,3 +8,4 @@ node_modules/
 .devenv*
 devenv.local.nix
 devenv.lock
+.pre-commit-config.yaml
