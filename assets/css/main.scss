@@ -75,6 +75,7 @@ h6 {
 
 	padding-block: 0.5em;
 	margin-bottom: 0;
+	margin-top: 2em;
 
 	border-top: 1px solid var(--border);
 
@@ -231,7 +232,7 @@ pre {
 		background-color: var(--bg-code);
 
 		pre {
-			padding: 0;
+			padding: 0.7em;
 			margin: 0;
 
 			line-height: 1.4em;
@@ -309,7 +310,7 @@ hr {
 #theme {
 	cursor: pointer;
 	position: absolute;
-	font-size: 1.5em;
+	font-size: 1em;
 	right: 0.5em;
 	top: 0.5em;
 	background: 0;

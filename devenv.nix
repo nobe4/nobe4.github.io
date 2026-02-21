@@ -5,6 +5,8 @@
     hugo
     dart-sass
     typescript-language-server
+    marksman
+    vale-ls
   ];
 
   languages.javascript.enable = true;
