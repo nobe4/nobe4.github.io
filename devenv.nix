@@ -7,10 +7,14 @@
     typescript-language-server
     marksman
     vale-ls
+    vscode-css-languageserver
   ];
 
-  languages.javascript.enable = true;
-  languages.javascript.npm.install.enable = true;
+  languages.javascript = {
+    enable = true;
+    npm.enable = true;
+    npm.install.enable = true;
+  };
 
   scripts.serve.exec = ''
     open http://0.0.0.0:1313
