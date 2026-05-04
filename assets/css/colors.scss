@@ -31,6 +31,7 @@ $red: #cc342b;
 	--bg-code: var(--dark);
 	--hl-code: var(--black);
 	--border: var(--dark);
+	--img-filter: brightness(0.8) contrast(1.2);
 }
 
 @mixin light-theme {
@@ -38,7 +39,15 @@ $red: #cc342b;
 	--bg: var(--white);
 	--border: var(--light);
 
+	--fg-code: var(--black);
+	--bg-code: var(--light);
+	--hl-code: var(--white);
+	--comment: var(--grey);
+
 	--blue: #{color.adjust($blue, $lightness: -20%)};
+	--green: #{color.adjust($green, $lightness: -20%)};
+	--teal: #{color.adjust($teal, $lightness: -20%)};
+	--img-filter: none;
 }
 
 html {
