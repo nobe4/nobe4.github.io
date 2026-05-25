@@ -2,7 +2,7 @@
 title = "Pure Data Sequencer"
 date = 2017-10-26
 image.link = "/images/posts/pure-data-sequencer/presentation.png"
-tags = ["technology", "art"]
+tags = ["tech", "art"]
 +++
 
 In this post I'd like to present a patch I made for Pure Data, namely a sequencer.

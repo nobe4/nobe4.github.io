@@ -1,7 +1,7 @@
 +++
 title = "Shellcode for/by a Newbie"
 date = 2017-09-02
-tags = ["technology", "ctf"]
+tags = ["tech", "ctf"]
 references = [
     "http://phrack.org/issues/49/14.html#article",
     "ttps://www.goodreads.com/book/show/61619.Hacking",

@@ -1,7 +1,7 @@
 +++
 title = "Lazy Lazy Loading"
 date = 2024-07-21
-tags = ["technology"]
+tags = ["tech"]
 +++
 
 In this blog post, I showcase how I maintain my [cat website](https://cats.nobe4.fr).

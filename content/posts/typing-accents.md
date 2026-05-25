@@ -1,7 +1,7 @@
 +++
 title = "Typing Accents"
 date = 2025-07-25
-tags = ["technology", "keyboard"]
+tags = ["tech", "keyboard"]
 references = [
     "https://docs.kernel.org/hid/hidintro.html",
     "https://docs.kernel.org/hid/index.html",

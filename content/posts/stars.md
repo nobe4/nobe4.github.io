@@ -1,7 +1,7 @@
 +++
 title = "Stars"
 date = 2025-01-23
-tags = ["philosophy", "technology", "work"]
+tags = ["philosophy", "tech", "work"]
 references = [
     "https://en.wikipedia.org/wiki/Object_permanence",
 ]
