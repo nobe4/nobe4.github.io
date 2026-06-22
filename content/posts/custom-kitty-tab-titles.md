@@ -8,6 +8,7 @@ references = [
     "https://sw.kovidgoyal.net/kitty/keyboard-protocol/",
     "https://github.com/rothgar/mastering-zsh/blob/master/docs/config/hooks.md",
     "https://invisible-island.net/xterm/ctlseqs/ctlseqs.html",
+    "https://github.com/nobe4/dotfiles/commit/c2afd17187570793fa8406b243bdbd621859f4e8",
 ]
 +++
 
