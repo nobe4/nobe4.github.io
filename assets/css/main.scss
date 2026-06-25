@@ -58,7 +58,7 @@ main {
 footer {
 	text-align: center;
 	p {
-		margin-bottom: 0;
+		margin: 0;
 	}
 }
 
@@ -182,15 +182,16 @@ ul {
 				}
 
 				.length {
-					width: 5em;
+					min-width: 5em;
 				}
 
 				time {
-					width: 8em;
+					min-width: 8em;
 				}
 
 				:last-child {
 					color: var(--blue);
+					text-wrap: wrap;
 				}
 			}
 		}
