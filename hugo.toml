@@ -2,7 +2,7 @@ baseURL = 'https://nobe4.fr/'
 languageCode = 'en-us'
 title = "nobe4"
 enableGitInfo = true
-copyright = 'Created with ❤️ - shared under <a href="https://creativecommons.org/licenses/by-sa/4.0/"> CC BY-SA</a>'
+copyright = '<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>'
 
 [params]
 [params.author]

@@ -1,5 +1,8 @@
 <p>
-	{{ site.Copyright | safeHTML }} -
 	<a href="{{ .RelRef (dict "path" "/pages/about") }}">About</a> -
-	<a href="{{ .RelRef (dict "path" "/pages/privacy") }}">Privacy</a>
+	<a href="{{ .RelRef (dict "path" "/pages/privacy") }}">Privacy</a> -
+	<a href="/index.xml">RSS</a>
+	<br />
+	Created with ❤️ - shared under
+	{{ site.Copyright | safeHTML }}
 </p>
