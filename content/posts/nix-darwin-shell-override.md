@@ -1,6 +1,6 @@
 +++
 title = 'Nix-Darwin shell override'
-date = 2026-02-14T17:24:28+01:00
+date = 2026-02-14
 tags = ["tech", "nix"]
 references = [
     "https://github.com/NixOS/nix/blob/8fadcceb6d5c4458915fce58267695ef12bb048f/src/libutil/util.cc#L74-L84",

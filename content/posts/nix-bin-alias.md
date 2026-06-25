@@ -1,6 +1,6 @@
 +++
 title = 'Nix bin alias'
-date = 2026-02-18T16:08:07+01:00
+date = 2026-02-18
 tags = ["nix", "tech"]
 references = [
     "https://discourse.nixos.org/t/etc-profiles-per-user-user/17004",

@@ -1,6 +1,6 @@
 +++
 title = 'When ln is not idempotent'
-date = 2026-02-04T18:02:56+01:00
+date = 2026-02-04
 tag = ["tech", "nix"]
 +++
 

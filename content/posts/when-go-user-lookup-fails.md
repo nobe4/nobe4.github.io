@@ -1,6 +1,6 @@
 +++
 title = 'When Go user.Lookup fails'
-date = 2026-06-11T21:00:00+02:00
+date = 2026-06-11
 tags = ["tech", "work"]
 references = [
     "https://sssd.io/troubleshooting/basics.html",
