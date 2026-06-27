@@ -92,8 +92,8 @@ details {
 		cursor: pointer;
 	}
 
-	> *:not(summary) {
-		padding-inline-start: 1em;
+	&::details-content {
+		margin-left: 0.7em;
 	}
 
 	&[open] {
