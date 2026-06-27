@@ -220,9 +220,17 @@ pre {
 	padding: 0.2em;
 }
 
+sup {
+	font-size: 0.7em;
+	padding-inline: 0.2em;
+}
+
 .highlight-wrapper {
 	position: relative;
-	margin-top: 1em;
+
+	&:has([data-lang]) {
+		margin-top: 1em;
+	}
 
 	&[data-lang]::after {
 		color: var(--comment);
