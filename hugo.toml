@@ -4,6 +4,10 @@ title = "nobe4"
 enableGitInfo = true
 copyright = '<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>'
 
+[permalinks]
+[permalinks.page]
+posts = '/posts/:slug/'
+
 [params]
 [params.author]
 name = "nobe4"
