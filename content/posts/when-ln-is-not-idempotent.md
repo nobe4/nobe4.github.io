@@ -12,7 +12,7 @@ with nix as described in [my previous post](/posts/nix_ln_the_wrong_ways#using-u
 When I noticed that links were being created in the wrong places. I would run
 `ln` more than once and would get links in random locations:
 
-```shell
+```bash
 $ ln -vfs "$DOTFILE_FOLDER/nvim/" "$HOME/.config/nvim"
 '/home/nobe4/.config/nvim' -> '/home/nobe4/dev/nobe4/dotfiles/nvim'
 
@@ -33,7 +33,7 @@ lrwxrwxrwx 1 nobe4 users 35 Feb  4 20:12 /home/nobe4/dev/nobe4/dotfiles/nvim/nvi
 
 In a simplified form:
 
-```shell
+```bash
 $ mkdir a
 $ ln -vfs a b
 'b' -> 'a'
@@ -53,7 +53,7 @@ scenario. The conclusion of this post is everyone's favorite: _RTFM_.
 
 All the commands are ran with:
 
-```shell
+```bash
 link () {
     ln --verbose --force --symbolic "$(pwd)/${1:?}" "$(pwd)/${2:?}"
 }
@@ -106,7 +106,7 @@ _Notes:_
 
   E.g. for the same command `link a b`:
 
-  ```shell
+  ```bash
   # instead of
   ### [16] ###
   .
@@ -132,7 +132,7 @@ _Notes:_
 
 - `run.sh`
 
-  ```shell
+  ```bash
   #!/usr/bin/env bash
   link () {
       ln --verbose --force --symbolic "$(pwd)/${1:?}" "$(pwd)/${2:?}"
@@ -205,7 +205,7 @@ _Notes:_
 
 - Output
 
-  ```shell
+  ```bash
   ### [0] ###: link a b
   '/tmp/ln/b' -> '/tmp/ln/a'
   .
@@ -545,7 +545,7 @@ _Notes:_
 
 Going back to my initial scenario:
 
-```shell
+```bash
 $ ln -vfs "$DOTFILE_FOLDER/nvim/" "$HOME/.config/nvim"
 ```
 
@@ -554,20 +554,20 @@ We now understand the weird behavior:
 1. First run, the `$HOME/.config/nvim` link is created, it points to the
    directory `$DOTFILE_FOLDER/nvim/`.
 
-   ```shell
+   ```bash
    $HOME/.config/nvim -> $DOTFILE_FOLDER/nvim
    ```
 
 2. Second run, `ln` sees a directory, and assumes that you want to link _into
    the directory_, rather than link _the directory_.
 
-   ```shell
+   ```bash
    $DOTFILE_FOLDER/nvim/nvim -> $HOME/.config/nvim -> $DOTFILE_FOLDER/nvim
    ```
 
 3. The result is a new link inside the linked directory:
 
-   ```shell
+   ```bash
    $DOTFILE_FOLDER/nvim/nvim -> $DOTFILE_FOLDER/nvim
    ```
 
@@ -585,7 +585,7 @@ the link, never the directory in which to put the link.
 
 Using this new flag:
 
-```shell
+```bash
 $ ln -vfsT "$DOTFILE_FOLDER/nvim/" "$HOME/.config/nvim"
 '/home/nobe4/.config/nvim' -> '/home/nobe4/dev/nobe4/dotfiles/nvim'
 
@@ -606,7 +606,7 @@ ls: cannot access '/home/nobe4/dev/nobe4/dotfiles/nvim/nvim': No such file or di
 
 In a simplified form:
 
-```shell
+```bash
 $ mkdir a
 $ ln -vfsT a b
 'b' -> 'a'
@@ -622,7 +622,7 @@ $ tree
 
 All the commands are ran with:
 
-```shell
+```bash
 link () {
     ln --verbose --force --symbolic --no-target-directory "$(pwd)/${1:?}" "$(pwd)/${2:?}"
 }
@@ -660,7 +660,7 @@ _Notes:_
 
     E.g.
 
-    ```shell
+    ```bash
     $ mkdir a b
     $ link a b
     ln: /tmp/ln/b: cannot overwrite directory
@@ -687,7 +687,7 @@ _Notes:_
 
 - Output
 
-  ```shell
+  ```bash
   ### [0] ###: link a b
   '/tmp/ln/b' -> '/tmp/ln/a'
   .

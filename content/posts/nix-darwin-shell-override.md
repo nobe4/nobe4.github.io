@@ -177,7 +177,7 @@ with.
 
 Running again, the build worked and `/etc/zshrc` was updated accordingly:
 
-```shell
+```bash
 $ grep setopt /etc/zshrc
 setopt HIST_IGNORE_DUPS SHARE_HISTORY HIST_FCNTL_LOCK            # default
 setopt ALWAYS_TO_END INTERACTIVE_COMMENTS AUTO_CD AUTO_LIST  ... # custom

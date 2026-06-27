@@ -40,7 +40,7 @@ ln-root = [
 
 And this worked well:
 
-```shell
+```bash
 $ readlink /usr/bin/jq
 /nix/store/<hash>-gojq-0.12.17/bin/gojq
 ```
@@ -95,7 +95,7 @@ stdenv.mkDerivation {
 
 Result:
 
-```shell
+```bash
 /nix/store/<hash>-gojq-0.12.17
 ```
 
@@ -128,7 +128,7 @@ Additional information:
 
 Both are used in the final path to the package:
 
-```shell
+```bash
 /nix/store/<hash>-<name>-<version>
 ```
 
@@ -174,7 +174,7 @@ needed, they can be added _here_ and not lack context.
 
 Let's now look at the full chain of links:
 
-```shell
+```bash
 $ which jq
 /etc/profiles/per-user/nobe4/bin/jq
 $ readlink /etc/profiles/per-user/nobe4/bin/jq

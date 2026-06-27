@@ -32,7 +32,7 @@ Unless otherwise specified, all code examples are simplified for clarity.
 
 Whenever I need to link a new file, I add a line in:
 
-```shell
+```bash
 # install.sh
 ln -sfv "$DOTFILE_FOLDER/.zshrc" "$HOME/.zshrc"
 ln -sfv "$DOTFILE_FOLDER/kitty/" "$HOME/.config/kitty"

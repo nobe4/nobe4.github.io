@@ -26,13 +26,13 @@ To begin with, I had an in depth look at the [`Gcommit` source](https://github.c
 
 The extension is building a command that looks like this:
 
-```shell
+```bash
 env GIT_EDITOR=false git commit 2> errorfile
 ```
 
 Which in turn should fill the error file with:
 
-```shell
+```bash
 error: There was a problem with the editor 'false'.
 Please supply the message using either -m or -F option.
 ```
@@ -43,7 +43,7 @@ I discovered that my `env GIT_EDITOR=false git commit` command wasn't producing 
 
 `env` is used to print the current environment variables, such as:
 
-```shell
+```bash
 $ env
 ...
 EDITOR=vim
@@ -206,7 +206,7 @@ Which is exactly the same code as [this metasploit module](https://github.com/ra
 
 In a nutshell:
 
-```shell
+```bash
 while true do
   GetKeys(keys)
   Process(keys)

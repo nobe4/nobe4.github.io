@@ -179,7 +179,7 @@ Lots of similarities with the no-flake version, and some differences:
     <details>
     <summary> <code>getAttrs</code> and <code>flakeExposed</code> showcase </summary>
 
-  ```shell
+  ```bash
   nix-repl> lib = (import <nixpkgs> {}).lib
   nix-repl> lib.genAttrs [ "foo" "bar" ] (name: "hello-${name}")
   {
@@ -211,14 +211,14 @@ Lots of similarities with the no-flake version, and some differences:
 
 Build the flake with:
 
-```shell
+```bash
 $ nix build
 ```
 
 It creates a `flake.lock` to lock components to their hash, and produces a
 `result` directory:
 
-```shell
+```bash
 $ tree -l
 .
 ├── flake.lock
@@ -230,7 +230,7 @@ $ tree -l
 
 **Note:** it builds only the current system:
 
-```shell
+```bash
 $ nix flake show
 git+file:///path/to?dir=nixos/packages/bat_flake
 └───packages
@@ -264,7 +264,7 @@ to build the specified flake.
 `toString` is used to convert the relative path `./bat_flake` to an absolute
 path. E.g.
 
-```shell
+```bash
 $ nix eval --expr 'builtins.toString ./bat_flake'
 "/path/to/nixos/packages/bat_flake"
 ```
@@ -275,7 +275,7 @@ $ nix eval --expr 'builtins.toString ./bat_flake'
 
 In both cases, rebuilding can be achieved with:
 
-```shell
+```bash
 $ nixos-rebuild
 ```
 

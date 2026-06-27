@@ -20,7 +20,7 @@ post.
 
 After deploying a routine docker update, users started seeing errors:
 
-```shell
+```bash
 /bin/client: /lib/x86_64-linux-gnu/libc.so.6: version 'GLIBC_2.34' not found (required by /bin/client)
 /bin/client: /lib/x86_64-linux-gnu/libc.so.6: version 'GLIBC_2.32' not found (required by /bin/client)
 /bin/client failed: exit code 1
@@ -31,7 +31,7 @@ symbols. The resulting binary refuses to run on a target with older libc.
 
 To check what the host ships:
 
-```shell
+```bash
 $ strings /lib/x86_64-linux-gnu/libc.so.6 | grep '^GLIBC_'
 GLIBC_2.2.5
 ...
@@ -64,7 +64,7 @@ if _, err := user.Lookup(name); err != nil { return err }
 
 But... the user exists on the host:
 
-```shell
+```bash
 $ id bob
 uid=2222(bob) gid=100(users) groups=100(users)
 ```
@@ -90,7 +90,7 @@ func main() {
 
 - Building on the host, with CGO on:
 
-  ```shell
+  ```bash
   $ CGO_ENABLED=1 go build main.go && ./main
   &{1111 100 alice alice /home/alice} <nil>
   &{2222 100 bob bob /home/bob} <nil>
@@ -101,7 +101,7 @@ func main() {
 
 - Building on the host, with CGO off:
 
-  ```shell
+  ```bash
   $ CGO_ENABLED=0 go build main.go && ./main
   &{1111 100 alice alice /home/alice} <nil>
   <nil> user: unknown user bob
@@ -142,7 +142,7 @@ return findUsername(username, f)
 
 `strace` confirms:
 
-```shell
+```bash
 $ strace -e openat,write ./main
 openat(AT_FDCWD, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 3
 write(1, "&{1111 100 alice alice /home/alice} <nil>\n", 43)
@@ -152,7 +152,7 @@ write(1, "<nil> user: unknown user bob\n", 32)
 
 On this host, `/etc/passwd` only holds a handful of admin accounts:
 
-```shell
+```bash
 $ grep alice /etc/passwd
 alice:x:1111:100:alice,,,:/home/alice:/bin/bash
 
@@ -181,7 +181,7 @@ func lookupUser(username string) (*User, error) {
 
 [`getpwnam_r`] reads [`nsswitch.conf`] and walks the chain of [NSS] modules:
 
-```shell
+```bash
 $ grep passwd /etc/nsswitch.conf
 passwd:         compat sss
 ```
@@ -192,7 +192,7 @@ passwd:         compat sss
 You can watch the chain at work with [`getent`], a CLI tool that queries NSS the
 same way `getpwnam_r` does:
 
-```shell
+```bash
 $ strace -e openat getent passwd alice
 openat(AT_FDCWD, "/etc/nsswitch.conf", O_RDONLY|O_CLOEXEC) = 3
 openat(AT_FDCWD, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 3

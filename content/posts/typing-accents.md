@@ -75,7 +75,7 @@ You'll notice that this list also doesn't contain accented characters.
 
 The OS receives `HID` scancodes from the keyboard via its `USB` cable:
 
-```shell
+```bash
 $ sudo usbhid-dump -s 1:6 -f -e all
 # tapping 'e'
 00 00 08 00 00 00 00 00
@@ -86,7 +86,7 @@ $ sudo usbhid-dump -s 1:6 -f -e all
 It registers the `0x08` keycode. This corresponds to the character `e` as
 defined by the `HID` table.
 
-```shell
+```bash
 ...
 # tapping 'é'
 40 00 00 00 00 00 00 00
@@ -146,7 +146,7 @@ kernel](https://github.com/torvalds/linux/blob/347e9f5043c89695b01e66b3ed111755a
 The QWERTY keyboard is used as the official layout for interpreting keycodes,
 instead of the `HID`'s alphabetical order.
 
-```shell
+```bash
 $ sudo libinput record -o record /dev/input/event18 --show-keycodes --with-hidraw
 Receiving events: [              *      ]^C
 ```
@@ -213,7 +213,7 @@ mappings.
 `X`'s keycodes represent logical keys and are left to the server for
 interpretation.
 
-```shell
+```bash
 $ xev -evenv keyboard
 # tapping 'e'
 KeyPress event, serial 28, synthetic NO, window 0x600001,
@@ -358,7 +358,7 @@ Different applications handle the keyboard events similarly:
 
   `ISO_Level3_Shift` is an alternative name for `AltGr`.
 
-  ```shell
+  ```bash
   $ wev
 
   # tapping 'e'
@@ -385,7 +385,7 @@ Different applications handle the keyboard events similarly:
   - `0x3` is end of text character
   - `57453` is Kitty's `ISO_LEVEL3_SHIFT`
 
-  ```shell
+  ```bash
   $ kitten show-key --key-mode=kitty
 
   # tapping 'e'

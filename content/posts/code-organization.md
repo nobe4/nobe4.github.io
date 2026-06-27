@@ -6,7 +6,7 @@ tags = ["tech"]
 
 Here's a pattern I use to organize all my development work.
 
-```shell
+```bash
 ~/dev/{owner}/{repo}
 ```
 
@@ -30,7 +30,7 @@ cd "$(
 
 E.g.
 
-```shell
+```bash
 $ z
 
   /Users/nobe4/dev/nobe4/cli/
