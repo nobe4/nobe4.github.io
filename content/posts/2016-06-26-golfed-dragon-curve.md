@@ -1,6 +1,6 @@
 +++
 title = "Golfed Dragon's Curve"
-modified = 2016-06-26
+date = 2016-06-26
 image.link = "/images/posts/golfed-dragon-curve/presentation.png"
 tags = ["tech", "art"]
 +++
