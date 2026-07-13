@@ -7,14 +7,19 @@
 	{{ end }}
 
 	{{ with .GetTerms "tags" }}
-		&nbsp; | &nbsp;
+		&nbsp;|&nbsp;
 		{{ range . }}
 			<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
 		{{ end }}
-		<br />
+	{{ end -}}
+
+	{{ if in .Params.tags "work" }}
+		&nbsp;|&nbsp;
+		<a href="/pages/disclaimer/">Disclaimer</a>
 	{{ end }}
 
 	{{ if not (and (eq .Date.Year .Lastmod.Year) (eq .Date.YearDay .Lastmod.YearDay)) }}
+		<br />
 		{{ $path := .File.Path }}
 		{{ with .Lastmod }}
 			<time datetime="{{ .| time.Format "2006-01-02" }}">

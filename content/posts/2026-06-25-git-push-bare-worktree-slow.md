@@ -1,7 +1,7 @@
 +++
 title = "Slow git push from a worktree"
 date = 2026-06-25
-tags = ["tech", "git"]
+tags = ["tech", "git", "work"]
 references = [ ]
 +++
 
