@@ -1,5 +1,5 @@
 baseURL = 'https://nobe4.fr/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = "nobe4"
 enableGitInfo = true
 copyright = '<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>'
@@ -24,3 +24,6 @@ unsafe = true
 
 [module.hugoVersion]
 min = "0.150.0"
+
+[security]
+allowContent = [".*"]
