@@ -16,7 +16,6 @@ body {
 	}
 
 	line-height: 1.5em;
-	border-inline: 1px solid var(--border);
 
 	font-family:
 		system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -33,15 +32,7 @@ body {
 	header,
 	footer,
 	main > * {
-		padding: 1em;
-		border-bottom: 1px solid var(--border);
-	}
-}
-
-header {
-	h1 {
-		margin-top: 0;
-		border-top: 0;
+		padding-block: 1em;
 	}
 }
 
@@ -65,11 +56,9 @@ footer {
 :is(h1, h2, h3, h4, h5, h6) {
 	line-height: 1.2em;
 
-	padding-block: 0.5em;
+	// padding-block: 0.5em;
 	margin-bottom: 0;
-	margin-top: 2em;
-
-	border-top: 1px solid var(--border);
+	margin-top: 1.5em;
 
 	&:hover .hanchor {
 		visibility: visible;
@@ -94,10 +83,6 @@ details {
 
 	&::details-content {
 		margin-left: 0.7em;
-	}
-
-	&[open] {
-		border-bottom: 1px solid var(--border);
 	}
 }
 
@@ -139,8 +124,6 @@ table {
 
 .articles {
 	font-family: monospace;
-
-	border-bottom: 1px solid var(--border);
 
 	summary {
 		list-style-type: "?";
@@ -186,11 +169,11 @@ table {
 				}
 
 				.length {
-					min-width: 5em;
+					min-width: 4em;
 				}
 
 				time {
-					min-width: 8em;
+					min-width: 7em;
 				}
 
 				:last-child {
@@ -202,15 +185,37 @@ table {
 	}
 }
 
-.metadata:empty {
-	display: none;
+.metadata {
+	padding-top: 0;
+	padding-bottom: 2em;
+	&:empty {
+		display: none;
+	}
 }
 
 blockquote {
 	font-style: italic;
 	margin-block: 0.2em;
-	padding: 0.2em 1em;
-	border-inline-start: 3px solid var(--border);
+	padding: 0.2em 0.2em;
+	position: relative;
+
+	&::before {
+		content: "“";
+		position: absolute;
+		left: -1em;
+		font-size: 2em;
+		font-style: normal;
+		color: var(--border);
+	}
+
+	&::after {
+		content: "”";
+		position: absolute;
+		right: -1em;
+		font-size: 2em;
+		font-style: normal;
+		color: var(--border);
+	}
 
 	p {
 		margin: 0;
@@ -225,8 +230,8 @@ pre {
 }
 
 sup {
-	font-size: 0.7em;
 	padding-inline: 0.2em;
+	line-height: 0;
 }
 
 .highlight-wrapper {
