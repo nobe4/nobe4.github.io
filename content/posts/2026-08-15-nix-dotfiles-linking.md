@@ -137,6 +137,25 @@ Running `colmena apply` from my workstation:
 Brahms never needs git, SSH keys to the repo, or network access to fetch
 configs. Everything ships as part of the Nix closure.
 
+## Update
+
+With [`builtins.path`], it's possible to avoid the magic one-liner that's
+`lib.types.coercedTo lib.types.path (p: "${p}") lib.types.str;`
+
+This function builds upon the path type, with extra attributes. In this
+configuration, it means that brahms defines:
+
+```nix
+dotfiles = builtins.path { path = ../../..; name = "dotfiles"; };
+```
+
+The `dotfiles` type can be a simple string again. `builtins.path` copies the
+folder to the nix store.
+
+Also, remember to run [`git gc`] once in a while.
+
+Thanks [@tebriel] for the info.
+
 [wrong-ways]: /posts/2026-01-25-nix-ln-the-wrong-ways/
 [ln]: https://github.com/nobe4/dotfiles/blob/main/nixos/utils/ln.nix
 [dotfiles]: https://github.com/nobe4/dotfiles/blob/main/nixos/utils/dotfiles.nix
@@ -145,3 +164,6 @@ configs. Everything ships as part of the Nix closure.
 [nix-path]: https://nix.dev/manual/nix/stable/language/types#type-path
 [verdi-config]: https://github.com/nobe4/dotfiles/blob/main/nixos/hosts/verdi/configuration.nix
 [brahms-config]: https://github.com/nobe4/dotfiles/blob/main/nixos/hosts/brahms/configuration.nix
+[`builtins.path`]: https://nix.dev/manual/nix/2.34/language/builtins.html#builtins-path
+[@tebriel]: https://blog.frodux.org
+[`git gc`]: https://git-scm.com/docs/git-gc
