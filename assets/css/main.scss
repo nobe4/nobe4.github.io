@@ -202,8 +202,8 @@ blockquote {
 	&::before {
 		content: "“";
 		position: absolute;
-		left: -1em;
-		font-size: 2em;
+		left: -0.6em;
+		font-size: 3em;
 		font-style: normal;
 		color: var(--border);
 	}
@@ -211,8 +211,8 @@ blockquote {
 	&::after {
 		content: "”";
 		position: absolute;
-		right: -1em;
-		font-size: 2em;
+		right: -0.6em;
+		font-size: 3em;
 		font-style: normal;
 		color: var(--border);
 	}
