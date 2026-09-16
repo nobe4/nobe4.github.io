@@ -125,58 +125,25 @@ table {
 .articles {
 	font-family: monospace;
 
-	summary {
-		list-style-type: "?";
-		&:hover {
-			color: var(--bg);
-			background-color: var(--blue);
-		}
-	}
-
-	&[open] > summary {
-		list-style-type: ">";
-	}
-
-	p {
-		margin: 0;
-	}
-
 	ul {
 		list-style: none;
 		padding: 0;
 
-		&.inline li {
-			display: inline-block;
-			margin-inline-end: 0.5em;
-		}
-		&:not(.inline) li a {
-			display: flex;
-		}
-
 		li {
 			a {
+				display: flex;
 				text-decoration: none;
 
 				&:hover,
 				&:hover * {
-					text-decoration: none;
-					color: var(--bg);
-					background-color: var(--blue);
-
-					&:last-child {
-						color: var(--bg);
-					}
-				}
-
-				.length {
-					min-width: 4em;
+					text-decoration: underline;
 				}
 
 				time {
 					min-width: 7em;
 				}
 
-				:last-child {
+				.title {
 					color: var(--blue);
 					text-wrap: wrap;
 				}

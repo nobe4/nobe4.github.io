@@ -4,8 +4,10 @@
 			Written:
 			{{ . | time.Format "2006-01-02" }}
 		</time>
+		&nbsp;|&nbsp;
 	{{ end }}
 
+	{{ .WordCount }} words
 	{{ with .GetTerms "tags" }}
 		&nbsp;|&nbsp;
 		{{ range . }}

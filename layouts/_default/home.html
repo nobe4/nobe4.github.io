@@ -1,10 +1,4 @@
 {{ define "main" }}
-	{{ $tags := (site.GetPage "/tags").Pages }}
-	{{ partial "articles.html" (dict "context" . "path" "/tags" "posts" $tags "inline" true) }}
-
-	{{ $pages := sort (where site.RegularPages "Section" "eq" "pages") "Path" }}
-	{{ partial "articles.html" (dict "context" . "path" "/pages" "posts" $pages ) }}
-
 	{{ $posts := where site.RegularPages "Section" "eq" "posts" }}
-	{{ partial "articles.html" (dict "context" . "path" "/posts" "posts" $posts "ancestorSkip" 2 "open" true) }}
+	{{ partial "articles.html" (dict "context" . "posts" $posts "ancestorSkip" 2) }}
 {{ end }}

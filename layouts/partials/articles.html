@@ -1,4 +1,4 @@
-<details class="articles" {{ if .open }}open{{ end }}>
+<div class="articles">
 	{{ $ancestorSkip := 1 }}
 	{{ with .ancestorSkip }}
 		{{ $ancestorSkip = . }}
@@ -6,60 +6,27 @@
 	{{ $ancestors := math.Add (.context.Ancestors | len) $ancestorSkip | int }}
 
 
-	<summary>
-		&nbsp;ls
-		{{- with .path -}}
-			&nbsp;{{- . -}}
-		{{- else -}}
-			&nbsp;{{- .context.Path -}}
-		{{- end -}}
-		{{- if .inline -}}&nbsp;-inline{{- end -}}
-	</summary>
-
-	{{ if .inline }}
-		<ul class="inline">
-			{{ range .posts }}
-				<li>
-					<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-				</li>
-			{{ end }}
-		</ul>
-	{{ else }}
-		<p>Total {{ .posts | len }}</p>
-		<ul>
-			{{ range .posts }}
-				<li>
-					<a href="{{ .RelPermalink }}">
-						{{ if eq .Kind "page" }}
-							<span class="length">
-								{{ with .Content | countwords }}
-									{{ . }}
-								{{ else }}
-									0
-								{{ end }}
-							</span>
-
-							{{ with .Date }}
-								{{ with . | time.Format "2006-01-02" }}
-									<time datetime="{{ . }}"> {{ . }} </time>
-								{{ end }}
-							{{ end }}
-						{{ else if eq .Kind "term" }}
-							{{ with .Data.Pages | len }}
-								<span class="length">{{ . }}</span>
+	<ul>
+		{{ range .posts }}
+			<li>
+				<a href="{{ .RelPermalink }}">
+					{{ if eq .Kind "page" }}
+						{{ with .Date }}
+							{{ with . | time.Format "2006-01-02" }}
+								<time datetime="{{ . }}"> {{ . }} </time>
 							{{ end }}
 						{{ end }}
+					{{ end }}
 
 
-						<span>
-							{{- range after $ancestors .Ancestors.Reverse -}}
-								{{- .LinkTitle -}}/
-							{{- end -}}
-							{{- .LinkTitle }}
-						</span>
-					</a>
-				</li>
-			{{ end }}
-		</ul>
-	{{ end }}
-</details>
+					<span class="title">
+						{{- range after $ancestors .Ancestors.Reverse -}}
+							{{- .LinkTitle -}}/
+						{{- end -}}
+						{{- .LinkTitle }}
+					</span>
+				</a>
+			</li>
+		{{ end }}
+	</ul>
+</div>
